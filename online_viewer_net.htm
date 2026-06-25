@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAA Exam Prep — Garden City University</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --bg: #F5E9E7;
+    --bg2: #EFE0DC;
+    --bg3: #E8D5D0;
+    --card: #FFFFFF;
+    --card-hover: #FBF7F6;
+    --border: #E0CEC8;
+    --fg: #2C2522;
+    --fg-muted: #7A6E68;
+    --accent: #837D68;
+    --accent2: #6B6552;
+    --accent-glow: rgba(131, 125, 104, 0.1);
+    --green: #6B8F71;
+    --green-bg: rgba(107, 143, 113, 0.1);
+    --red: #B85C5C;
+    --red-bg: rgba(184, 92, 92, 0.1);
+    --blue: #8A9DB1;
+    --blue-bg: rgba(138, 157, 177, 0.12);
+    --purple: #9B8AA5;
+    --purple-bg: rgba(155, 138, 165, 0.1);
+    --pink: #ECC5C6;
+    --pink-bg: rgba(236, 197, 198, 0.15);
+    --radius: 14px;
+    --radius-sm: 10px;
+    --shadow: 0 1px 3px rgba(44, 37, 34, 0.06), 0 4px 12px rgba(44, 37, 34, 0.04);
+    --shadow-hover: 0 4px 12px rgba(44, 37, 34, 0.1), 0 8px 24px rgba(44, 37, 34, 0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -20%; right: -15%;
+    width: 50vw; height: 50vw;
+    background: radial-gradient(circle, rgba(236,197,198,0.25) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -20%; left: -15%;
+    width: 45vw; height: 45vw;
+    background: radial-gradient(circle, rgba(138,157,177,0.15) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--fg-muted); }
+
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(245, 233, 231, 0.88);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .header-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 16px; letter-spacing: -0.3px;
+  }
+  .logo-icon {
+    width: 34px; height: 34px;
+    background: var(--accent);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: #fff; font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--accent); }
+
+  .creator-tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--fg-muted);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .nav { display: flex; gap: 2px; }
+  .nav-btn {
+    background: none; border: none; color: var(--fg-muted);
+    padding: 8px 14px; border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .nav-btn:hover { color: var(--fg); background: var(--bg3); }
+  .nav-btn.active {
+    color: var(--accent); background: var(--accent-glow);
+    font-weight: 600;
+  }
+  .nav-btn i { font-size: 12px; }
+
+  .progress-strip {
+    height: 2px; background: var(--bg3);
+    position: relative; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--accent);
+    transition: width 0.4s ease; width: 0%;
+  }
+
+  .main {
+    max-width: 1200px; margin: 0 auto;
+    padding: 32px 24px 80px;
+    position: relative; z-index: 1;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .hero { text-align: center; padding: 36px 0 32px; }
+  .hero h1 {
+    font-size: clamp(28px, 4.5vw, 44px);
+    font-weight: 800; letter-spacing: -1.2px;
+    line-height: 1.15; margin-bottom: 14px;
+    color: var(--fg);
+  }
+  .hero h1 .gradient {
+    color: var(--accent);
+  }
+  .hero p {
+    color: var(--fg-muted); font-size: 15px;
+    max-width: 520px; margin: 0 auto 28px; line-height: 1.65;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px; margin-bottom: 28px;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px; text-align: center;
+    transition: all 0.3s;
+    box-shadow: var(--shadow);
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent);
+  }
+  .stat-num {
+    font-size: 26px; font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-num.olive { color: var(--accent); }
+  .stat-num.green { color: var(--green); }
+  .stat-num.blue { color: var(--blue); }
+  .stat-num.purple { color: var(--purple); }
+  .stat-label {
+    font-size: 11px; color: var(--fg-muted);
+    margin-top: 3px; text-transform: uppercase;
+    letter-spacing: 0.6px; font-weight: 600;
+  }
+
+  .quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 10px; margin-bottom: 32px;
+  }
+  .action-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px; cursor: pointer;
+    transition: all 0.25s;
+    display: flex; align-items: flex-start; gap: 14px;
+    box-shadow: var(--shadow);
+  }
+  .action-card:hover {
+    border-color: var(--accent);
+    background: var(--card-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+  .action-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .action-icon.olive { background: var(--accent-glow); color: var(--accent); border: 1px solid rgba(131,125,104,0.2); }
+  .action-icon.green { background: var(--green-bg); color: var(--green); border: 1px solid rgba(107,143,113,0.2); }
+  .action-icon.blue { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(138,157,177,0.2); }
+  .action-icon.purple { background: var(--purple-bg); color: var(--purple); border: 1px solid rgba(155,138,165,0.2); }
+  .action-title { font-weight: 600; font-size: 14px; margin-bottom: 3px; color: var(--fg); }
+  .action-desc { font-size: 12.5px; color: var(--fg-muted); line-height: 1.5; }
+
+  .unit-tabs {
+    display: flex; gap: 5px;
+    margin-bottom: 20px;
+    overflow-x: auto; padding-bottom: 4px;
+  }
+  .unit-tab {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 12.5px; font-weight: 500;
+    color: var(--fg-muted); cursor: pointer;
+    white-space: nowrap; transition: all 0.2s;
+    box-shadow: var(--shadow);
+  }
+  .unit-tab:hover { color: var(--fg); border-color: var(--fg-muted); }
+  .unit-tab.active {
+    color: #fff; border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .search-box { position: relative; margin-bottom: 20px; }
+  .search-box i {
+    position: absolute; left: 14px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--fg-muted); font-size: 13px;
+  }
+  .search-box input {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px 12px 38px;
+    color: var(--fg);
+    font-family: inherit; font-size: 13.5px;
+    outline: none; transition: all 0.2s;
+    box-shadow: var(--shadow);
+  }
+  .search-box input::placeholder { color: var(--fg-muted); }
+  .search-box input:focus { border-color: var(--accent); box-shadow: var(--shadow-hover); }
+
+  .q-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+    overflow: hidden; transition: all 0.25s;
+    box-shadow: var(--shadow);
+  }
+  .q-card:hover { border-color: rgba(131,125,104,0.4); }
+  .q-card.reviewed { border-left: 3px solid var(--green); }
+  .q-card.starred { border-left: 3px solid var(--pink); }
+
+  .q-header {
+    padding: 16px 18px;
+    display: flex; align-items: flex-start; gap: 12px;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .q-header:hover { background: var(--card-hover); }
+
+  .q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-glow);
+    border: 1px solid rgba(131,125,104,0.15);
+    padding: 3px 9px; border-radius: 6px;
+    white-space: nowrap; flex-shrink: 0; margin-top: 1px;
+  }
+  .q-num.high { color: var(--red); background: var(--red-bg); border-color: rgba(184,92,92,0.15); }
+  .q-num.med { color: var(--accent); background: var(--accent-glow); border-color: rgba(131,125,104,0.15); }
+
+  .q-text { flex: 1; font-size: 13.5px; line-height: 1.6; font-weight: 400; }
+  .q-actions { display: flex; gap: 3px; flex-shrink: 0; }
+  .q-action-btn {
+    width: 30px; height: 30px;
+    border: none; background: none;
+    color: var(--fg-muted); border-radius: 6px;
+    cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 12px; transition: all 0.2s;
+  }
+  .q-action-btn:hover { background: var(--bg3); color: var(--fg); }
+  .q-action-btn.starred { color: var(--pink); }
+  .q-action-btn.reviewed { color: var(--green); }
+
+  .q-expand-icon {
+    color: var(--fg-muted); transition: transform 0.3s;
+    font-size: 11px; margin-top: 4px;
+  }
+  .q-card.open .q-expand-icon { transform: rotate(180deg); }
+
+  .q-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .q-card.open .q-answer { max-height: 5000px; }
+
+  .q-answer-inner {
+    padding: 0 18px 18px;
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+  }
+
+  .answer-label {
+    font-size: 10.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--green); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .answer-content { font-size: 13.5px; line-height: 1.8; color: var(--fg); }
+  .answer-content p { margin-bottom: 10px; }
+  .answer-content strong { color: var(--accent); font-weight: 600; }
+  .answer-content ul, .answer-content ol { padding-left: 18px; margin-bottom: 10px; }
+  .answer-content li { margin-bottom: 5px; }
+  .answer-content code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg2); padding: 1px 7px;
+    border-radius: 4px; font-size: 12.5px;
+    color: var(--accent); border: 1px solid var(--border);
+  }
+  .answer-content pre {
+    background: var(--fg);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-sm);
+    padding: 16px; margin-bottom: 12px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px; line-height: 1.6; color: #e8e0dc;
+  }
+  .answer-content .note-box {
+    background: var(--pink-bg);
+    border: 1px solid rgba(236,197,198,0.3);
+    border-radius: var(--radius-sm);
+    padding: 13px 15px; margin-bottom: 12px;
+    font-size: 12.5px; line-height: 1.6;
+  }
+  .answer-content .note-box i { color: var(--red); margin-right: 6px; }
+  .answer-content table {
+    width: 100%; border-collapse: collapse;
+    margin-bottom: 12px; font-size: 12.5px;
+  }
+  .answer-content th, .answer-content td {
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+  .answer-content th {
+    background: var(--bg2);
+    font-weight: 600; color: var(--accent);
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .answer-content td { color: var(--fg); }
+  .answer-content h4 {
+    font-size: 14px; font-weight: 700;
+    color: var(--fg); margin: 14px 0 8px;
+  }
+
+  .priority-badge {
+    font-size: 9px; font-weight: 700;
+    padding: 2px 7px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-left: 6px; display: inline-block;
+  }
+  .priority-badge.high { background: var(--red-bg); color: var(--red); border: 1px solid rgba(184,92,92,0.2); }
+  .priority-badge.medium { background: var(--accent-glow); color: var(--accent); border: 1px solid rgba(131,125,104,0.2); }
+
+  .exam-container { max-width: 800px; margin: 0 auto; }
+  .exam-header { text-align: center; margin-bottom: 28px; }
+  .exam-header h2 {
+    font-size: 26px; font-weight: 800;
+    margin-bottom: 8px; letter-spacing: -0.5px;
+  }
+  .exam-timer {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 10px 20px; border-radius: var(--radius);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px; font-weight: 600;
+    color: var(--accent);
+    box-shadow: var(--shadow);
+  }
+  .exam-timer.warning { color: var(--red); border-color: rgba(184,92,92,0.3); }
+  .exam-timer i { font-size: 15px; }
+
+  .exam-progress { display: flex; gap: 8px; justify-content: center; margin: 18px 0 28px; }
+  .exam-dot {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600;
+    color: var(--fg-muted); transition: all 0.3s;
+    cursor: pointer; background: var(--card);
+  }
+  .exam-dot.active { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+  .exam-dot.answered { border-color: var(--green); color: var(--green); background: var(--green-bg); }
+
+  .exam-question {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px; margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .exam-q-label {
+    font-size: 11px; font-weight: 700;
+    color: var(--accent); margin-bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .exam-q-text { font-size: 15px; line-height: 1.7; font-weight: 400; }
+
+  .exam-answer-area {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px; margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .exam-answer-area textarea {
+    width: 100%; min-height: 200px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px; color: var(--fg);
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px; line-height: 1.7;
+    resize: vertical; outline: none;
+    transition: border-color 0.2s;
+  }
+  .exam-answer-area textarea::placeholder { color: var(--fg-muted); }
+  .exam-answer-area textarea:focus { border-color: var(--accent); }
+
+  .exam-nav { display: flex; justify-content: space-between; gap: 12px; }
+  .exam-btn {
+    padding: 11px 24px;
+    border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 7px;
+    border: 1px solid var(--border);
+    background: var(--card); color: var(--fg);
+    box-shadow: var(--shadow);
+  }
+  .exam-btn:hover { background: var(--card-hover); border-color: var(--fg-muted); }
+  .exam-btn.primary {
+    background: var(--accent);
+    border: none; color: #fff;
+  }
+  .exam-btn.primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  .exam-results { text-align: center; padding: 36px 0; }
+  .result-score {
+    font-size: 56px; font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  .result-label { color: var(--fg-muted); font-size: 14px; margin-bottom: 28px; }
+
+  .result-q {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px; margin-bottom: 10px;
+    text-align: left; box-shadow: var(--shadow);
+  }
+  .result-q-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .result-q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    padding: 3px 9px; border-radius: 6px;
+  }
+  .result-q-text { font-size: 13.5px; line-height: 1.6; flex: 1; }
+  .result-model-answer {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px; margin-top: 10px;
+    font-size: 12.5px; line-height: 1.7;
+    color: var(--fg-muted);
+  }
+  .result-model-answer strong { color: var(--green); }
+
+  .exam-start { text-align: center; padding: 50px 20px; }
+  .exam-start-icon {
+    width: 72px; height: 72px;
+    border-radius: 18px;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: #fff;
+    margin: 0 auto 20px;
+  }
+  .exam-start h2 {
+    font-size: 26px; font-weight: 800;
+    margin-bottom: 10px; letter-spacing: -0.5px;
+  }
+  .exam-start p { color: var(--fg-muted); margin-bottom: 6px; font-size: 14px; line-height: 1.6; }
+  .exam-rules {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px; margin: 28px 0;
+    text-align: left; max-width: 480px;
+    margin-left: auto; margin-right: auto;
+    box-shadow: var(--shadow);
+  }
+  .exam-rules h4 {
+    font-size: 13px; font-weight: 700;
+    margin-bottom: 14px; color: var(--accent);
+  }
+  .exam-rules li {
+    font-size: 12.5px; color: var(--fg-muted);
+    margin-bottom: 8px; list-style: none;
+    display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+  }
+  .exam-rules li i { color: var(--accent); margin-top: 3px; font-size: 8px; }
+
+  .bookmarks-empty {
+    text-align: center; padding: 50px 20px; color: var(--fg-muted);
+  }
+  .bookmarks-empty i { font-size: 42px; margin-bottom: 14px; display: block; opacity: 0.3; }
+  .bookmarks-empty p { font-size: 14px; }
+
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--fg);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 12px 18px;
+    display: flex; align-items: center; gap: 9px;
+    font-size: 12.5px; font-weight: 500;
+    transform: translateY(100px); opacity: 0;
+    transition: all 0.3s; z-index: 1000;
+    color: #e8e0dc;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast i { color: var(--green); }
+
+  @media (max-width: 768px) {
+    .header-inner { padding: 0; }
+    .nav { gap: 1px; }
+    .nav-btn { padding: 7px 9px; font-size: 12px; }
+    .nav-btn span { display: none; }
+    .creator-tag { display: none; }
+    .hero h1 { font-size: 24px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .quick-actions { grid-template-columns: 1fr; }
+    .q-header { padding: 12px 14px; }
+    .q-answer-inner { padding: 0 14px 14px; padding-top: 14px; }
+    .exam-question { padding: 18px; }
+    .main { padding: 20px 14px 60px; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.35s ease forwards; opacity: 0; }
+  .fade-up:nth-child(1) { animation-delay: 0.03s; }
+  .fade-up:nth-child(2) { animation-delay: 0.06s; }
+  .fade-up:nth-child(3) { animation-delay: 0.09s; }
+  .fade-up:nth-child(4) { animation-delay: 0.12s; }
+  .fade-up:nth-child(5) { animation-delay: 0.15s; }
+  .fade-up:nth-child(6) { animation-delay: 0.18s; }
+  .fade-up:nth-child(7) { animation-delay: 0.21s; }
+  .fade-up:nth-child(8) { animation-delay: 0.24s; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">DAA</div>
+      <div>Exam <span>Prep</span></div>
+    </div>
+    <span class="creator-tag">CREATED BY TEJAS</span>
+    <nav class="nav">
+      <button class="nav-btn active" onclick="showSection('home')" id="nav-home">
+        <i class="fa-solid fa-house"></i> <span>Home</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('questions')" id="nav-questions">
+        <i class="fa-solid fa-list"></i> <span>Questions</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('exam')" id="nav-exam">
+        <i class="fa-solid fa-clock"></i> <span>Exam Mode</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('bookmarks')" id="nav-bookmarks">
+        <i class="fa-solid fa-bookmark"></i> <span>Starred</span>
+      </button>
+    </nav>
+  </div>
+  <div class="progress-strip"><div class="progress-fill" id="progressFill"></div></div>
+</header>
+
+<main class="main">
+
+  <section class="section active" id="sec-home">
+    <div class="hero">
+      <h1>Design & Analysis<br>of <span class="gradient">Algorithms</span></h1>
+      <p>Curated important questions with model answers based on your preparatory material. Practice smart, score well.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-num olive" id="totalQ">0</div>
+        <div class="stat-label">Questions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num green" id="reviewedQ">0</div>
+        <div class="stat-label">Reviewed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num blue" id="starredQ">0</div>
+        <div class="stat-label">Starred</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num purple" id="unitsCount">0</div>
+        <div class="stat-label">Units</div>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <div class="action-card" onclick="showSection('questions')">
+        <div class="action-icon olive"><i class="fa-solid fa-book-open"></i></div>
+        <div>
+          <div class="action-title">Browse All Questions</div>
+          <div class="action-desc">Unit-wise organized questions with detailed model answers</div>
+        </div>
+      </div>
+      <div class="action-card" onclick="startExam()">
+        <div class="action-icon green"><i class="fa-solid fa-pen-to-square"></i></div>
+        <div>
+          <div class="action-title">Practice Exam</div>
+          <div class="action-desc">4 random questions, 40 minutes — simulate the real exam</div>
+        </div>
+      </div>
+      <div class="action-card" onclick="showSection('bookmarks')">
+        <div class="action-icon blue"><i class="fa-solid fa-star"></i></div>
+        <div>
+          <div class="action-title">Starred Questions</div>
+          <div class="action-desc">Quick revision of your bookmarked important questions</div>
+        </div>
+      </div>
+      <div class="action-card" onclick="showHighPriority()">
+        <div class="action-icon purple"><i class="fa-solid fa-fire"></i></div>
+        <div>
+          <div class="action-title">High Priority Only</div>
+          <div class="action-desc">Most likely to appear — must revise before exam</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sec-questions">
+    <div class="unit-tabs" id="unitTabs"></div>
+    <div class="search-box">
+      <i class="fa-solid fa-search"></i>
+      <input type="text" placeholder="Search questions..." id="searchInput" oninput="filterQuestions()">
+    </div>
+    <div id="questionsList"></div>
+  </section>
+
+  <section class="section" id="sec-exam">
+    <div class="exam-container" id="examContainer"></div>
+  </section>
+
+  <section class="section" id="sec-bookmarks">
+    <div id="bookmarksList"></div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast"><i class="fa-solid fa-check-circle"></i><span id="toastMsg"></span></div>
+
+<script>
+const questionBank = [
+  {
+    id: 1, unit: 1, topic: "Algorithm Definition & Characteristics",
+    priority: "high",
+    question: "What is an algorithm? Explain its definition with an example and list the essential characteristics of a good algorithm.",
+    answer: `<p><strong>Definition:</strong> An algorithm is a finite sequence of well-defined instructions, each of which can be performed with a finite amount of effort in a finite length of time, to solve a specific problem or perform a computation. Regardless of input values, an algorithm must terminate after executing a finite number of instructions.</p>
+
+<p><strong>Real-life Example:</strong> Making tea — (1) Boil water, (2) Add tea leaves, (3) Add milk and sugar, (4) Strain and serve. Each step is clear, finite, and produces output (tea).</p>
+
+<p><strong>Characteristics of a Good Algorithm:</strong></p>
+<ol>
+<li><strong>Input:</strong> Zero or more quantities are externally supplied to the algorithm.</li>
+<li><strong>Output:</strong> At least one quantity is produced as output.</li>
+<li><strong>Definiteness:</strong> Each instruction must be clear and unambiguous. There should be no room for different interpretations.</li>
+<li><strong>Finiteness:</strong> The algorithm must terminate after a finite number of steps. It should not go into an infinite loop.</li>
+<li><strong>Effectiveness:</strong> Every instruction must be basic enough to be carried out, in principle, by a person using only pencil and paper.</li>
+</ol>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> <strong>Exam Tip:</strong> Always mention all 5 characteristics with a brief explanation for each. The example should be relatable and clearly show each characteristic.</div>`
+  },
+  {
+    id: 2, unit: 1, topic: "Control Structures",
+    priority: "high",
+    question: "Explain sequence, selection, and iteration control structures with suitable examples. How do they enhance program readability?",
+    answer: `<p><strong>Control structures</strong> determine the order in which statements in a program are executed. They form the backbone of structured programming.</p>
+
+<h4>1. Sequence Control Structure</h4>
+<p>Statements are executed one after another in the exact order they are written. No branching, no repetition — just straight-line execution.</p>
+<pre>int a = 10;
+int b = 20;
+int sum = a + b;   // Executes after a and b are assigned
+printf("Sum = %d", sum);</pre>
+
+<h4>2. Selection (Conditional) Control Structure</h4>
+<p>Allows decision-making using conditions. Different paths of execution are chosen based on condition results. Uses <code>if</code>, <code>if-else</code>, <code>switch</code>.</p>
+<pre>int day = 3;
+switch(day) {
+    case 1: printf("Monday"); break;
+    case 2: printf("Tuesday"); break;
+    case 3: printf("Wednesday"); break;
+    default: printf("Other day");
+}</pre>
+
+<h4>3. Iteration (Looping) Control Structure</h4>
+<p>A set of statements is executed repeatedly as long as a condition remains true. Uses <code>for</code>, <code>while</code>, <code>do-while</code>.</p>
+<pre>for(int i = 1; i <= 10; i++) {
+    printf("%d\\n", i);
+}</pre>
+
+<p><strong>How they enhance readability and maintainability:</strong></p>
+<ul>
+<li>They provide a clear, predictable flow of execution</li>
+<li>Eliminate the need for unstructured <code>goto</code> statements</li>
+<li>Make programs easier to debug, test, and modify</li>
+<li>Allow modular, top-down design approach</li>
+<li>Contribute to software reliability by reducing logical errors</li>
+</ul>`
+  },
+  {
+    id: 3, unit: 1, topic: "Structured Programming",
+    priority: "medium",
+    question: "What is structured programming? Explain its objectives and advantages over unstructured programming.",
+    answer: `<p><strong>Structured programming</strong> is a programming methodology that emphasizes clarity, modularity, and logical structure. In this approach, a large problem is divided into smaller, manageable modules or functions, each performing a specific task.</p>
+
+<p><strong>Objectives:</strong></p>
+<ul>
+<li>Improve program readability and understandability</li>
+<li>Reduce complexity through modular design (top-down approach)</li>
+<li>Make programs easier to test, debug, and maintain</li>
+<li>Eliminate uncontrolled jumps (goto statements)</li>
+<li>Ensure reliability and correctness of software</li>
+</ul>
+
+<p><strong>Advantages over Unstructured Programming:</strong></p>
+<table>
+<tr><th>Aspect</th><th>Unstructured</th><th>Structured</th></tr>
+<tr><td>Flow Control</td><td>Uses goto, unpredictable</td><td>Uses sequence, selection, iteration</td></tr>
+<tr><td>Readability</td><td>Difficult to follow</td><td>Clear and logical</td></tr>
+<tr><td>Debugging</td><td>Very difficult</td><td>Easier due to modularity</td></tr>
+<tr><td>Maintenance</td><td>Error-prone</td><td>Simpler modifications</td></tr>
+<tr><td>Reliability</td><td>Low</td><td>High</td></tr>
+<tr><td>Reuse</td><td>Not possible</td><td>Functions can be reused</td></tr>
+</table>`
+  },
+  {
+    id: 4, unit: 1, topic: "Time & Space Complexity",
+    priority: "high",
+    question: "Define time complexity and space complexity. Explain their components and distinguish between them with examples.",
+    answer: `<p><strong>Time Complexity:</strong> The time needed by an algorithm expressed as a function of the size of the input is called time complexity. Instead of measuring actual time in seconds, we count the number of basic operations performed.</p>
+
+<p><strong>Space Complexity:</strong> The amount of memory a program needs to run to completion is called space complexity.</p>
+
+<p><strong>Components of Space Complexity:</strong></p>
+<ol>
+<li><strong>Instruction Space:</strong> Space needed to store the compiled version of program instructions. Depends on the compiler used, compiler options, and target computer.</li>
+<li><strong>Data Space:</strong> Space needed to store all constants and variable values.
+  <ul>
+  <li>Space for constants and simple variables</li>
+  <li>Space for dynamically allocated objects (arrays, class instances)</li>
+  </ul>
+</li>
+<li><strong>Environment Stack Space:</strong> Used to save information needed to resume execution of partially completed functions (especially in recursion).</li>
+</ol>
+
+<p><strong>Difference:</strong></p>
+<table>
+<tr><th>Aspect</th><th>Time Complexity</th><th>Space Complexity</th></tr>
+<tr><td>Measures</td><td>Execution time as function of input size</td><td>Memory usage as function of input size</td></tr>
+<tr><td>Units</td><td>Number of basic operations</td><td>Bytes/words of memory</td></tr>
+<tr><td>Example</td><td>O(n) for linear search</td><td>O(1) for iterative, O(n) for recursive</td></tr>
+<tr><td>Focus</td><td>How fast the algorithm runs</td><td>How much memory it consumes</td></tr>
+</table>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> <strong>Trade-off:</strong> Sometimes we can reduce time complexity by increasing space complexity (e.g., using a hash table for O(1) lookup) and vice versa. An efficient algorithm balances both.</div>`
+  },
+  {
+    id: 5, unit: 1, topic: "Asymptotic Notations",
+    priority: "high",
+    question: "Explain Big-O, Big-Omega, and Big-Theta notations with suitable examples and reasoning.",
+    answer: `<p>Asymptotic notations are mathematical tools used to describe the behavior of algorithms as the input size becomes very large. They help compare algorithms based on growth rates rather than exact execution times.</p>
+
+<h4>1. Big-O Notation (Upper Bound / "Ceiling")</h4>
+<p>Represents the <strong>maximum</strong> time an algorithm could take. We usually design for worst case to guarantee performance.</p>
+<p><strong>Formal:</strong> f(n) = O(g(n)) if there exist positive constants c and n₀ such that f(n) ≤ c·g(n) for all n ≥ n₀</p>
+<p><strong>Example:</strong> For a simple loop running n times: <code>f(n) = 3n + 2 = O(n)</code> because 3n + 2 ≤ 5n for n ≥ 1</p>
+
+<h4>2. Big-Omega Notation (Lower Bound / "Floor")</h4>
+<p>Represents the <strong>minimum</strong> time required by the algorithm.</p>
+<p><strong>Formal:</strong> f(n) = Ω(g(n)) if there exist positive constants c and n₀ such that f(n) ≥ c·g(n) for all n ≥ n₀</p>
+<p><strong>Example:</strong> For the same loop: <code>f(n) = 3n + 2 = Ω(n)</code> because 3n + 2 ≥ 2n for n ≥ 1</p>
+
+<h4>3. Big-Theta Notation (Tight Bound)</h4>
+<p>When upper and lower bounds are the same, we have a tight bound. It means the algorithm's growth rate is exactly described.</p>
+<p><strong>Formal:</strong> f(n) = Θ(g(n)) if there exist positive constants c₁, c₂, and n₀ such that c₁·g(n) ≤ f(n) ≤ c₂·g(n) for all n ≥ n₀</p>
+<p><strong>Example:</strong> <code>f(n) = 3n + 2 = Θ(n)</code> because 2n ≤ 3n+2 ≤ 5n for n ≥ 1</p>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> <strong>Key Point:</strong> Big-O is the most commonly used because it gives the worst-case guarantee. If someone says "this algorithm is O(n²)", they mean it will never be worse than n².</div>`
+  },
+  {
+    id: 6, unit: 1, topic: "Order of Growth",
+    priority: "high",
+    question: "Explain the concept of order of growth. Arrange common complexities in increasing order and explain the significance of each.",
+    answer: `<p><strong>Order of growth</strong> describes how an algorithm's time or space complexity increases as the input size n grows. It doesn't tell exact milliseconds — it tells the <em>trend</em> of scalability.</p>
+
+<p><strong>Increasing Order of Growth:</strong></p>
+<table>
+<tr><th>Complexity</th><th>Name</th><th>Description</th><th>Example</th></tr>
+<tr><td><code>O(1)</code></td><td>Constant</td><td>Time stays same regardless of data size</td><td>Array index access</td></tr>
+<tr><td><code>O(log n)</code></td><td>Logarithmic</td><td>Time increases very slowly</td><td>Binary Search</td></tr>
+<tr><td><code>O(n)</code></td><td>Linear</td><td>Time grows in direct proportion to input</td><td>Linear Search</td></tr>
+<tr><td><code>O(n log n)</code></td><td>Linearithmic</td><td>Slightly worse than linear, still very efficient</td><td>Merge Sort, Quick Sort</td></tr>
+<tr><td><code>O(n²)</code></td><td>Quadratic</td><td>Time quadruples when data doubles</td><td>Bubble Sort, Nested loops</td></tr>
+<tr><td><code>O(2ⁿ)</code></td><td>Exponential</td><td>Doubles with every addition to input</td><td>Recursive Fibonacci</td></tr>
+</table>
+
+<p><strong>Why order of growth matters:</strong></p>
+<ul>
+<li>For small n, constant factors matter — but for large n, only the growth rate matters</li>
+<li>An O(n log n) algorithm will always outperform an O(n²) algorithm for sufficiently large input</li>
+<li>Helps in selecting the right algorithm for the problem scale</li>
+<li>Explains why binary search (O(log n)) is vastly superior to linear search (O(n)) for large datasets</li>
+</ul>
+
+<p><strong>Example — Nested Loops:</strong> Two nested loops each running n times gives O(n²) complexity. For n=100: 10,000 operations. For n=1000: 1,000,000 operations. This demonstrates how quadratic growth becomes expensive quickly.</p>`
+  },
+  {
+    id: 7, unit: 1, topic: "Algorithm Analysis",
+    priority: "medium",
+    question: "Explain best-case, average-case, and worst-case analysis of algorithms. Why is worst-case analysis most commonly used?",
+    answer: `<p><strong>Best-Case Analysis:</strong> The minimum time an algorithm takes for any input of size n. Represents the most favorable scenario.</p>
+<p><strong>Example:</strong> In linear search, best case occurs when the element is found at the first position → O(1)</p>
+
+<p><strong>Average-Case Analysis:</strong> The expected time over all possible inputs of size n, weighted by their probability. Requires knowledge of input distribution.</p>
+<p><strong>Example:</strong> In linear search with uniform distribution, average case = (n+1)/2 comparisons → O(n)</p>
+
+<p><strong>Worst-Case Analysis:</strong> The maximum time an algorithm takes for any input of size n. Provides a guarantee that the algorithm will never exceed this time.</p>
+<p><strong>Example:</strong> In linear search, worst case occurs when element is not present or at last position → O(n)</p>
+
+<p><strong>Why worst-case is most commonly used:</strong></p>
+<ul>
+<li>It provides a <strong>guarantee</strong> — the algorithm will never perform worse than this</li>
+<li>It is easier to compute than average case (no probability needed)</li>
+<li>For critical applications (medical, aerospace), we must know the worst behavior</li>
+<li>Best case is often misleading — it represents an unrealistic scenario</li>
+</ul>`
+  },
+  {
+    id: 8, unit: 1, topic: "Complexity Analysis",
+    priority: "medium",
+    question: "Design an algorithm to check whether a number is a palindrome and analyze its time complexity.",
+    answer: `<h4>Algorithm: Palindrome Number Check</h4>
+<pre>Algorithm PalindromeCheck(n)
+1.  original = n
+2.  reversed = 0
+3.  while n > 0 do
+4.      digit = n % 10
+5.      reversed = reversed * 10 + digit
+6.      n = n / 10
+7.  end while
+8.  if original == reversed then
+9.      return "Palindrome"
+10. else
+11.     return "Not Palindrome"
+12. end if</pre>
+
+<h4>Trace: n = 121</h4>
+<table>
+<tr><th>Iteration</th><th>n</th><th>digit</th><th>reversed</th></tr>
+<tr><td>1</td><td>121</td><td>1</td><td>1</td></tr>
+<tr><td>2</td><td>12</td><td>2</td><td>12</td></tr>
+<tr><td>3</td><td>1</td><td>1</td><td>121</td></tr>
+<tr><td>4</td><td>0</td><td>-</td><td>121</td></tr>
+</table>
+<p>original (121) == reversed (121) → Palindrome</p>
+
+<h4>Time Complexity Analysis:</h4>
+<p>The while loop runs once for each digit in the number. If n has d digits, the loop runs d times. Since d = log₁₀(n) + 1, the <strong>time complexity is O(log n)</strong>.</p>
+<p><strong>Space Complexity:</strong> O(1) — only a few variables are used, regardless of input size.</p>`
+  },
+  {
+    id: 9, unit: 2, topic: "Divide and Conquer",
+    priority: "high",
+    question: "Explain the divide and conquer strategy. What are the three major phases involved? Give examples of algorithms using this approach.",
+    answer: `<p><strong>Divide and Conquer</strong> is a powerful algorithm design technique that solves complex problems by breaking them into smaller, manageable subproblems of the same type, solving them recursively, and combining their solutions.</p>
+
+<h4>Three Major Phases:</h4>
+<ol>
+<li><strong>Divide:</strong> Split the main problem of size n into two or more smaller subproblems. For example, dividing an array into two halves.</li>
+<li><strong>Conquer:</strong> Solve each subproblem independently, usually by applying the same technique recursively. If the subproblem size is small enough, solve it directly (base case).</li>
+<li><strong>Combine:</strong> Merge the solutions of the subproblems to form the solution of the original problem.</li>
+</ol>
+
+<p><strong>Examples of D&C Algorithms:</strong></p>
+<table>
+<tr><th>Algorithm</th><th>Divide</th><th>Conquer</th><th>Combine</th></tr>
+<tr><td>Binary Search</td><td>Divide array in half</td><td>Search one half</td><td>No combine needed</td></tr>
+<tr><td>Merge Sort</td><td>Split into two halves</td><td>Sort each half</td><td>Merge sorted halves</td></tr>
+<tr><td>Quick Sort</td><td>Partition around pivot</td><td>Sort partitions</td><td>No combine needed</td></tr>
+<tr><td>Max-Min</td><td>Split array in half</td><td>Find max/min in halves</td><td>Compare results</td></tr>
+</table>
+
+<p><strong>Why D&C is effective:</strong> It reduces the problem size exponentially at each step, leading to efficient algorithms with O(n log n) or O(log n) complexity for many problems.</p>`
+  },
+  {
+    id: 10, unit: 2, topic: "Binary Search",
+    priority: "high",
+    question: "Explain the binary search algorithm with a step-by-step example. Why is sorted data required? Analyze its time complexity.",
+    answer: `<p><strong>Binary Search</strong> is a fast search algorithm with O(log n) complexity that works on the principle of divide and conquer. It repeatedly divides the search space in half.</p>
+
+<h4>Why Sorted Data is Required:</h4>
+<p>Binary search compares the middle element with the target and eliminates half of the remaining elements based on the comparison. This elimination logic only works if the array is sorted — otherwise, we cannot determine which half to discard.</p>
+
+<h4>Algorithm:</h4>
+<pre>Algorithm BinarySearch(A, low, high, key)
+1.  while low <= high do
+2.      mid = (low + high) / 2
+3.      if A[mid] == key then
+4.          return mid          // Found
+5.      else if A[mid] > key then
+6.          high = mid - 1      // Search left half
+7.      else
+8.          low = mid + 1       // Search right half
+9.  end while
+10. return -1                    // Not found</pre>
+
+<h4>Example: Find 10 in [2, 4, 6, 8, 10, 12, 14]</h4>
+<table>
+<tr><th>Step</th><th>Array</th><th>mid</th><th>A[mid]</th><th>Comparison</th><th>Action</th></tr>
+<tr><td>1</td><td>[2,4,6,<strong>8</strong>,10,12,14]</td><td>3</td><td>8</td><td>8 < 10</td><td>Search right half</td></tr>
+<tr><td>2</td><td>[<strong>10</strong>,12,14]</td><td>4</td><td>10</td><td>10 == 10</td><td>Found at index 4</td></tr>
+</table>
+<p>Only 2 comparisons instead of 7 (linear search) — efficiency of O(log n).</p>
+
+<h4>Complexity Analysis:</h4>
+<ul>
+<li><strong>Best Case:</strong> O(1) — element found at middle in first comparison</li>
+<li><strong>Worst Case:</strong> O(log n) — element not present or at extreme end</li>
+<li><strong>Average Case:</strong> O(log n)</li>
+<li><strong>Space:</strong> O(1) iterative, O(log n) recursive (stack space)</li>
+</ul>`
+  },
+  {
+    id: 11, unit: 2, topic: "Merge Sort",
+    priority: "high",
+    question: "Explain the merge sort algorithm with steps. Derive its recurrence relation and solve it using the master theorem.",
+    answer: `<p><strong>Merge Sort</strong> is a sorting algorithm based on the divide and conquer paradigm. It is known for stable performance of O(n log n) in all cases.</p>
+
+<h4>Steps:</h4>
+<ol>
+<li><strong>Divide:</strong> Divide the array into two halves recursively until each subarray has only one element.</li>
+<li><strong>Conquer:</strong> Each single-element subarray is inherently sorted.</li>
+<li><strong>Merge:</strong> Merge two sorted subarrays by comparing elements one by one and placing them in sorted order.</li>
+</ol>
+
+<h4>Example: [38, 27, 43, 3]</h4>
+<pre>Divide:    [38, 27, 43, 3]
+          /                \\
+    [38, 27]            [43, 3]
+    /     \\              /    \\
+  [38]   [27]         [43]   [3]
+
+Merge:    [27, 38]            [3, 43]
+                \\            /
+              [3, 27, 38, 43]</pre>
+
+<h4>Recurrence Relation:</h4>
+<p><code>T(n) = 2T(n/2) + n</code></p>
+<ul>
+<li><strong>2T(n/2):</strong> Two recursive calls, each on half the array</li>
+<li><strong>n:</strong> Time to merge two sorted halves (linear time)</li>
+</ul>
+
+<h4>Solving with Master Theorem:</h4>
+<p>Master Theorem: T(n) = aT(n/b) + f(n)</p>
+<p>Here: a = 2, b = 2, f(n) = n</p>
+<p>Compare n^(log_b a) = n^(log₂ 2) = n^1 = n with f(n) = n</p>
+<p>Since f(n) = n = Θ(n^log_b a), this is <strong>Case 2</strong> of the Master Theorem.</p>
+<p>Therefore: <strong>T(n) = Θ(n log n)</strong></p>
+
+<p><strong>Space Complexity:</strong> O(n) — extra space needed for the merge operation (temporary array).</p>
+<p><strong>Stability:</strong> Merge sort is stable — equal elements maintain their relative order.</p>`
+  },
+  {
+    id: 12, unit: 2, topic: "Quick Sort",
+    priority: "high",
+    question: "Explain quick sort algorithm and its partitioning method. Analyze best-case, average-case, and worst-case complexities.",
+    answer: `<p><strong>Quick Sort</strong> is a divide and conquer sorting algorithm that works by selecting a pivot element and partitioning the array around it.</p>
+
+<h4>Steps:</h4>
+<ol>
+<li><strong>Choose a Pivot:</strong> Select an element (first, last, random, or median).</li>
+<li><strong>Partition:</strong> Rearrange the array so that elements smaller than pivot are on the left, and larger elements are on the right.</li>
+<li><strong>Recursively Apply:</strong> Apply the same process to the left and right subarrays.</li>
+<li><strong>Base Case:</strong> Stop when subarray has only one element (already sorted).</li>
+</ol>
+
+<h4>Partition Example: [7, 2, 1, 6, 8, 5, 3, 4], pivot = 4 (last element)</h4>
+<pre>After partition: [2, 1, 3, 4, 8, 6, 5, 7]
+                       ↑ pivot in correct position
+Left subarray: [2, 1, 3]  |  Right subarray: [8, 6, 5, 7]</pre>
+
+<h4>Complexity Analysis:</h4>
+<table>
+<tr><th>Case</th><th>Condition</th><th>Complexity</th><th>Explanation</th></tr>
+<tr><td>Best Case</td><td>Pivot divides array exactly in half</td><td><strong>O(n log n)</strong></td><td>Balanced partitions at every level</td></tr>
+<tr><td>Average Case</td><td>Random input ordering</td><td><strong>O(n log n)</strong></td><td>Expected balanced partitions</td></tr>
+<tr><td>Worst Case</td><td>Already sorted and pivot is first/last</td><td><strong>O(n²)</strong></td><td>One partition has n-1 elements, other has 0</td></tr>
+</table>
+
+<p><strong>Recurrence (Worst Case):</strong> T(n) = T(n-1) + T(0) + n = T(n-1) + n → O(n²)</p>
+<p><strong>Recurrence (Best/Average Case):</strong> T(n) = 2T(n/2) + n → O(n log n)</p>
+
+<p><strong>Space Complexity:</strong> O(log n) average (recursive stack), O(n) worst case.</p>
+<p><strong>Advantage over Merge Sort:</strong> In-place sorting — no extra array needed.</p>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> <strong>Exam Tip:</strong> Quick sort is preferred in practice because of its in-place nature and cache efficiency, despite its worst-case O(n²). Using random pivot selection avoids worst case in practice.</div>`
+  },
+  {
+    id: 13, unit: 2, topic: "Recurrence Relations",
+    priority: "high",
+    question: "What is a recurrence relation? Solve T(n) = 2T(n/2) + n using the substitution method and master theorem.",
+    answer: `<p><strong>Recurrence Relation:</strong> A mathematical equation that expresses the time/space complexity of a recursive algorithm in terms of the complexity of smaller instances of the same problem.</p>
+<p>General form: <code>T(n) = aT(n/b) + f(n)</code></p>
+<ul>
+<li>a = number of subproblems</li>
+<li>n/b = size of each subproblem</li>
+<li>f(n) = cost of dividing and combining</li>
+</ul>
+
+<h4>Solving T(n) = 2T(n/2) + n by Substitution Method:</h4>
+<p><strong>Step 1:</strong> Expand the recurrence</p>
+<pre>T(n) = 2T(n/2) + n
+T(n/2) = 2T(n/4) + n/2
+T(n/4) = 2T(n/8) + n/4</pre>
+
+<p><strong>Step 2:</strong> Substitute back</p>
+<pre>T(n) = 2[2T(n/4) + n/2] + n
+      = 4T(n/4) + n + n
+      = 4T(n/4) + 2n
+
+T(n) = 4[2T(n/8) + n/4] + 2n
+      = 8T(n/8) + 3n</pre>
+
+<p><strong>Step 3:</strong> General pattern — at level i: <code>T(n) = 2^i · T(n/2^i) + i·n</code></p>
+
+<p><strong>Step 4:</strong> At last level, n/2^i = 1, so i = log₂ n</p>
+<pre>T(n) = 2^(log n) · T(1) + n · log n
+      = n · T(1) + n log n
+      = n + n log n
+      = O(n log n)</pre>
+
+<h4>Solving by Master Theorem:</h4>
+<p>a=2, b=2, f(n)=n, n^(log_b a) = n^1 = n</p>
+<p>Case 2: f(n) = Θ(n^log_b a) → T(n) = Θ(n log n)</p>
+
+<p><strong>Result: T(n) = O(n log n)</strong></p>`
+  },
+  {
+    id: 14, unit: 2, topic: "Max-Min using D&C",
+    priority: "medium",
+    question: "Design an algorithm to find the maximum and minimum elements in an array using divide and conquer approach. Analyze its complexity.",
+    answer: `<h4>Algorithm:</h4>
+<pre>Algorithm MaxMin(A, low, high)
+1.  if low == high then
+2.      max = min = A[low]
+3.      return (max, min)
+4.  else if high == low + 1 then
+5.      if A[low] > A[high] then
+6.          max = A[low]; min = A[high]
+7.      else
+8.          max = A[high]; min = A[low]
+9.      return (max, min)
+10. else
+11.     mid = (low + high) / 2
+12.     (max1, min1) = MaxMin(A, low, mid)
+13.     (max2, min2) = MaxMin(A, mid+1, high)
+14.     max = max(max1, max2)
+15.     min = min(min1, min2)
+16.     return (max, min)</pre>
+
+<h4>Complexity Analysis:</h4>
+<p><strong>Recurrence:</strong> T(n) = 2T(n/2) + 2 (2 comparisons for combining)</p>
+<p><strong>By Master Theorem:</strong> a=2, b=2, f(n)=2=O(1)</p>
+<p>n^(log_b a) = n, f(n) = O(n^(1-ε)) → Case 1 → T(n) = Θ(n)</p>
+
+<p><strong>Number of comparisons:</strong> For n elements, the D&C approach makes approximately <strong>(3n/2) - 2</strong> comparisons, compared to <strong>2(n-1)</strong> in the simple iterative approach. This is a significant improvement.</p>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> The improvement comes from dividing the array and comparing elements in pairs at the base case, reducing unnecessary comparisons.</div>`
+  },
+  {
+    id: 15, unit: 2, topic: "Merge Sort vs Quick Sort",
+    priority: "medium",
+    question: "Compare merge sort and quick sort in terms of time complexity, space complexity, stability, and practical efficiency.",
+    answer: `<table>
+<tr><th>Aspect</th><th>Merge Sort</th><th>Quick Sort</th></tr>
+<tr><td>Approach</td><td>Divide, sort, merge</td><td>Partition around pivot</td></tr>
+<tr><td>Best Case</td><td>O(n log n)</td><td>O(n log n)</td></tr>
+<tr><td>Average Case</td><td>O(n log n)</td><td>O(n log n)</td></tr>
+<tr><td>Worst Case</td><td>O(n log n)</td><td>O(n²)</td></tr>
+<tr><td>Space</td><td>O(n) — needs temp array</td><td>O(log n) — in-place</td></tr>
+<tr><td>Stable</td><td>Yes</td><td>No (can be made stable)</td></tr>
+<tr><td>Adaptive</td><td>No</td><td>No</td></tr>
+<tr><td>Cache Performance</td><td>Poor (sequential access pattern)</td><td>Excellent (local references)</td></tr>
+<tr><td>Preferred When</td><td>Stability needed, linked lists</td><td>Arrays, in-memory sorting</td></tr>
+</table>
+
+<p><strong>Key Points:</strong></p>
+<ul>
+<li>Merge sort guarantees O(n log n) in all cases but uses extra space</li>
+<li>Quick sort is faster in practice due to cache efficiency and in-place nature</li>
+<li>Quick sort's worst case can be avoided by choosing pivot randomly or using median-of-three</li>
+<li>Merge sort is the go-to for sorting linked lists and external sorting (large files)</li>
+<li>Quick sort is the default sorting algorithm in most standard libraries</li>
+</ul>`
+  },
+  {
+    id: 16, unit: 3, topic: "Greedy Method",
+    priority: "high",
+    question: "Explain the greedy approach to algorithm design. What are greedy choice property and optimal substructure? When does greedy fail?",
+    answer: `<p><strong>Greedy Method:</strong> An algorithmic strategy that builds a solution step by step by making the <strong>locally optimal choice</strong> at each stage, hoping these local choices lead to a <strong>globally optimal solution</strong>. Once a choice is made, it is never reconsidered.</p>
+
+<h4>Five Components of Greedy Algorithm:</h4>
+<ol>
+<li><strong>Candidate Set:</strong> Set from which a solution is created</li>
+<li><strong>Selection Function:</strong> Chooses the best candidate to add to the solution</li>
+<li><strong>Feasibility Function:</strong> Determines if a candidate can contribute to the solution</li>
+<li><strong>Objective Function:</strong> Assigns a value to a solution (what we're optimizing)</li>
+<li><strong>Solution Function:</strong> Indicates whether a complete solution has been reached</li>
+</ol>
+
+<h4>Two Essential Properties:</h4>
+<p><strong>1. Greedy Choice Property:</strong> A globally optimal solution can be arrived at by making a locally optimal (greedy) choice. After making the choice, we are left with one subproblem to solve.</p>
+<p><strong>2. Optimal Substructure:</strong> An optimal solution to the problem contains optimal solutions to its subproblems.</p>
+
+<h4>When Greedy Fails:</h4>
+<p>Classic example: <strong>0/1 Knapsack Problem</strong></p>
+<p>Items: {(v=10,w=5),(v=8,w=4),(v=6,w=3)}, Capacity=7</p>
+<ul>
+<li>Greedy by v/w ratio: item1(2.0, w=5), can't fit others → total v=10</li>
+<li>Optimal: item2+item3 = v=14, w=7</li>
+</ul>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> <strong>Remember:</strong> Greedy works for Fractional Knapsack but fails for 0/1 Knapsack. This is why DP is needed for 0/1 Knapsack.</div>`
+  },
+  {
+    id: 17, unit: 3, topic: "Fractional Knapsack",
+    priority: "high",
+    question: "Design a greedy algorithm for the fractional knapsack problem. Solve with an example and analyze its complexity.",
+    answer: `<h4>Problem:</h4>
+<p>Given items with values and weights, and a knapsack of capacity W, select items (or fractions of items) to maximize total value without exceeding capacity.</p>
+
+<h4>Algorithm:</h4>
+<pre>Algorithm FractionalKnapsack(W, val[], wt[], n)
+1.  Calculate value-to-weight ratio for each item: r[i] = val[i] / wt[i]
+2.  Sort all items in decreasing order of r[i]
+3.  remaining = W
+4.  totalValue = 0
+5.  for i = 1 to n do
+6.      if wt[i] <= remaining then
+7.          take full item i
+8.          totalValue = totalValue + val[i]
+9.          remaining = remaining - wt[i]
+10.     else
+11.         take fraction: remaining/wt[i] of item i
+12.         totalValue = totalValue + val[i] * remaining/wt[i]
+13.         break
+14.     end if
+15. end for
+16. return totalValue</pre>
+
+<h4>Example:</h4>
+<table>
+<tr><th>Item</th><th>Value</th><th>Weight</th><th>Ratio (v/w)</th></tr>
+<tr><td>1</td><td>60</td><td>10</td><td>6.0</td></tr>
+<tr><td>2</td><td>100</td><td>20</td><td>5.0</td></tr>
+<tr><td>3</td><td>120</td><td>30</td><td>4.0</td></tr>
+</table>
+<p>Capacity W = 50</p>
+
+<p><strong>Step 1:</strong> Sorted by ratio: Item 1 (6.0), Item 2 (5.0), Item 3 (4.0)</p>
+<p><strong>Step 2:</strong> Pick Item 1 fully → value=60, remaining=40</p>
+<p><strong>Step 3:</strong> Pick Item 2 fully → value=160, remaining=20</p>
+<p><strong>Step 4:</strong> Pick 20/30 = 2/3 of Item 3 → value=160+120×(2/3)=160+80=240, remaining=0</p>
+<p><strong>Maximum Value = 240</strong></p>
+
+<p><strong>Time Complexity:</strong> O(n log n) due to sorting step. The selection loop is O(n).</p>
+<p><strong>Space Complexity:</strong> O(1) extra space (excluding input storage).</p>`
+  },
+  {
+    id: 18, unit: 3, topic: "Job Sequencing",
+    priority: "high",
+    question: "Explain the job sequencing problem with deadlines. Solve with an example using the greedy approach and evaluate efficiency.",
+    answer: `<h4>Problem:</h4>
+<p>Given n jobs, each with a deadline and profit, schedule jobs on a single processor (one unit time per job) to maximize total profit while ensuring no job exceeds its deadline.</p>
+
+<h4>Greedy Algorithm:</h4>
+<pre>Algorithm JobSequencing(jobs[], n)
+1.  Sort jobs in decreasing order of profit
+2.  Find maximum deadline dmax from all jobs
+3.  Create slot[1..dmax] and mark all as empty
+4.  for i = 1 to n do
+5.      for j = jobs[i].deadline downto 1 do
+6.          if slot[j] is empty then
+7.              slot[j] = jobs[i]
+8.              break
+9.          end if
+10.     end for
+11. end for
+12. Return filled slots</pre>
+
+<h4>Example:</h4>
+<table>
+<tr><th>Job</th><th>J1</th><th>J2</th><th>J3</th><th>J4</th><th>J5</th></tr>
+<tr><td>Deadline</td><td>2</td><td>2</td><td>1</td><td>3</td><td>4</td></tr>
+<tr><td>Profit</td><td>20</td><td>60</td><td>40</td><td>100</td><td>80</td></tr>
+</table>
+
+<p><strong>Step 1:</strong> Sort by profit: J4(100), J5(80), J2(60), J3(40), J1(20)</p>
+<p><strong>Step 2:</strong> dmax = 4, create slots [_, _, _, _]</p>
+<p><strong>Step 3:</strong></p>
+<ul>
+<li>J4 (d=3): Place in slot 3 → [_, _, J4, _]</li>
+<li>J5 (d=4): Place in slot 4 → [_, _, J4, J5]</li>
+<li>J2 (d=2): Place in slot 2 → [_, J2, J4, J5]</li>
+<li>J3 (d=1): Place in slot 1 → [J3, J2, J4, J5]</li>
+<li>J1 (d=2): Slots 1,2 full → Discard</li>
+</ul>
+
+<p><strong>Optimal Sequence:</strong> J3 → J2 → J4 → J5</p>
+<p><strong>Maximum Profit:</strong> 40 + 60 + 100 + 80 = <strong>280</strong></p>
+
+<p><strong>Time Complexity:</strong> O(n²) in worst case (nested loops). Can be improved to O(n log n) using disjoint set data structure.</p>`
+  },
+  {
+    id: 19, unit: 3, topic: "Kruskal's Algorithm",
+    priority: "high",
+    question: "Explain Kruskal's algorithm for constructing a Minimum Spanning Tree. Analyze its time complexity.",
+    answer: `<h4>Minimum Spanning Tree (MST):</h4>
+<p>A spanning tree of a connected, undirected graph is a subgraph that includes all vertices with minimum possible edges and no cycles. An MST is the spanning tree with the minimum total edge weight.</p>
+
+<h4>Kruskal's Algorithm:</h4>
+<pre>Algorithm Kruskal(G, V, E)
+1.  Sort all edges in non-decreasing order of weight
+2.  Initialize MST = empty set
+3.  Initialize Disjoint Set (Union-Find) for all vertices
+4.  for each edge (u, v) in sorted order do
+5.      if Find(u) != Find(v) then
+6.          Add edge (u, v) to MST
+7.          Union(u, v)
+8.      end if
+9.      if MST has V-1 edges then break
+10. end for
+11. return MST</pre>
+
+<h4>Key Concept — Union-Find:</h4>
+<p>Used to check if adding an edge creates a cycle. Two vertices are in the same component if Find(u) == Find(v). Union merges two components.</p>
+
+<h4>Example: Graph with 4 vertices, edges: (A,B,10), (A,C,6), (A,D,5), (B,D,15), (C,D,4)</h4>
+<ol>
+<li>Sort edges: (C,D,4), (A,D,5), (A,C,6), (A,B,10), (B,D,15)</li>
+<li>Add (C,D,4) — no cycle ✓</li>
+<li>Add (A,D,5) — no cycle ✓</li>
+<li>Add (A,C,6) — A and C in same component → skip (would create cycle)</li>
+<li>Add (A,B,10) — no cycle ✓ → MST complete with 3 edges</li>
+</ol>
+<p><strong>MST edges:</strong> (C,D,4), (A,D,5), (A,B,10) → <strong>Total weight = 19</strong></p>
+
+<p><strong>Time Complexity:</strong> O(E log E) for sorting + O(E α(V)) for Union-Find ≈ <strong>O(E log E)</strong> or <strong>O(E log V)</strong> since E ≤ V².</p>`
+  },
+  {
+    id: 20, unit: 3, topic: "Prim's Algorithm",
+    priority: "high",
+    question: "Explain Prim's algorithm for minimum spanning tree generation. How does it differ from Kruskal's algorithm?",
+    answer: `<h4>Prim's Algorithm:</h4>
+<pre>Algorithm Prim(G, V, E, start)
+1.  Initialize key[] = ∞ for all vertices, key[start] = 0
+2.  Initialize parent[] = -1 for all vertices
+3.  Initialize inMST[] = false for all vertices
+4.  for i = 1 to V-1 do
+5.      u = vertex with minimum key[] not in MST
+6.      inMST[u] = true
+7.      for each adjacent vertex v of u do
+8.          if inMST[v] == false AND weight(u,v) < key[v] then
+9.              key[v] = weight(u,v)
+10.             parent[v] = u
+11.         end if
+12.     end for
+13. end for
+14. return edges from parent[] array</pre>
+
+<h4>How it works:</h4>
+<ul>
+<li>Start from an arbitrary vertex</li>
+<li>Grow the MST one edge at a time by always adding the cheapest edge connecting the tree to a non-tree vertex</li>
+<li>Uses a priority queue (min-heap) to efficiently find the minimum key vertex</li>
+</ul>
+
+<h4>Kruskal vs Prim:</h4>
+<table>
+<tr><th>Aspect</th><th>Kruskal</th><th>Prim</th></tr>
+<tr><td>Approach</td><td>Edge-based (sort all edges)</td><td>Vertex-based (grow from a start)</td></tr>
+<tr><td>Data Structure</td><td>Union-Find</td><td>Priority Queue (Min-Heap)</td></tr>
+<tr><td>Time Complexity</td><td>O(E log E)</td><td>O(E log V) with binary heap</td></tr>
+<tr><td>Better For</td><td>Sparse graphs</td><td>Dense graphs</td></tr>
+<tr><td>Start Point</td><td>Any edge</td><td>Specific vertex</td></tr>
+<tr><td>Intermediate Result</td><td>May be a forest (multiple trees)</td><td>Always a single connected tree</td></tr>
+</table>`
+  },
+  {
+    id: 21, unit: 3, topic: "Dijkstra's Algorithm",
+    priority: "high",
+    question: "Explain Dijkstra's algorithm for single source shortest path. Analyze its working steps and time complexity.",
+    answer: `<h4>Problem:</h4>
+<p>Find the shortest distance from a given source vertex to all other vertices in a weighted graph with non-negative edge weights.</p>
+
+<h4>Algorithm:</h4>
+<pre>Algorithm Dijkstra(G, V, source)
+1.  Initialize dist[] = ∞ for all vertices, dist[source] = 0
+2.  Initialize visited[] = false for all vertices
+3.  for i = 1 to V-1 do
+4.      u = vertex with minimum dist[] not yet visited
+5.      visited[u] = true
+6.      for each adjacent vertex v of u do
+7.          if visited[v] == false AND dist[u] + weight(u,v) < dist[v] then
+8.              dist[v] = dist[u] + weight(u,v)
+9.          end if
+10.     end for
+11. end for
+12. return dist[]</pre>
+
+<h4>Example: Graph with vertices A, B, C, D, E</h4>
+<p>Edges: A→B(4), A→C(2), B→D(3), B→E(1), C→B(1), C→D(5), D→E(2), Source = A</p>
+
+<table>
+<tr><th>Step</th><th>Selected</th><th>dist[A]</th><th>dist[B]</th><th>dist[C]</th><th>dist[D]</th><th>dist[E]</th></tr>
+<tr><td>Init</td><td>-</td><td>0</td><td>∞</td><td>∞</td><td>∞</td><td>∞</td></tr>
+<tr><td>1</td><td>A(0)</td><td>0</td><td>4</td><td>2</td><td>∞</td><td>∞</td></tr>
+<tr><td>2</td><td>C(2)</td><td>0</td><td>3</td><td>2</td><td>7</td><td>∞</td></tr>
+<tr><td>3</td><td>B(3)</td><td>0</td><td>3</td><td>2</td><td>6</td><td>4</td></tr>
+<tr><td>4</td><td>E(4)</td><td>0</td><td>3</td><td>2</td><td>6</td><td>4</td></tr>
+<tr><td>5</td><td>D(6)</td><td>0</td><td>3</td><td>2</td><td>6</td><td>4</td></tr>
+</table>
+
+<p><strong>Shortest paths from A:</strong> A=0, B=3, C=2, D=6, E=4</p>
+
+<p><strong>Time Complexity:</strong></p>
+<ul>
+<li>With simple array: O(V²)</li>
+<li>With binary min-heap: O((V + E) log V)</li>
+<li>With Fibonacci heap: O(V log V + E)</li>
+</ul>
+
+<p><strong>Limitation:</strong>
