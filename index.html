@@ -1,441 +1,2291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAA Exam Prep — Garden City University</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --bg: #0c0f14;
+    --bg2: #12161e;
+    --bg3: #1a1f2b;
+    --card: #161b26;
+    --card-hover: #1c2233;
+    --border: #252d3d;
+    --fg: #e8ecf4;
+    --fg-muted: #7a8599;
+    --accent: #f0a030;
+    --accent2: #e8753a;
+    --accent-glow: rgba(240, 160, 48, 0.15);
+    --green: #34d399;
+    --green-bg: rgba(52, 211, 153, 0.1);
+    --red: #f87171;
+    --red-bg: rgba(248, 113, 113, 0.1);
+    --blue: #60a5fa;
+    --blue-bg: rgba(96, 165, 250, 0.1);
+    --purple: #a78bfa;
+    --purple-bg: rgba(167, 139, 250, 0.1);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
 
-<!DOCTYPE html><html lang="en"><head>
-		<meta charset="utf-8">
-		<link rel="icon" type="image/png" sizes="512x512" href="https://z-cdn.chatglm.cn/z-ai/static/logo.svg">
-		<link rel="shortcut icon" href="https://z-cdn.chatglm.cn/z-ai/static/logo.svg">
-		<link rel="apple-touch-icon" sizes="512x512" href="https://z-cdn.chatglm.cn/z-ai/static/logo.svg">
-		<meta name="apple-mobile-web-app-title" content="Z.ai - Advanced AI Chatbot &amp; Agent powered by GLM-5.2">
-		
-		<meta name="keywords" content="GLM-4.6, GLM 4.6, GLM-4.6-Air, GLM 4.6 Air, GLM 4.5, GLM4.5, GLM4.6, Deep Research, z ai, z.ai, GLM 4.5 AI, GLM 4.6 AI, GLM AI, Chat Z, zai, Chat AI, GLM, z.ia, Chat Z AI, AI chat, chatbot, z.ai chat, free ai chat, free AI, free ai chat no login, GLM-4.5, GLM-4.5 chat, GLM-4.1V, GLM-4.5V, AI assistant chat, AI PPT, AI presentation, AI presentation maker, AI slides maker, AI slides, slide deck, pitch deck, AI deck generator, free pitch deck generator, AI PPT, AI PPT maker, AI for Google Slides, AI for PowerPoint, AI writer, AI writing assistant, AI code generator, full stack code generation, AI full stack developer, claude code, Roo Code, Cline, Kilo Code, OpenCode, Codex, Cursor, GLM Coding Plan, GLM Coding, AI Coding, code writer ai, magic design, magic design tool, AI inspiration board, visual brainstorming AI, chat with AI, AI对话, AI聊天, 聊天机器人, 免费AI聊天, AI做PPT, AI写作, AI编程, 全栈开发, 灵感画板, AI tool, AI helper, AI for students, AI for marketers, AI for content creation, ChatGPT, chatgpt free, Free ChatGPT, gpt chat, Gemini, Grok, Claude, Poe AI, YouChat, Jasper AI, deepseek, qwen, 豆包, 文心一言, AI搜问答, 写作灵感AI, 代码解释工具, PPT思路生成, 如何用AI做PPT, create pitch deck from brief, AI business plan presentation, marketing report slides, AI academic paper assistant, AI legal contract drafting, write social media calendar, AI email responder,  VS Code AI assistant, AI for Notion, AI for Figma, AI math problem solver from image, AI geoguessr solver, image to code generator, table extractor from image, chart data extractor, document analysis AI, image caption generator, visual Q&amp;A, 看图猜成语, AI拍照解题, 数学题解答, 物理题解答, GeoGuess AI, 图片转表格, 图片读数据, 看图问答, analyze video, summarize video content, generate video transcript, find object in image, what is in this picture, 视频分析, 视频内容摘要, 生成视频字幕, 图片里有什么, 识别图中物体, GLM-4.7, GLM 4.7, GLM4.7, skills, coding plan, GLM-5, GLM-5.0, GLM5, GLM 5, Pony, Pony Alpha, GLM-5.2, GLM 5.2, GLM5.2, long-horizon, long-running">
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-		<link rel="manifest" href="https://z-cdn.chatglm.cn/z-ai/frontend/static/manifest.json">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-		
-		<meta name="referrer" content="no-referrer">
-		<link rel="search" type="application/opensearchdescription+xml" title="Z.ai - Advanced AI Chatbot &amp; Agent powered by GLM-5.2" href="https://z-cdn.chatglm.cn/z-ai/frontend/static/opensearch.xml">
-		<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Z8QTHYBHP3"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag('js', new Date());
+  html { scroll-behavior: smooth; }
 
-			gtag('config', 'G-Z8QTHYBHP3');
-		</script>
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-		<script>
-			let metrics = {};
-			const observer = new PerformanceObserver((list) => {
-				const entries = list.getEntries();
+  /* Background atmosphere */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -30%; left: -20%;
+    width: 60vw; height: 60vw;
+    background: radial-gradient(circle, rgba(240,160,48,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -30%; right: -20%;
+    width: 50vw; height: 50vw;
+    background: radial-gradient(circle, rgba(232,117,58,0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-				entries.forEach((entry) => {
-					// 根据不同的entry类型处理不同的性能指标
-					switch (entry.entryType) {
-						case 'navigation':
-							{
-								const navEntry = entry;
-								metrics = {
-									...metrics,
-									dns: navEntry.domainLookupEnd - navEntry.domainLookupStart,
-									response: navEntry.responseEnd - navEntry.responseStart,
-									dom_parse: navEntry.domInteractive - navEntry.responseEnd,
-									dom_ready: navEntry.domContentLoadedEventEnd - navEntry.fetchStart,
-									resource: navEntry.domComplete - navEntry.domContentLoadedEventEnd,
-									first_interactive: navEntry.domInteractive - navEntry.fetchStart,
-									first_byte: navEntry.responseStart - navEntry.domainLookupStart,
-									loaded: navEntry.loadEventEnd - navEntry.fetchStart
-								};
-								sessionStorage.setItem('performance', JSON.stringify(metrics));
-								// 发送性能指标到阿里云日志服务
-							}
-							break;
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--fg-muted); }
 
-						case 'paint':
-							if (entry.name === 'first-paint') {
-								metrics = {
-									...metrics,
-									first_paint: entry.startTime
-								};
-								sessionStorage.setItem('performance', JSON.stringify(metrics));
-							}
-							if (entry.name === 'first-contentful-paint') {
-								metrics = {
-									...metrics,
-									first_contentful_paint: entry.startTime
-								};
-								sessionStorage.setItem('performance', JSON.stringify(metrics));
-							}
-							break;
-					}
-				});
-			});
+  /* Header */
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(12, 15, 20, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .header-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 18px; letter-spacing: -0.5px;
+  }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: #000; font-weight: 700;
+  }
+  .logo span { color: var(--accent); }
 
-			// 观察的性能指标类型
-			observer.observe({
-				entryTypes: ['navigation', 'paint']
-			});
-		</script>
+  /* Navigation */
+  .nav { display: flex; gap: 4px; }
+  .nav-btn {
+    background: none; border: none; color: var(--fg-muted);
+    padding: 8px 16px; border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .nav-btn:hover { color: var(--fg); background: var(--bg3); }
+  .nav-btn.active {
+    color: var(--accent); background: var(--accent-glow);
+  }
+  .nav-btn i { font-size: 13px; }
 
-		<script>
-			function resizeIframe(obj) {
-				obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
-			}
-		</script>
+  /* Progress bar */
+  .progress-strip {
+    height: 2px; background: var(--bg3);
+    position: relative; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 0.4s ease;
+    width: 0%;
+  }
 
-		<script>
-			// On page load or when changing themes, best to add inline in `head` to avoid FOUC
-			const initTheme = () => {
-				const metaThemeColorTag = document.querySelector('meta[name="theme-color"]');
-				// 取用户浏览器设置的主题
-				// const prefersTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  /* Main */
+  .main {
+    max-width: 1200px; margin: 0 auto;
+    padding: 32px 24px 80px;
+    position: relative; z-index: 1;
+  }
 
-				const prefersTheme = 'light';
+  /* Section */
+  .section { display: none; }
+  .section.active { display: block; }
 
-				if (!localStorage?.theme) {
-					localStorage.theme = prefersTheme;
-				}
+  /* Hero */
+  .hero {
+    text-align: center;
+    padding: 48px 0 40px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--accent-glow);
+    border: 1px solid rgba(240,160,48,0.2);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    margin-bottom: 20px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .hero-badge .pulse {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.5); }
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700; letter-spacing: -1.5px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero h1 .gradient {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    color: var(--fg-muted); font-size: 17px;
+    max-width: 560px; margin: 0 auto 32px; line-height: 1.6;
+  }
 
-				if (localStorage.theme === 'system') {
-					document.documentElement.classList.add(prefersTheme);
-					metaThemeColorTag.setAttribute(
-						'content',
-						prefersTheme === 'light' ? '#F4F6F8' : '#141618'
-					);
-				} else if (localStorage.theme === 'light') {
-					document.documentElement.classList.add('light');
-					metaThemeColorTag.setAttribute('content', '#F4F6F8');
-				} else {
-					document.documentElement.classList.add('dark');
-					metaThemeColorTag.setAttribute('content', '#141618');
-				}
+  /* Stats */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px; margin-bottom: 40px;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px; text-align: center;
+    transition: all 0.3s;
+  }
+  .stat-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(240,160,48,0.08);
+  }
+  .stat-num {
+    font-size: 28px; font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-num.orange { color: var(--accent); }
+  .stat-num.green { color: var(--green); }
+  .stat-num.blue { color: var(--blue); }
+  .stat-num.purple { color: var(--purple); }
+  .stat-label {
+    font-size: 12px; color: var(--fg-muted);
+    margin-top: 4px; text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
 
-				// window.matchMedia('(prefers-color-scheme: dark)').addListener((e) => {
-				// 	if (localStorage.theme === 'system') {
-				// 		if (e.matches) {
-				// 			document.documentElement.classList.add('dark');
-				// 			document.documentElement.classList.remove('light');
-				// 			metaThemeColorTag.setAttribute('content', '#141618');
-				// 		} else {
-				// 			document.documentElement.classList.add('light');
-				// 			document.documentElement.classList.remove('dark');
-				// 			metaThemeColorTag.setAttribute('content', '#F4F6F8');
-				// 		}
-				// 	}
-				// });
-			};
-			initTheme();
-		</script>
+  /* Quick actions */
+  .quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px; margin-bottom: 40px;
+  }
+  .action-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px; cursor: pointer;
+    transition: all 0.3s;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .action-card:hover {
+    border-color: var(--accent);
+    background: var(--card-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  .action-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .action-icon.orange { background: var(--accent-glow); color: var(--accent); border: 1px solid rgba(240,160,48,0.2); }
+  .action-icon.green { background: var(--green-bg); color: var(--green); border: 1px solid rgba(52,211,153,0.2); }
+  .action-icon.blue { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(96,165,250,0.2); }
+  .action-icon.purple { background: var(--purple-bg); color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
+  .action-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  .action-desc { font-size: 13px; color: var(--fg-muted); line-height: 1.5; }
 
-		
+  /* Unit tabs */
+  .unit-tabs {
+    display: flex; gap: 6px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .unit-tab {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 13px; font-weight: 500;
+    color: var(--fg-muted); cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .unit-tab:hover { color: var(--fg); border-color: var(--fg-muted); }
+  .unit-tab.active {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
 
-		<script>
-			// 炫酷的控制台介绍 - 根据语言显示
-			(function () {
-				// 检测用户语言偏好
-				const userLang = navigator.language || navigator.userLanguage;
-				const isChinese =
-					userLang.startsWith('zh') ||
-					userLang.includes('CN') ||
-					userLang.includes('TW') ||
-					userLang.includes('HK');
+  /* Search */
+  .search-box {
+    position: relative; margin-bottom: 24px;
+  }
+  .search-box i {
+    position: absolute; left: 16px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--fg-muted); font-size: 14px;
+  }
+  .search-box input {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px 14px 42px;
+    color: var(--fg);
+    font-family: inherit; font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box input::placeholder { color: var(--fg-muted); }
+  .search-box input:focus { border-color: var(--accent); }
 
-				// 共同的 ASCII Logo
-				const logoLines = [
-					'%c███████╗     █████╗ ██╗',
-					'%c╚══███╔╝    ██╔══██╗██║',
-					'%c  ███╔╝     ███████║██║',
-					'%c ███╔╝      ██╔══██║██║',
-					'%c███████╗ ██╗██║  ██║██║',
-					'%c╚══════╝ ╚═╝╚═╝  ╚═╝╚═╝'
-				];
-				const logoColors = [
-					'color: #ff6b6b; font-family: monospace; font-size: 12px;',
-					'color: #4ecdc4; font-family: monospace; font-size: 12px;',
-					'color: #45b7d1; font-family: monospace; font-size: 12px;',
-					'color: #f9ca24; font-family: monospace; font-size: 12px;',
-					'color: #ff9ff3; font-family: monospace; font-size: 12px;',
-					'color: #6c5ce7; font-family: monospace; font-size: 12px;'
-				];
+  /* Question card */
+  .q-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .q-card:hover { border-color: rgba(240,160,48,0.3); }
+  .q-card.reviewed { border-left: 3px solid var(--green); }
+  .q-card.starred { border-left: 3px solid var(--accent); }
 
-				if (isChinese) {
-					// 中文版本
-					console.log(
-						'%c🚀 欢迎来到 Z.ai 🚀',
-						'color: #00d4ff; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #00d4ff;'
-					);
-					logoLines.forEach((line, index) => console.log(line, logoColors[index]));
-					console.log('');
-					console.log(
-						'%c✨ 基于开源GLM模型的智能AI助手',
-						'color: #a29bfe; font-size: 14px; font-weight: bold;'
-					);
-					console.log('%c🧠 支持文本生成、推理和深度研究', 'color: #fd79a8; font-size: 12px;');
-					console.log('%c🌍 为中英文用户量身定制', 'color: #00b894; font-size: 12px;');
-					console.log('%c💡 免费开源的ChatGPT替代方案', 'color: #fdcb6e; font-size: 12px;');
-					console.log('');
-					console.log('%c---', 'color: #ddd;');
-					console.log(
-						'%c由 ❤️ 和大量 ☕ 驱动',
-						'color: #e84393; font-size: 11px; font-style: italic;'
-					);
-					console.log('');
-					console.log(
-						'%c🚀 加入我们！我们正在招聘优秀人才！',
-						'color: #00b894; font-size: 13px; font-weight: bold;'
-					);
-					console.log(
-						'%c💼 查看职位: https://zhipu-ai.jobs.feishu.cn/s/stmyTm5lxaU',
-						'color: #0984e3; font-size: 12px; text-decoration: underline;'
-					);
-				} else {
-					// 英文版本
-					console.log(
-						'%c🚀 Welcome to Z.ai 🚀',
-						'color: #00d4ff; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #00d4ff;'
-					);
-					logoLines.forEach((line, index) => console.log(line, logoColors[index]));
-					console.log('');
-					console.log(
-						'%c✨ Advanced AI assistant powered by open-source GLM models',
-						'color: #a29bfe; font-size: 14px; font-weight: bold;'
-					);
-					console.log(
-						'%c🧠 Supports text generation, reasoning, and deep research',
-						'color: #fd79a8; font-size: 12px;'
-					);
-					console.log(
-						'%c🌍 Tailored for both English and Chinese users',
-						'color: #00b894; font-size: 12px;'
-					);
-					console.log(
-						'%c💡 Free and open-source ChatGPT alternative',
-						'color: #fdcb6e; font-size: 12px;'
-					);
-					console.log('');
-					console.log('%c---', 'color: #ddd;');
-					console.log(
-						'%cPowered by ❤️ and lots of ☕',
-						'color: #e84393; font-size: 11px; font-style: italic;'
-					);
-					console.log('');
-					console.log(
-						'%c🚀 Join us! We are hiring talented people!',
-						'color: #00b894; font-size: 13px; font-weight: bold;'
-					);
-					console.log(
-						'%c💼 View jobs: https://zhipu-ai.jobs.feishu.cn/s/stmyTm5lxaU',
-						'color: #0984e3; font-size: 12px; text-decoration: underline;'
-					);
-				}
-			})();
-		</script>
+  .q-header {
+    padding: 18px 20px;
+    display: flex; align-items: flex-start; gap: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .q-header:hover { background: var(--card-hover); }
 
-		<script type="module" crossorigin="" src="https://z-cdn.chatglm.cn/z-ai/frontend/prod-fe-1.1.67/assets/index-zCAkFsQu.js"></script>
-		<link rel="stylesheet" crossorigin="" href="https://z-cdn.chatglm.cn/z-ai/frontend/prod-fe-1.1.67/assets/index-CyqhDp8-.css">
-	<title>Z.AI Share</title><meta name="description" content="Amazing content sharing from Z.AI"><meta property="og:type" content="website"><meta property="og:site_name" content="Z.AI"><meta property="og:title" content="Z.AI Share"><meta property="og:description" content="Amazing content sharing from Z.AI"><meta property="og:image" content="https://z-cdn.chatglm.cn/z-ai/static/share-logo.png"><meta property="og:image:alt" content="Z.AI Share"><meta property="og:image:width" content="400"><meta property="og:image:height" content="400"><meta property="og:image:type" content="image/png"><meta property="og:url" content="http://chat.z.ai/space/v1zcs5f33fr0-art"><meta property="article:author" content="Z.AI"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Z.AI Share"><meta name="twitter:description" content="Amazing content sharing from Z.AI"><meta name="twitter:image" content="https://z-cdn.chatglm.cn/z-ai/static/share-logo.png"><meta name="twitter:image:alt" content="Z.AI Share"><meta name="robots" content="index,follow"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="application-name" content="Z.AI"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><link rel="canonical" href="http://chat.z.ai/space/v1zcs5f33fr0-art"><script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
-<script>
-(function() {
-  var frontendCallId = Math.random().toString(36).substring(2, 8);
-  console.log('[WeChat-Frontend-' + frontendCallId + '] ===== 开始前端微信JS-SDK初始化 =====');
-  console.log('[WeChat-Frontend-' + frontendCallId + '] 当前页面URL:', window.location.href);
-  console.log('[WeChat-Frontend-' + frontendCallId + '] 当前页面URL (去掉#):', window.location.href.split('#')[0]);
-  console.log('[WeChat-Frontend-' + frontendCallId + '] 签名配置:', {
-    debug: false,
-    appId: 'wxa5796e47c57570b1',
-    timestamp: 1782414635,
-    nonceStr: 'qo7s5Au4CpBos23C',
-    signature: '3b1b98645f186f1a8845b072b74e293dff89a2fd',
-    jsApiList: ["updateAppMessageShareData","updateTimelineShareData","onMenuShareAppMessage","onMenuShareTimeline"]
-  });
+  .q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-glow);
+    border: 1px solid rgba(240,160,48,0.15);
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .q-num.high { color: var(--red); background: var(--red-bg); border-color: rgba(248,113,113,0.15); }
+  .q-num.med { color: var(--accent); background: var(--accent-glow); border-color: rgba(240,160,48,0.15); }
 
-  // 微信 JS-SDK 配置
-  wx.config({
-    debug: false, // 根据环境变量设置debug模式
-    appId: 'wxa5796e47c57570b1', // 公众号的唯一标识
-    timestamp: 1782414635, // 生成签名的时间戳
-    nonceStr: 'qo7s5Au4CpBos23C', // 生成签名的随机串
-    signature: '3b1b98645f186f1a8845b072b74e293dff89a2fd', // 签名
-    jsApiList: ["updateAppMessageShareData","updateTimelineShareData","onMenuShareAppMessage","onMenuShareTimeline"] // 需要使用的JS接口列表
-  });
+  .q-text {
+    flex: 1; font-size: 14.5px; line-height: 1.6;
+    font-weight: 400;
+  }
+  .q-actions {
+    display: flex; gap: 4px; flex-shrink: 0;
+  }
+  .q-action-btn {
+    width: 32px; height: 32px;
+    border: none; background: none;
+    color: var(--fg-muted);
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .q-action-btn:hover { background: var(--bg3); color: var(--fg); }
+  .q-action-btn.starred { color: var(--accent); }
+  .q-action-btn.reviewed { color: var(--green); }
 
-  console.log('[WeChat-Frontend-' + frontendCallId + '] wx.config() 调用完成');
+  .q-expand-icon {
+    color: var(--fg-muted);
+    transition: transform 0.3s;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .q-card.open .q-expand-icon { transform: rotate(180deg); }
 
-  // 微信 JS-SDK 就绪回调
-  wx.ready(function () {
-    console.log('[WeChat-Frontend-' + frontendCallId + '] WeChat JS-SDK ready - 微信JS-SDK就绪!');
+  .q-answer {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .q-card.open .q-answer { max-height: 5000px; }
 
-    // 分享给朋友的配置
-    console.log('[WeChat-Frontend-' + frontendCallId + '] 开始配置分享给朋友...');
-    wx.updateAppMessageShareData({
-      title: 'Z.AI Share',
-      desc: 'Amazing content sharing from Z.AI',
-      link: 'http://chat.z.ai/space/v1zcs5f33fr0-art',
-      imgUrl: 'https://z-cdn.chatglm.cn/z-ai/static/share-logo.png',
-      success: function () {
-        console.log('[WeChat-Frontend-' + frontendCallId + '] 分享给朋友成功');
-      },
-      cancel: function () {
-        console.log('[WeChat-Frontend-' + frontendCallId + '] 分享给朋友取消');
-      }
-    });
+  .q-answer-inner {
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--border);
+    margin-top: 0;
+    padding-top: 20px;
+  }
 
-    // 分享到朋友圈的配置
-    console.log('[WeChat-Frontend-' + frontendCallId + '] 开始配置分享到朋友圈...');
-    wx.updateTimelineShareData({
-      title: 'Z.AI Share',
-      link: 'http://chat.z.ai/space/v1zcs5f33fr0-art',
-      imgUrl: 'https://z-cdn.chatglm.cn/z-ai/static/share-logo.png',
-      success: function () {
-        console.log('[WeChat-Frontend-' + frontendCallId + '] 分享到朋友圈成功');
-      },
-      cancel: function () {
-        console.log('[WeChat-Frontend-' + frontendCallId + '] 分享到朋友圈取消');
-      }
-    });
+  .answer-label {
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--green); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
+  }
 
-    // 兼容旧版本微信客户端
-    console.log('[WeChat-Frontend-' + frontendCallId + '] 开始配置兼容旧版本分享...');
-    wx.onMenuShareAppMessage({
-      title: 'Z.AI Share',
-      desc: 'Amazing content sharing from Z.AI',
-      link: 'http://chat.z.ai/space/v1zcs5f33fr0-art',
-      imgUrl: 'https://z-cdn.chatglm.cn/z-ai/static/share-logo.png',
-      success: function () {
-        console.log('[WeChat-Frontend-' + frontendCallId + '] 兼容版分享给朋友成功');
-      },
-      cancel: function () {
-        console.log('[WeChat-Frontend-' + frontendCallId + '] 兼容版分享给朋友取消');
-      }
-    });
+  .answer-content {
+    font-size: 14px; line-height: 1.8;
+    color: var(--fg);
+  }
+  .answer-content p { margin-bottom: 12px; }
+  .answer-content strong { color: var(--accent); font-weight: 600; }
+  .answer-content ul, .answer-content ol {
+    padding-left: 20px; margin-bottom: 12px;
+  }
+  .answer-content li { margin-bottom: 6px; }
+  .answer-content code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg3);
+    padding: 2px 8px; border-radius: 4px;
+    font-size: 13px; color: var(--accent);
+  }
+  .answer-content pre {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px; margin-bottom: 12px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; line-height: 1.6;
+    color: var(--fg);
+  }
+  .answer-content .note-box {
+    background: var(--accent-glow);
+    border: 1px solid rgba(240,160,48,0.2);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px; margin-bottom: 12px;
+    font-size: 13px; line-height: 1.6;
+  }
+  .answer-content .note-box i { color: var(--accent); margin-right: 6px; }
+  .answer-content table {
+    width: 100%; border-collapse: collapse;
+    margin-bottom: 12px; font-size: 13px;
+  }
+  .answer-content th, .answer-content td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+  .answer-content th {
+    background: var(--bg3);
+    font-weight: 600; color: var(--accent);
+    font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .answer-content td { color: var(--fg); }
+  .answer-content h4 {
+    font-size: 15px; font-weight: 600;
+    color: var(--fg); margin: 16px 0 8px;
+  }
 
-    wx.onMenuShareTimeline({
-      title: 'Z.AI Share',
-      link: 'http://chat.z.ai/space/v1zcs5f33fr0-art',
-      imgUrl: 'https://z-cdn.chatglm.cn/z-ai/static/share-logo.png',
-      success: function () {
-        console.log('[WeChat-Frontend-' + frontendCallId + '] 兼容版分享到朋友圈成功');
-      },
-      cancel: function () {
-        console.log('[WeChat-Frontend-' + frontendCallId + '] 兼容版分享到朋友圈取消');
-      }
-    });
+  /* Exam Mode */
+  .exam-container {
+    max-width: 800px; margin: 0 auto;
+  }
+  .exam-header {
+    text-align: center; margin-bottom: 32px;
+  }
+  .exam-header h2 {
+    font-size: 28px; font-weight: 700;
+    margin-bottom: 8px; letter-spacing: -0.5px;
+  }
+  .exam-timer {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 10px 20px; border-radius: var(--radius);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px; font-weight: 600;
+    color: var(--accent);
+  }
+  .exam-timer.warning { color: var(--red); border-color: rgba(248,113,113,0.3); }
+  .exam-timer i { font-size: 16px; }
 
-    console.log('[WeChat-Frontend-' + frontendCallId + '] 所有分享配置完成');
-  });
+  .exam-progress {
+    display: flex; gap: 8px; justify-content: center;
+    margin: 20px 0 32px;
+  }
+  .exam-dot {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 600;
+    color: var(--fg-muted);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .exam-dot.active { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+  .exam-dot.answered { border-color: var(--green); color: var(--green); background: var(--green-bg); }
 
-  // 微信 JS-SDK 错误回调
-  wx.error(function(res){
-    console.error('[WeChat-Frontend-' + frontendCallId + '] 微信JS-SDK错误:', res);
-    console.error('[WeChat-Frontend-' + frontendCallId + '] 错误详情:', JSON.stringify(res, null, 2));
-    // 可以在这里处理签名验证失败等错误
-  });
+  .exam-question {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .exam-q-label {
+    font-size: 12px; font-weight: 600;
+    color: var(--accent); margin-bottom: 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .exam-q-text {
+    font-size: 16px; line-height: 1.7;
+    font-weight: 400;
+  }
 
-  console.log('[WeChat-Frontend-' + frontendCallId + '] ===== 微信JS-SDK初始化完成 =====');
-})();
-</script></head>
+  .exam-answer-area {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .exam-answer-area textarea {
+    width: 100%; min-height: 200px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    color: var(--fg);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px; line-height: 1.7;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .exam-answer-area textarea::placeholder { color: var(--fg-muted); }
+  .exam-answer-area textarea:focus { border-color: var(--accent); }
 
-	<body>
-		<script>
-			const env = location.hostname === 'chat.z.ai' ? 'prod' : 'pre';
-			!(function (c, b, d, a) {
-				c[a] || (c[a] = {});
-				c[a] = {
-					pid: 'j2c03hoppk@9a8be198b65ba4b',
-					endpoint: 'https://j2c03hoppk-default-cn.rum.aliyuncs.com',
-					// 设置环境信息，参考值：'prod' | 'gray' | 'pre' | 'daily' | 'local'
-					env: env,
-					// 设置路由模式， 参考值：'history' | 'hash'
-					spaMode: 'history',
-					collectors: {
-						// 页面性能指标监听开关，默认开启
-						perf: true,
-						// WebVitals指标监听开关，默认开启
-						webVitals: false,
-						// Ajax监听开关，默认开启
-						api: true,
-						// 静态资源开关，默认开启
-						staticResource: true,
-						// JS错误监听开关，默认开启
-						jsError: true,
-						// 控制台错误监听开关，默认开启
-						consoleError: false,
-						// 用户行为监听开关，默认开启
-						action: true
-					},
-					// 链路追踪配置开关，默认关闭
-					tracing: false,
-					parseViewName(url) {
-						const pathname = new URL(url).pathname;
-						if (!pathname) {
-							return '/';
-						}
-						return pathname.replace(/(.*)\/[a-f0-9-]+$/g, '$1');
-					},
-					evaluateApi(options, response) {
-						const traceId = response?.headers?.get?.('X-Trace-Id') || 'unknown';
+  .exam-nav {
+    display: flex; justify-content: space-between; gap: 12px;
+  }
+  .exam-btn {
+    padding: 12px 28px;
+    border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--fg);
+  }
+  .exam-btn:hover { background: var(--card-hover); border-color: var(--fg-muted); }
+  .exam-btn.primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none; color: #000;
+  }
+  .exam-btn.primary:hover { opacity: 0.9; transform: translateY(-1px); }
 
-						return {
-							name: options.url.replace(/\/[a-f0-9-]{36}/g, '/**'),
-							properties: {
-								traceId
-							}
-						};
-					}
-				};
-				with (b)
-					with (body)
-						with (insertBefore(createElement('script'), firstChild))
-							setAttribute('crossorigin', '', (src = d));
-			})(window, document, 'https://sdk.rum.aliyuncs.com/v2/browser-sdk.js', '__rum');
-		</script>
-		<div id="app" style="display: contents"></div>
+  /* Exam results */
+  .exam-results {
+    text-align: center; padding: 40px 0;
+  }
+  .result-score {
+    font-size: 64px; font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .result-label { color: var(--fg-muted); font-size: 16px; margin-bottom: 32px; }
 
-		<script>
-			var token = localStorage.getItem('token');
-			var base = window.WEBUI_BASE_URL || '';
-			var lang = localStorage.locale ?? (navigator.language.includes('zh') ? 'zh-CN' : 'en-US');
-			var config = {
-				credentials: 'include',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-					...(token ? { Authorization: `Bearer ${token}` } : {}),
-					'Accept-Language': lang
-				}
-			};
+  .result-q {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 12px;
+    text-align: left;
+  }
+  .result-q-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 12px;
+  }
+  .result-q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 600;
+    padding: 4px 10px; border-radius: 6px;
+  }
+  .result-q-text { font-size: 14px; line-height: 1.6; flex: 1; }
+  .result-model-answer {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px; margin-top: 12px;
+    font-size: 13px; line-height: 1.7;
+    color: var(--fg-muted);
+  }
+  .result-model-answer strong { color: var(--green); }
 
-			window.GLOBAL_FETCHES = {
-				session: fetch(`${base}/api/v1/auths/`, config).then(async (res) => {
-					if (!res.ok) throw await res.json();
-					return res.json();
-				}),
-				config: fetch(`${base}/api/config`, config).then(async (res) => {
-					if (!res.ok) throw await res.json();
-					return res.json();
-				}),
-				models: token && fetch(`${base}/api/models`, config),
-				settings:
-					token &&
-					fetch(`${base}/api/v1/users/user/settings`, config).then(async (res) => {
-						if (!res.ok) throw await res.json();
-						return res.json();
-					})
-			};
-		</script>
-		<script async="" src="//o.alicdn.com/frontend-lib/common-lib/jquery.min.js"></script>
-	
+  /* Start exam screen */
+  .exam-start {
+    text-align: center; padding: 60px 20px;
+  }
+  .exam-start-icon {
+    width: 80px; height: 80px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; color: #000;
+    margin: 0 auto 24px;
+  }
+  .exam-start h2 {
+    font-size: 28px; font-weight: 700;
+    margin-bottom: 12px; letter-spacing: -0.5px;
+  }
+  .exam-start p { color: var(--fg-muted); margin-bottom: 8px; font-size: 15px; line-height: 1.6; }
+  .exam-rules {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px; margin: 32px 0;
+    text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;
+  }
+  .exam-rules h4 {
+    font-size: 14px; font-weight: 600;
+    margin-bottom: 14px; color: var(--accent);
+  }
+  .exam-rules li {
+    font-size: 13px; color: var(--fg-muted);
+    margin-bottom: 8px; list-style: none;
+    display: flex; align-items: flex-start; gap: 8px;
+    line-height: 1.5;
+  }
+  .exam-rules li i { color: var(--accent); margin-top: 3px; font-size: 11px; }
 
+  /* Bookmarks section */
+  .bookmarks-empty {
+    text-align: center; padding: 60px 20px;
+    color: var(--fg-muted);
+  }
+  .bookmarks-empty i { font-size: 48px; margin-bottom: 16px; display: block; opacity: 0.3; }
+  .bookmarks-empty p { font-size: 15px; }
 
-<style type="text/css" nonce="">
-	@keyframes pulse {
-		50% {
-			opacity: 0.65;
-		}
-	}
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 500;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 1000;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast i { color: var(--green); }
 
-	.animate-pulse-fast {
-		animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-	}
+  /* Responsive */
+  @media (max-width: 768px) {
+    .header-inner { padding: 0; }
+    .nav { gap: 2px; }
+    .nav-btn { padding: 8px 10px; font-size: 13px; }
+    .nav-btn span { display: none; }
+    .hero h1 { font-size: 28px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .quick-actions { grid-template-columns: 1fr; }
+    .q-header { padding: 14px 16px; }
+    .q-answer-inner { padding: 0 16px 16px; padding-top: 16px; }
+    .exam-question { padding: 20px; }
+    .main { padding: 20px 16px 60px; }
+  }
+
+  /* Fade in animation */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    animation: fadeUp 0.4s ease forwards;
+    opacity: 0;
+  }
+  .fade-up:nth-child(1) { animation-delay: 0.05s; }
+  .fade-up:nth-child(2) { animation-delay: 0.1s; }
+  .fade-up:nth-child(3) { animation-delay: 0.15s; }
+  .fade-up:nth-child(4) { animation-delay: 0.2s; }
+  .fade-up:nth-child(5) { animation-delay: 0.25s; }
+  .fade-up:nth-child(6) { animation-delay: 0.3s; }
+  .fade-up:nth-child(7) { animation-delay: 0.35s; }
+  .fade-up:nth-child(8) { animation-delay: 0.4s; }
+
+  /* Priority indicator */
+  .priority-badge {
+    font-size: 10px; font-weight: 600;
+    padding: 2px 8px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-left: 8px; display: inline-block;
+  }
+  .priority-badge.high { background: var(--red-bg); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+  .priority-badge.medium { background: var(--accent-glow); color: var(--accent); border: 1px solid rgba(240,160,48,0.2); }
 </style>
-</body></html>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">DAA</div>
+      <div>Exam <span>Prep</span></div>
+    </div>
+    <nav class="nav">
+      <button class="nav-btn active" onclick="showSection('home')" id="nav-home">
+        <i class="fa-solid fa-house"></i> <span>Home</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('questions')" id="nav-questions">
+        <i class="fa-solid fa-list"></i> <span>Questions</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('exam')" id="nav-exam">
+        <i class="fa-solid fa-clock"></i> <span>Exam Mode</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('bookmarks')" id="nav-bookmarks">
+        <i class="fa-solid fa-bookmark"></i> <span>Starred</span>
+      </button>
+    </nav>
+  </div>
+  <div class="progress-strip"><div class="progress-fill" id="progressFill"></div></div>
+</header>
+
+<main class="main">
+
+  <!-- HOME SECTION -->
+  <section class="section active" id="sec-home">
+    <div class="hero">
+      <div class="hero-badge"><div class="pulse"></div> Exam Tomorrow</div>
+      <h1>Design & Analysis<br>of <span class="gradient">Algorithms</span></h1>
+      <p>Curated important questions with model answers based on your preparatory material. Practice smart, score well.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-num orange" id="totalQ">0</div>
+        <div class="stat-label">Questions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num green" id="reviewedQ">0</div>
+        <div class="stat-label">Reviewed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num blue" id="starredQ">0</div>
+        <div class="stat-label">Starred</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num purple" id="unitsCount">4</div>
+        <div class="stat-label">Units</div>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <div class="action-card" onclick="showSection('questions')">
+        <div class="action-icon orange"><i class="fa-solid fa-book-open"></i></div>
+        <div>
+          <div class="action-title">Browse All Questions</div>
+          <div class="action-desc">Unit-wise organized questions with detailed model answers</div>
+        </div>
+      </div>
+      <div class="action-card" onclick="startExam()">
+        <div class="action-icon green"><i class="fa-solid fa-pen-to-square"></i></div>
+        <div>
+          <div class="action-title">Practice Exam</div>
+          <div class="action-desc">4 random questions, 40 minutes — simulate the real exam</div>
+        </div>
+      </div>
+      <div class="action-card" onclick="showSection('bookmarks')">
+        <div class="action-icon blue"><i class="fa-solid fa-star"></i></div>
+        <div>
+          <div class="action-title">Starred Questions</div>
+          <div class="action-desc">Quick revision of your bookmarked important questions</div>
+        </div>
+      </div>
+      <div class="action-card" onclick="showHighPriority()">
+        <div class="action-icon purple"><i class="fa-solid fa-fire"></i></div>
+        <div>
+          <div class="action-title">High Priority Only</div>
+          <div class="action-desc">Most likely to appear — must revise before exam</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUESTIONS SECTION -->
+  <section class="section" id="sec-questions">
+    <div class="unit-tabs" id="unitTabs"></div>
+    <div class="search-box">
+      <i class="fa-solid fa-search"></i>
+      <input type="text" placeholder="Search questions..." id="searchInput" oninput="filterQuestions()">
+    </div>
+    <div id="questionsList"></div>
+  </section>
+
+  <!-- EXAM SECTION -->
+  <section class="section" id="sec-exam">
+    <div class="exam-container" id="examContainer"></div>
+  </section>
+
+  <!-- BOOKMARKS SECTION -->
+  <section class="section" id="sec-bookmarks">
+    <div id="bookmarksList"></div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast"><i class="fa-solid fa-check-circle"></i><span id="toastMsg"></span></div>
+
+<script>
+// ============================================================
+// COMPLETE QUESTION BANK — All Units with Model Answers
+// ============================================================
+const questionBank = [
+  // ==================== UNIT 1 ====================
+  {
+    id: 1, unit: 1, topic: "Algorithm Definition & Characteristics",
+    priority: "high",
+    question: "What is an algorithm? Explain its definition with an example and list the essential characteristics of a good algorithm.",
+    answer: `<p><strong>Definition:</strong> An algorithm is a finite sequence of well-defined instructions, each of which can be performed with a finite amount of effort in a finite length of time, to solve a specific problem or perform a computation. Regardless of input values, an algorithm must terminate after executing a finite number of instructions.</p>
+
+<p><strong>Real-life Example:</strong> Making tea — (1) Boil water, (2) Add tea leaves, (3) Add milk and sugar, (4) Strain and serve. Each step is clear, finite, and produces output (tea).</p>
+
+<p><strong>Characteristics of a Good Algorithm:</strong></p>
+<ol>
+<li><strong>Input:</strong> Zero or more quantities are externally supplied to the algorithm.</li>
+<li><strong>Output:</strong> At least one quantity is produced as output.</li>
+<li><strong>Definiteness:</strong> Each instruction must be clear and unambiguous. There should be no room for different interpretations.</li>
+<li><strong>Finiteness:</strong> The algorithm must terminate after a finite number of steps. It should not go into an infinite loop.</li>
+<li><strong>Effectiveness:</strong> Every instruction must be basic enough to be carried out, in principle, by a person using only pencil and paper.</li>
+</ol>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> <strong>Exam Tip:</strong> Always mention all 5 characteristics with a brief explanation for each. The example should be relatable and clearly show each characteristic.</div>`
+  },
+  {
+    id: 2, unit: 1, topic: "Control Structures",
+    priority: "high",
+    question: "Explain sequence, selection, and iteration control structures with suitable examples. How do they enhance program readability?",
+    answer: `<p><strong>Control structures</strong> determine the order in which statements in a program are executed. They form the backbone of structured programming.</p>
+
+<h4>1. Sequence Control Structure</h4>
+<p>Statements are executed one after another in the exact order they are written. No branching, no repetition — just straight-line execution.</p>
+<pre>int a = 10;
+int b = 20;
+int sum = a + b;   // Executes after a and b are assigned
+printf("Sum = %d", sum);</pre>
+
+<h4>2. Selection (Conditional) Control Structure</h4>
+<p>Allows decision-making using conditions. Different paths of execution are chosen based on condition results. Uses <code>if</code>, <code>if-else</code>, <code>switch</code>.</p>
+<pre>int day = 3;
+switch(day) {
+    case 1: printf("Monday"); break;
+    case 2: printf("Tuesday"); break;
+    case 3: printf("Wednesday"); break;
+    default: printf("Other day");
+}</pre>
+
+<h4>3. Iteration (Looping) Control Structure</h4>
+<p>A set of statements is executed repeatedly as long as a condition remains true. Uses <code>for</code>, <code>while</code>, <code>do-while</code>.</p>
+<pre>for(int i = 1; i <= 10; i++) {
+    printf("%d\\n", i);
+}</pre>
+
+<p><strong>How they enhance readability and maintainability:</strong></p>
+<ul>
+<li>They provide a clear, predictable flow of execution</li>
+<li>Eliminate the need for unstructured <code>goto</code> statements</li>
+<li>Make programs easier to debug, test, and modify</li>
+<li>Allow modular, top-down design approach</li>
+<li>Contribute to software reliability by reducing logical errors</li>
+</ul>`
+  },
+  {
+    id: 3, unit: 1, topic: "Structured Programming",
+    priority: "medium",
+    question: "What is structured programming? Explain its objectives and advantages over unstructured programming.",
+    answer: `<p><strong>Structured programming</strong> is a programming methodology that emphasizes clarity, modularity, and logical structure. In this approach, a large problem is divided into smaller, manageable modules or functions, each performing a specific task.</p>
+
+<p><strong>Objectives:</strong></p>
+<ul>
+<li>Improve program readability and understandability</li>
+<li>Reduce complexity through modular design (top-down approach)</li>
+<li>Make programs easier to test, debug, and maintain</li>
+<li>Eliminate uncontrolled jumps (goto statements)</li>
+<li>Ensure reliability and correctness of software</li>
+</ul>
+
+<p><strong>Advantages over Unstructured Programming:</strong></p>
+<table>
+<tr><th>Aspect</th><th>Unstructured</th><th>Structured</th></tr>
+<tr><td>Flow Control</td><td>Uses goto, unpredictable</td><td>Uses sequence, selection, iteration</td></tr>
+<tr><td>Readability</td><td>Difficult to follow</td><td>Clear and logical</td></tr>
+<tr><td>Debugging</td><td>Very difficult</td><td>Easier due to modularity</td></tr>
+<tr><td>Maintenance</td><td>Error-prone</td><td>Simpler modifications</td></tr>
+<tr><td>Reliability</td><td>Low</td><td>High</td></tr>
+<tr><td>Reuse</td><td>Not possible</td><td>Functions can be reused</td></tr>
+</table>`
+  },
+  {
+    id: 4, unit: 1, topic: "Time & Space Complexity",
+    priority: "high",
+    question: "Define time complexity and space complexity. Explain their components and distinguish between them with examples.",
+    answer: `<p><strong>Time Complexity:</strong> The time needed by an algorithm expressed as a function of the size of the input is called time complexity. Instead of measuring actual time in seconds, we count the number of basic operations performed.</p>
+
+<p><strong>Space Complexity:</strong> The amount of memory a program needs to run to completion is called space complexity.</p>
+
+<p><strong>Components of Space Complexity:</strong></p>
+<ol>
+<li><strong>Instruction Space:</strong> Space needed to store the compiled version of program instructions. Depends on the compiler used, compiler options, and target computer.</li>
+<li><strong>Data Space:</strong> Space needed to store all constants and variable values.
+  <ul>
+  <li>Space for constants and simple variables</li>
+  <li>Space for dynamically allocated objects (arrays, class instances)</li>
+  </ul>
+</li>
+<li><strong>Environment Stack Space:</strong> Used to save information needed to resume execution of partially completed functions (especially in recursion).</li>
+</ol>
+
+<p><strong>Difference:</strong></p>
+<table>
+<tr><th>Aspect</th><th>Time Complexity</th><th>Space Complexity</th></tr>
+<tr><td>Measures</td><td>Execution time as function of input size</td><td>Memory usage as function of input size</td></tr>
+<tr><td>Units</td><td>Number of basic operations</td><td>Bytes/words of memory</td></tr>
+<tr><td>Example</td><td>O(n) for linear search</td><td>O(1) for iterative, O(n) for recursive</td></tr>
+<tr><td>Focus</td><td>How fast the algorithm runs</td><td>How much memory it consumes</td></tr>
+</table>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> <strong>Trade-off:</strong> Sometimes we can reduce time complexity by increasing space complexity (e.g., using a hash table for O(1) lookup) and vice versa. An efficient algorithm balances both.</div>`
+  },
+  {
+    id: 5, unit: 1, topic: "Asymptotic Notations",
+    priority: "high",
+    question: "Explain Big-O, Big-Omega, and Big-Theta notations with suitable examples and reasoning.",
+    answer: `<p>Asymptotic notations are mathematical tools used to describe the behavior of algorithms as the input size becomes very large. They help compare algorithms based on growth rates rather than exact execution times.</p>
+
+<h4>1. Big-O Notation (Upper Bound / "Ceiling")</h4>
+<p>Represents the <strong>maximum</strong> time an algorithm could take. We usually design for worst case to guarantee performance.</p>
+<p><strong>Formal:</strong> f(n) = O(g(n)) if there exist positive constants c and n₀ such that f(n) ≤ c·g(n) for all n ≥ n₀</p>
+<p><strong>Example:</strong> For a simple loop running n times: <code>f(n) = 3n + 2 = O(n)</code> because 3n + 2 ≤ 5n for n ≥ 1</p>
+
+<h4>2. Big-Omega Notation (Lower Bound / "Floor")</h4>
+<p>Represents the <strong>minimum</strong> time required by the algorithm.</p>
+<p><strong>Formal:</strong> f(n) = Ω(g(n)) if there exist positive constants c and n₀ such that f(n) ≥ c·g(n) for all n ≥ n₀</p>
+<p><strong>Example:</strong> For the same loop: <code>f(n) = 3n + 2 = Ω(n)</code> because 3n + 2 ≥ 2n for n ≥ 1</p>
+
+<h4>3. Big-Theta Notation (Tight Bound)</h4>
+<p>When upper and lower bounds are the same, we have a tight bound. It means the algorithm's growth rate is exactly described.</p>
+<p><strong>Formal:</strong> f(n) = Θ(g(n)) if there exist positive constants c₁, c₂, and n₀ such that c₁·g(n) ≤ f(n) ≤ c₂·g(n) for all n ≥ n₀</p>
+<p><strong>Example:</strong> <code>f(n) = 3n + 2 = Θ(n)</code> because 2n ≤ 3n+2 ≤ 5n for n ≥ 1</p>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> <strong>Key Point:</strong> Big-O is the most commonly used because it gives the worst-case guarantee. If someone says "this algorithm is O(n²)", they mean it will never be worse than n².</div>`
+  },
+  {
+    id: 6, unit: 1, topic: "Order of Growth",
+    priority: "high",
+    question: "Explain the concept of order of growth. Arrange common complexities in increasing order and explain the significance of each.",
+    answer: `<p><strong>Order of growth</strong> describes how an algorithm's time or space complexity increases as the input size n grows. It doesn't tell exact milliseconds — it tells the <em>trend</em> of scalability.</p>
+
+<p><strong>Increasing Order of Growth:</strong></p>
+<table>
+<tr><th>Complexity</th><th>Name</th><th>Description</th><th>Example</th></tr>
+<tr><td><code>O(1)</code></td><td>Constant</td><td>Time stays same regardless of data size</td><td>Array index access</td></tr>
+<tr><td><code>O(log n)</code></td><td>Logarithmic</td><td>Time increases very slowly</td><td>Binary Search</td></tr>
+<tr><td><code>O(n)</code></td><td>Linear</td><td>Time grows in direct proportion to input</td><td>Linear Search</td></tr>
+<tr><td><code>O(n log n)</code></td><td>Linearithmic</td><td>Slightly worse than linear, still very efficient</td><td>Merge Sort, Quick Sort</td></tr>
+<tr><td><code>O(n²)</code></td><td>Quadratic</td><td>Time quadruples when data doubles</td><td>Bubble Sort, Nested loops</td></tr>
+<tr><td><code>O(2ⁿ)</code></td><td>Exponential</td><td>Doubles with every addition to input</td><td>Recursive Fibonacci</td></tr>
+</table>
+
+<p><strong>Why order of growth matters:</strong></p>
+<ul>
+<li>For small n, constant factors matter — but for large n, only the growth rate matters</li>
+<li>An O(n log n) algorithm will always outperform an O(n²) algorithm for sufficiently large input</li>
+<li>Helps in selecting the right algorithm for the problem scale</li>
+<li>Explains why binary search (O(log n)) is vastly superior to linear search (O(n)) for large datasets</li>
+</ul>
+
+<p><strong>Example — Nested Loops:</strong> Two nested loops each running n times gives O(n²) complexity. For n=100: 10,000 operations. For n=1000: 1,000,000 operations. This demonstrates how quadratic growth becomes expensive quickly.</p>`
+  },
+  {
+    id: 7, unit: 1, topic: "Algorithm Analysis",
+    priority: "medium",
+    question: "Explain best-case, average-case, and worst-case analysis of algorithms. Why is worst-case analysis most commonly used?",
+    answer: `<p><strong>Best-Case Analysis:</strong> The minimum time an algorithm takes for any input of size n. Represents the most favorable scenario.</p>
+<p><strong>Example:</strong> In linear search, best case occurs when the element is found at the first position → O(1)</p>
+
+<p><strong>Average-Case Analysis:</strong> The expected time over all possible inputs of size n, weighted by their probability. Requires knowledge of input distribution.</p>
+<p><strong>Example:</strong> In linear search with uniform distribution, average case = (n+1)/2 comparisons → O(n)</p>
+
+<p><strong>Worst-Case Analysis:</strong> The maximum time an algorithm takes for any input of size n. Provides a guarantee that the algorithm will never exceed this time.</p>
+<p><strong>Example:</strong> In linear search, worst case occurs when element is not present or at last position → O(n)</p>
+
+<p><strong>Why worst-case is most commonly used:</strong></p>
+<ul>
+<li>It provides a <strong>guarantee</strong> — the algorithm will never perform worse than this</li>
+<li>It is easier to compute than average case (no probability needed)</li>
+<li>For critical applications (medical, aerospace), we must know the worst behavior</li>
+<li>Best case is often misleading — it represents an unrealistic scenario</li>
+</ul>`
+  },
+  {
+    id: 8, unit: 1, topic: "Complexity Analysis",
+    priority: "medium",
+    question: "Design an algorithm to check whether a number is a palindrome and analyze its time complexity.",
+    answer: `<h4>Algorithm: Palindrome Number Check</h4>
+<pre>Algorithm PalindromeCheck(n)
+1.  original = n
+2.  reversed = 0
+3.  while n > 0 do
+4.      digit = n % 10
+5.      reversed = reversed * 10 + digit
+6.      n = n / 10
+7.  end while
+8.  if original == reversed then
+9.      return "Palindrome"
+10. else
+11.     return "Not Palindrome"
+12. end if</pre>
+
+<h4>Trace: n = 121</h4>
+<table>
+<tr><th>Iteration</th><th>n</th><th>digit</th><th>reversed</th></tr>
+<tr><td>1</td><td>121</td><td>1</td><td>1</td></tr>
+<tr><td>2</td><td>12</td><td>2</td><td>12</td></tr>
+<tr><td>3</td><td>1</td><td>1</td><td>121</td></tr>
+<tr><td>4</td><td>0</td><td>-</td><td>121</td></tr>
+</table>
+<p>original (121) == reversed (121) → Palindrome</p>
+
+<h4>Time Complexity Analysis:</h4>
+<p>The while loop runs once for each digit in the number. If n has d digits, the loop runs d times. Since d = log₁₀(n) + 1, the <strong>time complexity is O(log n)</strong>.</p>
+<p><strong>Space Complexity:</strong> O(1) — only a few variables are used, regardless of input size.</p>`
+  },
+
+  // ==================== UNIT 2 ====================
+  {
+    id: 9, unit: 2, topic: "Divide and Conquer",
+    priority: "high",
+    question: "Explain the divide and conquer strategy. What are the three major phases involved? Give examples of algorithms using this approach.",
+    answer: `<p><strong>Divide and Conquer</strong> is a powerful algorithm design technique that solves complex problems by breaking them into smaller, manageable subproblems of the same type, solving them recursively, and combining their solutions.</p>
+
+<h4>Three Major Phases:</h4>
+<ol>
+<li><strong>Divide:</strong> Split the main problem of size n into two or more smaller subproblems. For example, dividing an array into two halves.</li>
+<li><strong>Conquer:</strong> Solve each subproblem independently, usually by applying the same technique recursively. If the subproblem size is small enough, solve it directly (base case).</li>
+<li><strong>Combine:</strong> Merge the solutions of the subproblems to form the solution of the original problem.</li>
+</ol>
+
+<p><strong>Examples of D&C Algorithms:</strong></p>
+<table>
+<tr><th>Algorithm</th><th>Divide</th><th>Conquer</th><th>Combine</th></tr>
+<tr><td>Binary Search</td><td>Divide array in half</td><td>Search one half</td><td>No combine needed</td></tr>
+<tr><td>Merge Sort</td><td>Split into two halves</td><td>Sort each half</td><td>Merge sorted halves</td></tr>
+<tr><td>Quick Sort</td><td>Partition around pivot</td><td>Sort partitions</td><td>No combine needed</td></tr>
+<tr><td>Max-Min</td><td>Split array in half</td><td>Find max/min in halves</td><td>Compare results</td></tr>
+</table>
+
+<p><strong>Why D&C is effective:</strong> It reduces the problem size exponentially at each step, leading to efficient algorithms with O(n log n) or O(log n) complexity for many problems.</p>`
+  },
+  {
+    id: 10, unit: 2, topic: "Binary Search",
+    priority: "high",
+    question: "Explain the binary search algorithm with a step-by-step example. Why is sorted data required? Analyze its time complexity.",
+    answer: `<p><strong>Binary Search</strong> is a fast search algorithm with O(log n) complexity that works on the principle of divide and conquer. It repeatedly divides the search space in half.</p>
+
+<h4>Why Sorted Data is Required:</h4>
+<p>Binary search compares the middle element with the target and eliminates half of the remaining elements based on the comparison. This elimination logic only works if the array is sorted — otherwise, we cannot determine which half to discard.</p>
+
+<h4>Algorithm:</h4>
+<pre>Algorithm BinarySearch(A, low, high, key)
+1.  while low <= high do
+2.      mid = (low + high) / 2
+3.      if A[mid] == key then
+4.          return mid          // Found
+5.      else if A[mid] > key then
+6.          high = mid - 1      // Search left half
+7.      else
+8.          low = mid + 1       // Search right half
+9.  end while
+10. return -1                    // Not found</pre>
+
+<h4>Example: Find 10 in [2, 4, 6, 8, 10, 12, 14]</h4>
+<table>
+<tr><th>Step</th><th>Array</th><th>mid</th><th>A[mid]</th><th>Comparison</th><th>Action</th></tr>
+<tr><td>1</td><td>[2,4,6,<strong>8</strong>,10,12,14]</td><td>3</td><td>8</td><td>8 < 10</td><td>Search right half</td></tr>
+<tr><td>2</td><td>[<strong>10</strong>,12,14]</td><td>4</td><td>10</td><td>10 == 10</td><td>Found at index 4</td></tr>
+</table>
+<p>Only 2 comparisons instead of 7 (linear search) — efficiency of O(log n).</p>
+
+<h4>Complexity Analysis:</h4>
+<ul>
+<li><strong>Best Case:</strong> O(1) — element found at middle in first comparison</li>
+<li><strong>Worst Case:</strong> O(log n) — element not present or at extreme end</li>
+<li><strong>Average Case:</strong> O(log n)</li>
+<li><strong>Space:</strong> O(1) iterative, O(log n) recursive (stack space)</li>
+</ul>`
+  },
+  {
+    id: 11, unit: 2, topic: "Merge Sort",
+    priority: "high",
+    question: "Explain the merge sort algorithm with steps. Derive its recurrence relation and solve it using the master theorem.",
+    answer: `<p><strong>Merge Sort</strong> is a sorting algorithm based on the divide and conquer paradigm. It is known for stable performance of O(n log n) in all cases.</p>
+
+<h4>Steps:</h4>
+<ol>
+<li><strong>Divide:</strong> Divide the array into two halves recursively until each subarray has only one element.</li>
+<li><strong>Conquer:</strong> Each single-element subarray is inherently sorted.</li>
+<li><strong>Merge:</strong> Merge two sorted subarrays by comparing elements one by one and placing them in sorted order.</li>
+</ol>
+
+<h4>Example: [38, 27, 43, 3]</h4>
+<pre>Divide:    [38, 27, 43, 3]
+          /                \\
+    [38, 27]            [43, 3]
+    /     \\              /    \\
+  [38]   [27]         [43]   [3]
+
+Merge:    [27, 38]            [3, 43]
+                \\            /
+              [3, 27, 38, 43]</pre>
+
+<h4>Recurrence Relation:</h4>
+<p><code>T(n) = 2T(n/2) + n</code></p>
+<ul>
+<li><strong>2T(n/2):</strong> Two recursive calls, each on half the array</li>
+<li><strong>n:</strong> Time to merge two sorted halves (linear time)</li>
+</ul>
+
+<h4>Solving with Master Theorem:</h4>
+<p>Master Theorem: T(n) = aT(n/b) + f(n)</p>
+<p>Here: a = 2, b = 2, f(n) = n</p>
+<p>Compare n^(log_b a) = n^(log₂ 2) = n^1 = n with f(n) = n</p>
+<p>Since f(n) = n = Θ(n^log_b a), this is <strong>Case 2</strong> of the Master Theorem.</p>
+<p>Therefore: <strong>T(n) = Θ(n log n)</strong></p>
+
+<p><strong>Space Complexity:</strong> O(n) — extra space needed for the merge operation (temporary array).</p>
+<p><strong>Stability:</strong> Merge sort is stable — equal elements maintain their relative order.</p>`
+  },
+  {
+    id: 12, unit: 2, topic: "Quick Sort",
+    priority: "high",
+    question: "Explain quick sort algorithm and its partitioning method. Analyze best-case, average-case, and worst-case complexities.",
+    answer: `<p><strong>Quick Sort</strong> is a divide and conquer sorting algorithm that works by selecting a pivot element and partitioning the array around it.</p>
+
+<h4>Steps:</h4>
+<ol>
+<li><strong>Choose a Pivot:</strong> Select an element (first, last, random, or median).</li>
+<li><strong>Partition:</strong> Rearrange the array so that elements smaller than pivot are on the left, and larger elements are on the right.</li>
+<li><strong>Recursively Apply:</strong> Apply the same process to the left and right subarrays.</li>
+<li><strong>Base Case:</strong> Stop when subarray has only one element (already sorted).</li>
+</ol>
+
+<h4>Partition Example: [7, 2, 1, 6, 8, 5, 3, 4], pivot = 4 (last element)</h4>
+<pre>After partition: [2, 1, 3, 4, 8, 6, 5, 7]
+                       ↑ pivot in correct position
+Left subarray: [2, 1, 3]  |  Right subarray: [8, 6, 5, 7]</pre>
+
+<h4>Complexity Analysis:</h4>
+<table>
+<tr><th>Case</th><th>Condition</th><th>Complexity</th><th>Explanation</th></tr>
+<tr><td>Best Case</td><td>Pivot divides array exactly in half</td><td><strong>O(n log n)</strong></td><td>Balanced partitions at every level</td></tr>
+<tr><td>Average Case</td><td>Random input ordering</td><td><strong>O(n log n)</strong></td><td>Expected balanced partitions</td></tr>
+<tr><td>Worst Case</td><td>Already sorted and pivot is first/last</td><td><strong>O(n²)</strong></td><td>One partition has n-1 elements, other has 0</td></tr>
+</table>
+
+<p><strong>Recurrence (Worst Case):</strong> T(n) = T(n-1) + T(0) + n = T(n-1) + n → O(n²)</p>
+<p><strong>Recurrence (Best/Average Case):</strong> T(n) = 2T(n/2) + n → O(n log n)</p>
+
+<p><strong>Space Complexity:</strong> O(log n) average (recursive stack), O(n) worst case.</p>
+<p><strong>Advantage over Merge Sort:</strong> In-place sorting — no extra array needed.</p>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> <strong>Exam Tip:</strong> Quick sort is preferred in practice because of its in-place nature and cache efficiency, despite its worst-case O(n²). Using random pivot selection avoids worst case in practice.</div>`
+  },
+  {
+    id: 13, unit: 2, topic: "Recurrence Relations",
+    priority: "high",
+    question: "What is a recurrence relation? Solve T(n) = 2T(n/2) + n using the substitution method and master theorem.",
+    answer: `<p><strong>Recurrence Relation:</strong> A mathematical equation that expresses the time/space complexity of a recursive algorithm in terms of the complexity of smaller instances of the same problem.</p>
+<p>General form: <code>T(n) = aT(n/b) + f(n)</code></p>
+<ul>
+<li>a = number of subproblems</li>
+<li>n/b = size of each subproblem</li>
+<li>f(n) = cost of dividing and combining</li>
+</ul>
+
+<h4>Solving T(n) = 2T(n/2) + n by Substitution Method:</h4>
+<p><strong>Step 1:</strong> Expand the recurrence</p>
+<pre>T(n) = 2T(n/2) + n
+T(n/2) = 2T(n/4) + n/2
+T(n/4) = 2T(n/8) + n/4</pre>
+
+<p><strong>Step 2:</strong> Substitute back</p>
+<pre>T(n) = 2[2T(n/4) + n/2] + n
+      = 4T(n/4) + n + n
+      = 4T(n/4) + 2n
+
+T(n) = 4[2T(n/8) + n/4] + 2n
+      = 8T(n/8) + 3n</pre>
+
+<p><strong>Step 3:</strong> General pattern — at level i: <code>T(n) = 2^i · T(n/2^i) + i·n</code></p>
+
+<p><strong>Step 4:</strong> At last level, n/2^i = 1, so i = log₂ n</p>
+<pre>T(n) = 2^(log n) · T(1) + n · log n
+      = n · T(1) + n log n
+      = n + n log n
+      = O(n log n)</pre>
+
+<h4>Solving by Master Theorem:</h4>
+<p>a=2, b=2, f(n)=n, n^(log_b a) = n^1 = n</p>
+<p>Case 2: f(n) = Θ(n^log_b a) → T(n) = Θ(n log n)</p>
+
+<p><strong>Result: T(n) = O(n log n)</strong></p>`
+  },
+  {
+    id: 14, unit: 2, topic: "Max-Min using D&C",
+    priority: "medium",
+    question: "Design an algorithm to find the maximum and minimum elements in an array using divide and conquer approach. Analyze its complexity.",
+    answer: `<h4>Algorithm:</h4>
+<pre>Algorithm MaxMin(A, low, high)
+1.  if low == high then
+2.      max = min = A[low]
+3.      return (max, min)
+4.  else if high == low + 1 then
+5.      if A[low] > A[high] then
+6.          max = A[low]; min = A[high]
+7.      else
+8.          max = A[high]; min = A[low]
+9.      return (max, min)
+10. else
+11.     mid = (low + high) / 2
+12.     (max1, min1) = MaxMin(A, low, mid)
+13.     (max2, min2) = MaxMin(A, mid+1, high)
+14.     max = max(max1, max2)
+15.     min = min(min1, min2)
+16.     return (max, min)</pre>
+
+<h4>Complexity Analysis:</h4>
+<p><strong>Recurrence:</strong> T(n) = 2T(n/2) + 2 (2 comparisons for combining)</p>
+<p><strong>By Master Theorem:</strong> a=2, b=2, f(n)=2=O(1)</p>
+<p>n^(log_b a) = n, f(n) = O(n^(1-ε)) → Case 1 → T(n) = Θ(n)</p>
+
+<p><strong>Number of comparisons:</strong> For n elements, the D&C approach makes approximately <strong>(3n/2) - 2</strong> comparisons, compared to <strong>2(n-1)</strong> in the simple iterative approach. This is a significant improvement.</p>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> The improvement comes from dividing the array and comparing elements in pairs at the base case, reducing unnecessary comparisons.</div>`
+  },
+  {
+    id: 15, unit: 2, topic: "Merge Sort vs Quick Sort",
+    priority: "medium",
+    question: "Compare merge sort and quick sort in terms of time complexity, space complexity, stability, and practical efficiency.",
+    answer: `<table>
+<tr><th>Aspect</th><th>Merge Sort</th><th>Quick Sort</th></tr>
+<tr><td>Approach</td><td>Divide, sort, merge</td><td>Partition around pivot</td></tr>
+<tr><td>Best Case</td><td>O(n log n)</td><td>O(n log n)</td></tr>
+<tr><td>Average Case</td><td>O(n log n)</td><td>O(n log n)</td></tr>
+<tr><td>Worst Case</td><td>O(n log n)</td><td>O(n²)</td></tr>
+<tr><td>Space</td><td>O(n) — needs temp array</td><td>O(log n) — in-place</td></tr>
+<tr><td>Stable</td><td>Yes</td><td>No (can be made stable)</td></tr>
+<tr><td>Adaptive</td><td>No</td><td>No</td></tr>
+<tr><td>Cache Performance</td><td>Poor (sequential access pattern)</td><td>Excellent (local references)</td></tr>
+<tr><td>Preferred When</td><td>Stability needed, linked lists</td><td>Arrays, in-memory sorting</td></tr>
+</table>
+
+<p><strong>Key Points:</strong></p>
+<ul>
+<li>Merge sort guarantees O(n log n) in all cases but uses extra space</li>
+<li>Quick sort is faster in practice due to cache efficiency and in-place nature</li>
+<li>Quick sort's worst case can be avoided by choosing pivot randomly or using median-of-three</li>
+<li>Merge sort is the go-to for sorting linked lists and external sorting (large files)</li>
+<li>Quick sort is the default sorting algorithm in most standard libraries</li>
+</ul>`
+  },
+
+  // ==================== UNIT 3 ====================
+  {
+    id: 16, unit: 3, topic: "Greedy Method",
+    priority: "high",
+    question: "Explain the greedy approach to algorithm design. What are greedy choice property and optimal substructure? When does greedy fail?",
+    answer: `<p><strong>Greedy Method:</strong> An algorithmic strategy that builds a solution step by step by making the <strong>locally optimal choice</strong> at each stage, hoping these local choices lead to a <strong>globally optimal solution</strong>. Once a choice is made, it is never reconsidered.</p>
+
+<h4>Five Components of Greedy Algorithm:</h4>
+<ol>
+<li><strong>Candidate Set:</strong> Set from which a solution is created</li>
+<li><strong>Selection Function:</strong> Chooses the best candidate to add to the solution</li>
+<li><strong>Feasibility Function:</strong> Determines if a candidate can contribute to the solution</li>
+<li><strong>Objective Function:</strong> Assigns a value to a solution (what we're optimizing)</li>
+<li><strong>Solution Function:</strong> Indicates whether a complete solution has been reached</li>
+</ol>
+
+<h4>Two Essential Properties:</h4>
+<p><strong>1. Greedy Choice Property:</strong> A globally optimal solution can be arrived at by making a locally optimal (greedy) choice. After making the choice, we are left with one subproblem to solve.</p>
+<p><strong>2. Optimal Substructure:</strong> An optimal solution to the problem contains optimal solutions to its subproblems.</p>
+
+<h4>When Greedy Fails:</h4>
+<p>Classic example: <strong>0/1 Knapsack Problem</strong></p>
+<p>Items: {(value=60, weight=10), (value=100, weight=20), (value=120, weight=30)}, Capacity=50</p>
+<ul>
+<li>Greedy by value/weight ratio picks item 3 (4.0), then item 2 (5.0), then item 1 (6.0) — total weight 60 > 50, so drops item 1 → value = 220</li>
+<li>Optimal: items 2 + 3 → weight 50, value = 220 (same here, but for different inputs greedy fails)</li>
+<li>Better counterexample: items {(v=60,w=10), (v=100,w=20), (v=120,w=30)}, W=50. Greedy by v/w: picks 3(w=30), 2(w=20), can't fit 1 → total v=220. But picking 1+2+3 won't fit. Actually optimal = 2+3 = 220. For a real failure: items {(v=10,w=5),(v=8,w=4),(v=6,w=3)}, W=7. Greedy by v/w: item1(2.0,w=5), can't fit others → v=10. Optimal: item2+item3 = v=14, w=7.</li>
+</ul>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> <strong>Remember:</strong> Greedy works for Fractional Knapsack but fails for 0/1 Knapsack. This is why DP is needed for 0/1 Knapsack.</div>`
+  },
+  {
+    id: 17, unit: 3, topic: "Fractional Knapsack",
+    priority: "high",
+    question: "Design a greedy algorithm for the fractional knapsack problem. Solve with an example and analyze its complexity.",
+    answer: `<h4>Problem:</h4>
+<p>Given items with values and weights, and a knapsack of capacity W, select items (or fractions of items) to maximize total value without exceeding capacity.</p>
+
+<h4>Algorithm:</h4>
+<pre>Algorithm FractionalKnapsack(W, val[], wt[], n)
+1.  Calculate value-to-weight ratio for each item: r[i] = val[i] / wt[i]
+2.  Sort all items in decreasing order of r[i]
+3.  remaining = W
+4.  totalValue = 0
+5.  for i = 1 to n do
+6.      if wt[i] <= remaining then
+7.          take full item i
+8.          totalValue = totalValue + val[i]
+9.          remaining = remaining - wt[i]
+10.     else
+11.         take fraction: remaining/wt[i] of item i
+12.         totalValue = totalValue + val[i] * remaining/wt[i]
+13.         break
+14.     end if
+15. end for
+16. return totalValue</pre>
+
+<h4>Example:</h4>
+<table>
+<tr><th>Item</th><th>Value</th><th>Weight</th><th>Ratio (v/w)</th></tr>
+<tr><td>1</td><td>60</td><td>10</td><td>6.0</td></tr>
+<tr><td>2</td><td>100</td><td>20</td><td>5.0</td></tr>
+<tr><td>3</td><td>120</td><td>30</td><td>4.0</td></tr>
+</table>
+<p>Capacity W = 50</p>
+
+<p><strong>Step 1:</strong> Sorted by ratio: Item 1 (6.0), Item 2 (5.0), Item 3 (4.0)</p>
+<p><strong>Step 2:</strong> Pick Item 1 fully → value=60, remaining=40</p>
+<p><strong>Step 3:</strong> Pick Item 2 fully → value=160, remaining=20</p>
+<p><strong>Step 4:</strong> Pick 20/30 = 2/3 of Item 3 → value=160+120×(2/3)=160+80=240, remaining=0</p>
+<p><strong>Maximum Value = 240</strong></p>
+
+<p><strong>Time Complexity:</strong> O(n log n) due to sorting step. The selection loop is O(n).</p>
+<p><strong>Space Complexity:</strong> O(1) extra space (excluding input storage).</p>`
+  },
+  {
+    id: 18, unit: 3, topic: "Job Sequencing",
+    priority: "high",
+    question: "Explain the job sequencing problem with deadlines. Solve with an example using the greedy approach and evaluate efficiency.",
+    answer: `<h4>Problem:</h4>
+<p>Given n jobs, each with a deadline and profit, schedule jobs on a single processor (one unit time per job) to maximize total profit while ensuring no job exceeds its deadline.</p>
+
+<h4>Greedy Algorithm:</h4>
+<pre>Algorithm JobSequencing(jobs[], n)
+1.  Sort jobs in decreasing order of profit
+2.  Find maximum deadline dmax from all jobs
+3.  Create slot[1..dmax] and mark all as empty
+4.  for i = 1 to n do
+5.      for j = jobs[i].deadline downto 1 do
+6.          if slot[j] is empty then
+7.              slot[j] = jobs[i]
+8.              break
+9.          end if
+10.     end for
+11. end for
+12. Return filled slots</pre>
+
+<h4>Example:</h4>
+<table>
+<tr><th>Job</th><th>J1</th><th>J2</th><th>J3</th><th>J4</th><th>J5</th></tr>
+<tr><td>Deadline</td><td>2</td><td>2</td><td>1</td><td>3</td><td>4</td></tr>
+<tr><td>Profit</td><td>20</td><td>60</td><td>40</td><td>100</td><td>80</td></tr>
+</table>
+
+<p><strong>Step 1:</strong> Sort by profit: J4(100), J5(80), J2(60), J3(40), J1(20)</p>
+<p><strong>Step 2:</strong> dmax = 4, create slots [_, _, _, _]</p>
+<p><strong>Step 3:</strong></p>
+<ul>
+<li>J4 (d=3): Place in slot 3 → [_, _, J4, _]</li>
+<li>J5 (d=4): Place in slot 4 → [_, _, J4, J5]</li>
+<li>J2 (d=2): Place in slot 2 → [_, J2, J4, J5]</li>
+<li>J3 (d=1): Place in slot 1 → [J3, J2, J4, J5]</li>
+<li>J1 (d=2): Slots 1,2 full → Discard</li>
+</ul>
+
+<p><strong>Optimal Sequence:</strong> J3 → J2 → J4 → J5</p>
+<p><strong>Maximum Profit:</strong> 40 + 60 + 100 + 80 = <strong>280</strong></p>
+
+<p><strong>Time Complexity:</strong> O(n²) in worst case (nested loops). Can be improved to O(n log n) using disjoint set data structure.</p>`
+  },
+  {
+    id: 19, unit: 3, topic: "Kruskal's Algorithm",
+    priority: "high",
+    question: "Explain Kruskal's algorithm for constructing a Minimum Spanning Tree. Analyze its time complexity.",
+    answer: `<h4>Minimum Spanning Tree (MST):</h4>
+<p>A spanning tree of a connected, undirected graph is a subgraph that includes all vertices with minimum possible edges and no cycles. An MST is the spanning tree with the minimum total edge weight.</p>
+
+<h4>Kruskal's Algorithm:</h4>
+<pre>Algorithm Kruskal(G, V, E)
+1.  Sort all edges in non-decreasing order of weight
+2.  Initialize MST = empty set
+3.  Initialize Disjoint Set (Union-Find) for all vertices
+4.  for each edge (u, v) in sorted order do
+5.      if Find(u) != Find(v) then    // u and v in different components
+6.          Add edge (u, v) to MST
+7.          Union(u, v)                // Merge components
+8.      end if
+9.      if MST has V-1 edges then break
+10. end for
+11. return MST</pre>
+
+<h4>Key Concept — Union-Find:</h4>
+<p>Used to check if adding an edge creates a cycle. Two vertices are in the same component if Find(u) == Find(v). Union merges two components.</p>
+
+<h4>Example: Graph with 4 vertices, edges: (A,B,10), (A,C,6), (A,D,5), (B,D,15), (C,D,4)</h4>
+<ol>
+<li>Sort edges: (C,D,4), (A,D,5), (A,C,6), (A,B,10), (B,D,15)</li>
+<li>Add (C,D,4) — no cycle ✓</li>
+<li>Add (A,D,5) — no cycle ✓</li>
+<li>Add (A,C,6) — A and C in same component → skip (would create cycle)</li>
+<li>Add (A,B,10) — no cycle ✓ → MST complete with 3 edges</li>
+</ol>
+<p><strong>MST edges:</strong> (C,D,4), (A,D,5), (A,B,10) → <strong>Total weight = 19</strong></p>
+
+<p><strong>Time Complexity:</strong> O(E log E) for sorting + O(E α(V)) for Union-Find operations ≈ <strong>O(E log E)</strong> or <strong>O(E log V)</strong> since E ≤ V².</p>`
+  },
+  {
+    id: 20, unit: 3, topic: "Prim's Algorithm",
+    priority: "high",
+    question: "Explain Prim's algorithm for minimum spanning tree generation. How does it differ from Kruskal's algorithm?",
+    answer: `<h4>Prim's Algorithm:</h4>
+<pre>Algorithm Prim(G, V, E, start)
+1.  Initialize key[] = ∞ for all vertices, key[start] = 0
+2.  Initialize parent[] = -1 for all vertices
+3.  Initialize inMST[] = false for all vertices
+4.  for i = 1 to V-1 do
+5.      u = vertex with minimum key[] not in MST
+6.      inMST[u] = true
+7.      for each adjacent vertex v of u do
+8.          if inMST[v] == false AND weight(u,v) < key[v] then
+9.              key[v] = weight(u,v)
+10.             parent[v] = u
+11.         end if
+12.     end for
+13. end for
+14. return edges from parent[] array</pre>
+
+<h4>How it works:</h4>
+<ul>
+<li>Start from an arbitrary vertex</li>
+<li>Grow the MST one edge at a time by always adding the cheapest edge connecting the tree to a non-tree vertex</li>
+<li>Uses a priority queue (min-heap) to efficiently find the minimum key vertex</li>
+</ul>
+
+<h4>Kruskal vs Prim:</h4>
+<table>
+<tr><th>Aspect</th><th>Kruskal</th><th>Prim</th></tr>
+<tr><td>Approach</td><td>Edge-based (sort all edges)</td><td>Vertex-based (grow from a start)</td></tr>
+<tr><td>Data Structure</td><td>Union-Find</td><td>Priority Queue (Min-Heap)</td></tr>
+<tr><td>Time Complexity</td><td>O(E log E)</td><td>O(E log V) with binary heap</td></tr>
+<tr><td>Better For</td><td>Sparse graphs</td><td>Dense graphs</td></tr>
+<tr><td>Start Point</td><td>Any edge</td><td>Specific vertex</td></tr>
+<tr><td>Intermediate Result</td><td>May be a forest (multiple trees)</td><td>Always a single connected tree</td></tr>
+</table>`
+  },
+  {
+    id: 21, unit: 3, topic: "Dijkstra's Algorithm",
+    priority: "high",
+    question: "Explain Dijkstra's algorithm for single source shortest path. Analyze its working steps and time complexity.",
+    answer: `<h4>Problem:</h4>
+<p>Find the shortest distance from a given source vertex to all other vertices in a weighted graph with non-negative edge weights.</p>
+
+<h4>Algorithm:</h4>
+<pre>Algorithm Dijkstra(G, V, source)
+1.  Initialize dist[] = ∞ for all vertices, dist[source] = 0
+2.  Initialize visited[] = false for all vertices
+3.  for i = 1 to V-1 do
+4.      u = vertex with minimum dist[] not yet visited
+5.      visited[u] = true
+6.      for each adjacent vertex v of u do
+7.          if visited[v] == false AND dist[u] + weight(u,v) < dist[v] then
+8.              dist[v] = dist[u] + weight(u,v)
+9.          end if
+10.     end for
+11. end for
+12. return dist[]</pre>
+
+<h4>Example: Graph with vertices A, B, C, D, E</h4>
+<p>Edges: A→B(4), A→C(2), B→D(3), B→E(1), C→B(1), C→D(5), D→E(2), Source = A</p>
+
+<table>
+<tr><th>Step</th><th>Selected</th><th>dist[A]</th><th>dist[B]</th><th>dist[C]</th><th>dist[D]</th><th>dist[E]</th></tr>
+<tr><td>Init</td><td>-</td><td>0</td><td>∞</td><td>∞</td><td>∞</td><td>∞</td></tr>
+<tr><td>1</td><td>A(0)</td><td>0</td><td>4</td><td>2</td><td>∞</td><td>∞</td></tr>
+<tr><td>2</td><td>C(2)</td><td>0</td><td>3</td><td>2</td><td>7</td><td>∞</td></tr>
+<tr><td>3</td><td>B(3)</td><td>0</td><td>3</td><td>2</td><td>6</td><td>4</td></tr>
+<tr><td>4</td><td>E(4)</td><td>0</td><td>3</td><td>2</td><td>6</td><td>4</td></tr>
+<tr><td>5</td><td>D(6)</td><td>0</td><td>3</td><td>2</td><td>6</td><td>4</td></tr>
+</table>
+
+<p><strong>Shortest paths from A:</strong> A=0, B=3, C=2, D=6, E=4</p>
+
+<p><strong>Time Complexity:</strong></p>
+<ul>
+<li>With simple array: O(V²)</li>
+<li>With binary min-heap: O((V + E) log V)</li>
+<li>With Fibonacci heap: O(V log V + E)</li>
+</ul>
+
+<p><strong>Limitation:</strong> Does NOT work with negative edge weights (use Bellman-Ford instead).</p>`
+  },
+
+  // ==================== UNIT 4 ====================
+  {
+    id: 22, unit: 4, topic: "Dynamic Programming",
+    priority: "high",
+    question: "Explain dynamic programming. How does it differ from the greedy approach? Explain optimal substructure and overlapping subproblems.",
+    answer: `<p><strong>Dynamic Programming (DP)</strong> is an algorithmic technique that solves complex optimization problems by breaking them into smaller subproblems, solving each subproblem only once, and storing their solutions to avoid recomputation.</p>
+
+<h4>Two Key Properties:</h4>
+<ol>
+<li><strong>Optimal Substructure:</strong> The optimal solution to the main problem can be constructed from optimal solutions of its subproblems.</li>
+<li><strong>Overlapping Subproblems:</strong> The same subproblems are solved multiple times in a naive recursive approach. DP stores these results (memoization or tabulation).</li>
+</ol>
+
+<h4>Two Implementation Approaches:</h4>
+<ul>
+<li><strong>Top-Down (Memoization):</strong> Recursive with a lookup table to store computed results</li>
+<li><strong>Bottom-Up (Tabulation):</strong> Fill a table iteratively from smallest subproblems upward</li>
+</ul>
+
+<h4>DP vs Greedy:</h4>
+<table>
+<tr><th>Aspect</th><th>Dynamic Programming</th><th>Greedy</th></tr>
+<tr><td>Decision Making</td><td>Considers all subproblems before deciding</td><td>Makes immediate local optimal choice</td></tr>
+<tr><td>Reconsideration</td><td>Can reconsider through table lookups</td><td>Never reconsiders past choices</td></tr>
+<tr><td>Guarantee</td><td>Always finds optimal solution</td><td>May not find optimal solution</td></tr>
+<tr><td>Time</td><td>Usually higher (but polynomial)</td><td>Usually lower</td></tr>
+<tr><td>Space</td><td>Needs table/memory for subproblems</td><td>Usually less space</td></tr>
+<tr><td>Example</td><td>0/1 Knapsack → Optimal</td><td>0/1 Knapsack → May fail</td></tr>
+<tr><td>Example</td><td>Fractional Knapsack → Works</td><td>Fractional Knapsack → Works</td></tr>
+</table>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> <strong>Key Rule:</strong> If a problem has optimal substructure but NO overlapping subproblems → use Divide & Conquer. If it has both → use DP. If it has greedy choice property + optimal substructure → Greedy may work.</div>`
+  },
+  {
+    id: 23, unit: 4, topic: "0/1 Knapsack (DP)",
+    priority: "high",
+    question: "Design a dynamic programming solution for the 0/1 knapsack problem. Solve with an example showing the DP table construction.",
+    answer: `<h4>Problem:</h4>
+<p>Given n items with weights wt[] and values val[], and a knapsack of capacity W, select items (either fully include or exclude — no fractions) to maximize total value without exceeding W.</p>
+
+<h4>DP Approach:</h4>
+<pre>Algorithm Knapsack01(W, wt[], val[], n)
+1.  Create table dp[0..n][0..W]
+2.  for i = 0 to n do
+3.      for w = 0 to W do
+4.          if i == 0 OR w == 0 then
+5.              dp[i][w] = 0
+6.          else if wt[i-1] <= w then
+7.              dp[i][w] = max(val[i-1] + dp[i-1][w-wt[i-1]], dp[i-1][w])
+8.          else
+9.              dp[i][w] = dp[i-1][w]
+10.         end if
+11.     end for
+12. end for
+13. return dp[n][W]</pre>
+
+<h4>Example:</h4>
+<p>Items: {(v=60,w=10), (v=100,w=20), (v=120,w=30)}, W=50</p>
+
+<table>
+<tr><th></th><th>w=0</th><th>w=10</th><th>w=20</th><th>w=30</th><th>w=40</th><th>w=50</th></tr>
+<tr><td>i=0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>i=1 (v=60,w=10)</td><td>0</td><td>60</td><td>60</td><td>60</td><td>60</td><td>60</td></tr>
+<tr><td>i=2 (v=100,w=20)</td><td>0</td><td>60</td><td>100</td><td>160</td><td>160</td><td>160</td></tr>
+<tr><td>i=3 (v=120,w=30)</td><td>0</td><td>60</td><td>100</td><td>160</td><td>180</td><td><strong>220</strong></td></tr>
+</table>
+
+<p><strong>Maximum Value = 220</strong> (Items 2 and 3: w=20+30=50, v=100+120=220)</p>
+
+<p><strong>Time Complexity:</strong> O(n × W)</p>
+<p><strong>Space Complexity:</strong> O(n × W) — can be optimized to O(W) using 1D array</p>`
+  },
+  {
+    id: 24, unit: 4, topic: "Floyd-Warshall",
+    priority: "high",
+    question: "Explain the Floyd-Warshall algorithm for all-pairs shortest path. Design the algorithm and analyze its complexity.",
+    answer: `<h4>Problem:</h4>
+<p>Find the shortest paths between every pair of vertices in a weighted graph. Works with positive and negative weights (no negative cycles).</p>
+
+<h4>Core Idea:</h4>
+<p>Can I travel from node i to node j faster if I take a detour through an intermediate node k?</p>
+<p><strong>Transition Formula:</strong> <code>dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])</code></p>
+
+<h4>Algorithm:</h4>
+<pre>Algorithm FloydWarshall(dist[][], n)
+1.  for k = 1 to n do
+2.      for i = 1 to n do
+3.          for j = 1 to n do
+4.              if dist[i][k] + dist[k][j] < dist[i][j] then
+5.                  dist[i][j] = dist[i][k] + dist[k][j]
+6.              end if
+7.          end for
+8.      end for
+9.  end for
+10. return dist[][]</pre>
+
+<h4>Example: 4 vertices with adjacency matrix:</h4>
+<pre>Initial:         After k=1:       After k=2:       After k=3:       After k=4:
+  0  3  ∞  ∞       0  3  ∞  ∞       0  3  7  ∞       0  3  7  10      0  3  7  10
+  ∞  0  4  ∞  →   ∞  0  4  ∞  →   ∞  0  4  9  →   ∞  0  4  9   →   ∞  0  4  9
+  ∞  ∞  0  5       ∞  ∞  0  5       ∞  ∞  0  5       ∞  ∞  0  5   →   ∞  ∞  0  5
+  2  ∞  ∞  0       2  5  ∞  0       2  5  ∞  0       2  5  ∞  0       2  5  9  0</pre>
+
+<p><strong>Time Complexity:</strong> O(n³) — three nested loops</p>
+<p><strong>Space Complexity:</strong> O(n²) — for the distance matrix</p>
+
+<div class="note-box"><i class="fa-solid fa-lightbulb"></i> <strong>Compare:</strong> Dijkstra runs V times for all-pairs → O(V × E log V). Floyd-Warshall is O(V³) which is better for dense graphs where E ≈ V².</div>`
+  },
+  {
+    id: 25, unit: 4, topic: "Travelling Salesman Problem",
+    priority: "high",
+    question: "Solve the Travelling Salesman Problem using dynamic programming. Explain the approach with an example.",
+    answer: `<h4>Problem:</h4>
+<p>A salesman must visit each city exactly once and return to the starting city with minimum total travel cost.</p>
+
+<h4>DP Approach:</h4>
+<p>State: <code>dp[mask][i]</code> = minimum cost to reach city i, having visited all cities in the bitmask 'mask'.</p>
+
+<pre>Algorithm TSP(dist[][], n)
+1.  Initialize dp[1][0] = 0    // Start at city 0, visited = {0}
+2.  Initialize all other dp values = ∞
+3.  for mask = 1 to (2^n - 1) do
+4.      for i = 0 to n-1 do
+5.          if mask & (1 << i) then     // City i is in mask
+6.              for j = 0 to n-1 do
+7.                  if !(mask & (1 << j)) then  // City j not yet visited
+8.                      newMask = mask | (1 << j)
+9.                      dp[newMask][j] = min(dp[newMask][j], dp[mask][i] + dist[i][j])
+10.                 end if
+11.             end for
+12.         end if
+13.     end for
+14. end for
+15. // Return to start from any city with all visited
+16. ans = ∞
+17. for i = 0 to n-1 do
+18.     ans = min(ans, dp[(2^n)-1][i] + dist[i][0])
+19. end for
+20. return ans</pre>
+
+<h4>Example: 4 cities (Mumbai, Delhi, Bengaluru, Chennai)</h4>
+<table>
+<tr><th></th><th>Mumbai</th><th>Delhi</th><th>Bengaluru</th><th>Chennai</th></tr>
+<tr><td>Mumbai</td><td>0</td><td>10</td><td>15</td><td>20</td></tr>
+<tr><td>Delhi</td><td>10</td><td>0</td><td>35</td><td>25</td></tr>
+<tr><td>Bengaluru</td><td>15</td><td>35</td><td>0</td><td>30</td></tr>
+<tr><td>Chennai</td><td>20</td><td>25</td><td>30</td><td>0</td></tr>
+</table>
+<p>Optimal route: Mumbai → Delhi → Chennai → Bengaluru → Mumbai = 10 + 25 + 30 + 15 = <strong>80</strong></p>
+
+<p><strong>Time Complexity:</strong> O(n² × 2ⁿ) — exponential, practical only for small n (n ≤ 20)</p>
+<p><strong>Space Complexity:</strong> O(n × 2ⁿ)</p>`
+  },
+  {
+    id: 26, unit: 4, topic: "8-Queens Problem",
+    priority: "high",
+    question: "Explain the 8-Queens problem and solve it using the backtracking approach. Trace the solution process.",
+    answer: `<h4>Problem:</h4>
+<p>Place 8 queens on an 8×8 chessboard so that no two queens attack each other. Queens attack in the same row, column, or diagonal. There are 92 distinct solutions.</p>
+
+<h4>Backtracking Approach:</h4>
+<pre>Algorithm NQueens(board, row, n)
+1.  if row == n then
+2.      print board    // Solution found
+3.      return
+4.  end if
+5.  for col = 1 to n do
+6.      if isSafe(board, row, col, n) then
+7.          board[row][col] = 1     // Place queen
+8.          NQueens(board, row+1, n)  // Recurse to next row
+9.          board[row][col] = 0     // Backtrack — remove queen
+10.     end if
+11. end for
+
+Function isSafe(board, row, col, n)
+1.  // Check column
+2.  for i = 0 to row-1 do
+3.      if board[i][col] == 1 then return false
+4.  // Check upper-left diagonal
+5.  for i=row-1, j=col-1; i>=0 AND j>=0; i--, j-- do
+6.      if board[i][j] == 1 then return false
+7.  // Check upper-right diagonal
+8.  for i=row-1, j=col+1; i>=0 AND j<n; i--, j++ do
+9.      if board[i][j] == 1 then return false
+10. return true</pre>
+
+<h4>How it works:</h4>
+<ol>
+<li>Place a queen in the first row, try each column</li>
+<li>Move to the next row, try placing a queen in a safe column</li>
+<li>If no safe column exists in a row, <strong>backtrack</strong> to the previous row and try the next column</li>
+<li>Continue until all 8 queens are placed or all possibilities exhausted</li>
+</ol>
+
+<p><strong>Time Complexity:</strong> O(n!) in the worst case — the algorithm explores many dead ends before finding solutions.</p>
+<p><strong>Space Complexity:</strong> O(n²) for the board + O(n) for recursion stack.</p>`
+  },
+  {
+    id: 27, unit: 4, topic: "Sum of Subsets",
+    priority: "medium",
+    question: "Explain the sum of subsets problem using the backtracking method. Solve with an example.",
+    answer: `<h4>Problem:</h4>
+<p>Given a set of n positive integers and a target sum M, find all subsets whose elements sum to exactly M.</p>
+
+<h4>Backtracking Algorithm:</h4>
+<pre>Algorithm SumOfSubsets(s, k, r)
+// s = current sum, k = current index, r = remaining sum
+1.  x[k] = 1    // Include element k
+2.  if s + w[k] == M then
+3.      print x[1..k]    // Solution found
+4.  else if s + w[k] + w[k+1] <= M then
+5.      SumOfSubsets(s + w[k], k+1, r - w[k])
+6.  end if
+7.  x[k] = 0    // Exclude element k (backtrack)
+8.  if s + r - w[k] >= M AND s + w[k+1] <= M then
+9.      SumOfSubsets(s, k+1, r - w[k])
+10. end if</pre>
+
+<h4>Example: A = {1, 3, 4, 5}, M = 8</h4>
+<p>State Space Tree (B = include, R = reject/backtrack):</p>
+<pre>                    {}
+                   / \\
+              {1}     {}
+             / \\      |
+        {1,3}  {1}   {3}
+         / \\    |     / \\
+    {1,3,4} {1,3} {1,5} {3,4} {3}
+      |      |     |      |
+    SUM=8  reject SUM=6  SUM=8
+    ✓ soln                 ✓ soln</pre>
+
+<p><strong>Solutions found:</strong> {1, 3, 4} = 8 and {3, 5} = 8</p>
+
+<p><strong>Pruning conditions used:</strong></p>
+<ul>
+<li>If s + w[k] > M → don't include (sum exceeds target)</li>
+<li>If s + r < M → don't continue (remaining elements can't reach target)</li>
+</ul>
+
+<p><strong>Time Complexity:</strong> O(2ⁿ) in worst case — explores all possible subsets.</p>`
+  },
+  {
+    id: 28, unit: 4, topic: "Graph Coloring",
+    priority: "medium",
+    question: "Explain the graph coloring problem using the backtracking approach. What are its applications?",
+    answer: `<h4>Problem:</h4>
+<p>Assign colors to the vertices of a graph such that no two adjacent vertices share the same color, using the minimum number of colors (chromatic number).</p>
+
+<h4>Backtracking Algorithm:</h4>
+<pre>Algorithm GraphColoring(graph, m, color[], v)
+// m = number of colors, v = current vertex
+1.  if v == V then
+2.      print color[]    // All vertices colored
+3.      return true
+4.  end if
+5.  for c = 1 to m do
+6.      if isSafe(graph, v, color, c) then
+7.          color[v] = c
+8.          if GraphColoring(graph, m, color, v+1) then
+9.              return true
+10.         end if
+11.         color[v] = 0   // Backtrack
+12.     end if
+13. end for
+14. return false
+
+Function isSafe(graph, v, color, c)
+1.  for i = 0 to V-1 do
+2.      if graph[v][i] == 1 AND color[i] == c then
+3.          return false
+4.  return true</pre>
+
+<h4>Example: Graph with 4 vertices, edges: 0-1, 0-2, 1-2, 1-3, 2-3</h4>
+<p>Try with m=2 (2 colors):</p>
+<ul>
+<li>Color 0 → Red, Color 1 → Blue (adjacent to 0)</li>
+<li>Color 2 → adjacent to both 0(Red) and 1(Blue) → no color available → backtrack</li>
+<li>m=2 fails, try m=3</li>
+<li>Color 0 → Red, Color 1 → Blue, Color 2 → Green, Color 3 → Red (adjacent to 1-Blue, 2-Green) ✓</li>
+</ul>
+<p><strong>Chromatic number = 3</strong></p>
+
+<h4>Applications:</h4>
+<ul>
+<li><strong>Exam Scheduling:</strong> Assign time slots so no student has overlapping exams</li>
+<li><strong>Frequency Assignment:</strong> Assign radio frequencies so adjacent stations don't interfere</li>
+<li><strong>Map Coloring:</strong> Color regions so adjacent regions have different colors (Four Color Theorem)</li>
+<li><strong>Register Allocation:</strong> In compilers, assign variables to CPU registers</li>
+<li><strong>Sudoku Solving:</strong> Can be modeled as a graph coloring problem</li>
+</ul>`
+  },
+  {
+    id: 29, unit: 4, topic: "Multistage Graph",
+    priority: "medium",
+    question: "Explain the multistage graph problem and solve it using dynamic programming.",
+    answer: `<h4>Multistage Graph:</h4>
+<p>A directed, weighted graph where vertices are divided into stages (S1, S2, ..., Sn). Edges go only from one stage to the next. The goal is to find the shortest path from source (S1) to sink (Sn).</p>
+
+<h4>DP Approach (Backward):</h4>
+<pre>Algorithm MultistageGP(graph, n, stages)
+// Cost[v] = minimum cost from v to sink
+1.  Cost[n] = 0    // Sink cost
+2.  for i = n-1 downto 1 do
+3.      for each vertex v in stage i do
+4.          Cost[v] = ∞
+5.          for each edge (v, u) where u in stage i+1 do
+6.              if Cost[v] > weight(v,u) + Cost[u] then
+7.                  Cost[v] = weight(v,u) + Cost[u]
+8.                  Path[v] = u
+9.              end if
+10.         end for
+11.     end for
+12. end for
+13. return Cost[1] and trace Path[]</pre>
+
+<h4>Example:</h4>
+<p>Stages: S1={1}, S2={2,3}, S3={4,5,6}, S4={7,8}, S5={9}</p>
+<p>Edges: 1→2(2), 1→3(1), 2→4(2), 2→5(3), 3→5(2), 3→6(4), 4→7(3), 4→8(5), 5→7(1), 5→8(2), 6→8(2), 7→9(1), 8→9(3)</p>
+
+<p><strong>Compute backward:</strong></p>
+<ul>
+<li>Cost[9] = 0 (sink)</li>
+<li>Cost[7] = 1+0 = 1, Cost[8] = 3+0 = 3</li>
+<li>Cost[4] = min(3+1, 5+3) = 4, Cost[5] = min(1+1, 2+3) = 2, Cost[6] = 2+3 = 5</li>
+<li>Cost[2] = min(2+4, 3+2) = 5, Cost[3] = min(2+2, 4+5) = 4</li>
+<li>Cost[1] = min(2+5, 1+4) = <strong>5</strong></li>
+</ul>
+<p><strong>Shortest Path: 1 → 3 → 5 → 7 → 9, Cost = 5</strong></p>
+
+<p><strong>Time Complexity:</strong> O(E) where E is the number of edges — each edge is examined once.</p>`
+  },
+  {
+    id: 30, unit: 4, topic: "Flow Shop Scheduling",
+    priority: "medium",
+    question: "Explain flow shop scheduling with Johnson's rule for 2-machine problems. Solve with an example.",
+    answer: `<h4>Flow Shop Scheduling:</h4>
+<p>A production scheduling problem where n jobs must be processed on m machines in the same fixed order. Objective is to minimize makespan (total completion time).</p>
+
+<h4>Johnson's Rule (for 2 machines M1, M2):</h4>
+<pre>Algorithm JohnsonsRule(jobs[], n)
+1.  while there are unscheduled jobs do
+2.      Find the smallest processing time among all unscheduled jobs on both machines
+3.      if the smallest time is on M1 then
+4.          Schedule that job as early as possible (leftmost free slot)
+5.      else (smallest time is on M2)
+6.          Schedule that job as late as possible (rightmost free slot)
+7.      end if
+8.      Remove that job from the list
+9.  end while</pre>
+
+<h4>Example:</h4>
+<table>
+<tr><th>Job</th><th>M1</th><th>M2</th></tr>
+<tr><td>J1</td><td>5</td><td>2</td></tr>
+<tr><td>J2</td><td>3</td><td>6</td></tr>
+<tr><td>J3</td><td>4</td><td>1</td></tr>
+</table>
+
+<p><strong>Step 1:</strong> Smallest = 1 (J3, M2) → Schedule J3 last → [_, _, J3]</p>
+<p><strong>Step 2:</strong> Smallest remaining = 2 (J1, M2) → Schedule J1 as late as possible → [_, J1, J3]</p>
+<p><strong>Step 3:</strong> Only J2 left → Schedule first → [J2, J1, J3]</p>
+
+<p><strong>Optimal Sequence: J2 → J1 → J3</strong></p>
+
+<p><strong>Gantt Chart Calculation:</strong></p>
+<table>
+<tr><th></th><th>J2</th><th>J1</th><th>J3</th></tr>
+<tr><td>M1</td><td>0-3</td><td>3-8</td><td>8-12</td></tr>
+<tr><td>M2</td><td>3-9</td><td>9-11</td><td>12-13</td></tr>
+</table>
+<p><strong>Makespan = 13</strong></p>
+
+<p><strong>Applications:</strong> Manufacturing assembly lines, PCB fabrication, production systems.</p>`
+  }
+];
+
+// ============================================================
+// APPLICATION STATE
+// ============================================================
+let state = {
+  currentSection: 'home',
+  currentUnit: 0, // 0 = All
+  reviewed: new Set(),
+  starred: new Set(),
+  examActive: false,
+  examQuestions: [],
+  examCurrent: 0,
+  examAnswers: [],
+  examTimer: null,
+  examTimeLeft: 0,
+  examFinished: false
+};
+
+// Load state from localStorage
+function loadState() {
+  try {
+    const saved = localStorage.getItem('daa_exam_state');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      state.reviewed = new Set(parsed.reviewed || []);
+      state.starred = new Set(parsed.starred || []);
+    }
+  } catch(e) {}
+}
+
+function saveState() {
+  try {
+    localStorage.setItem('daa_exam_state', JSON.stringify({
+      reviewed: [...state.reviewed],
+      starred: [...state.starred]
+    }));
+  } catch(e) {}
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showSection(name) {
+  state.currentSection = name;
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+
+  if (name === 'questions') renderQuestions();
+  if (name === 'bookmarks') renderBookmarks();
+  if (name === 'exam' && !state.examActive) renderExamStart();
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress() {
+  const pct = (state.reviewed.size / questionBank.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('totalQ').textContent = questionBank.length;
+  document.getElementById('reviewedQ').textContent = state.reviewed.size;
+  document.getElementById('starredQ').textContent = state.starred.size;
+}
+
+// ============================================================
+// QUESTIONS VIEW
+// ============================================================
+function renderQuestions() {
+  // Render unit tabs
+  const tabsEl = document.getElementById('unitTabs');
+  let tabsHTML = '<button class="unit-tab ' + (state.currentUnit === 0 ? 'active' : '') + '" onclick="setUnit(0)">All Units</button>';
+  for (let u = 1; u <= 4; u++) {
+    tabsHTML += '<button class="unit-tab ' + (state.currentUnit === u ? 'active' : '') + '" onclick="setUnit(' + u + ')">Unit ' + u + '</button>';
+  }
+  tabsEl.innerHTML = tabsHTML;
+
+  filterQuestions();
+}
+
+function setUnit(u) {
+  state.currentUnit = u;
+  renderQuestions();
+}
+
+function filterQuestions() {
+  const search = (document.getElementById('searchInput').value || '').toLowerCase();
+  let filtered = questionBank;
+
+  if (state.currentUnit > 0) {
+    filtered = filtered.filter(q => q.unit === state.currentUnit);
+  }
+  if (search) {
+    filtered = filtered.filter(q =>
+      q.question.toLowerCase().includes(search) ||
+      q.topic.toLowerCase().includes(search) ||
+      q.answer.toLowerCase().includes(search)
+    );
+  }
+
+  const listEl = document.getElementById('questionsList');
+  if (filtered.length === 0) {
+    listEl.innerHTML = '<div class="bookmarks-empty"><i class="fa-solid fa-search"></i><p>No questions found</p></div>';
+    return;
+  }
+
+  listEl.innerHTML = filtered.map((q, i) => renderQCard(q, i)).join('');
+}
+
+function renderQCard(q, idx) {
+  const isReviewed = state.reviewed.has(q.id);
+  const isStarred = state.starred.has(q.id);
+  const priorityClass = q.priority === 'high' ? 'high' : 'med';
+  const priorityLabel = q.priority === 'high' ? 'HIGH' : 'MED';
+
+  return '<div class="q-card fade-up ' + (isReviewed ? 'reviewed' : '') + ' ' + (isStarred ? 'starred' : '') + '" id="qcard-' + q.id + '">' +
+    '<div class="q-header" onclick="toggleAnswer(' + q.id + ')">' +
+      '<span class="q-num ' + priorityClass + '">U' + q.unit + '-Q' + q.id + '<span class="priority-badge ' + q.priority + '">' + priorityLabel + '</span></span>' +
+      '<span class="q-text">' + q.question + '</span>' +
+      '<div class="q-actions" onclick="event.stopPropagation()">' +
+        '<button class="q-action-btn ' + (isStarred ? 'starred' : '') + '" onclick="toggleStar(' + q.id + ')" title="Star"><i class="fa-' + (isStarred ? 'solid' : 'regular') + ' fa-star"></i></button>' +
+        '<button class="q-action-btn ' + (isReviewed ? 'reviewed' : '') + '" onclick="toggleReview(' + q.id + ')" title="Mark Reviewed"><i class="fa-solid fa-check"></i></button>' +
+      '</div>' +
+      '<i class="fa-solid fa-chevron-down q-expand-icon"></i>' +
+    '</div>' +
+    '<div class="q-answer">' +
+      '<div class="q-answer-inner">' +
+        '<div class="answer-label"><i class="fa-solid fa-graduation-cap"></i> Model Answer</div>' +
+        '<div class="answer-content">' + q.answer + '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function toggleAnswer(id) {
+  const card = document.getElementById('qcard-' + id);
+  if (card) {
+    card.classList.toggle('open');
+    if (card.classList.contains('open')) {
+      // Auto-mark as reviewed when opened
+      if (!state.reviewed.has(id)) {
+        state.reviewed.add(id);
+        saveState();
+        updateProgress();
+        const btn = card.querySelector('.q-action-btn:nth-child(2)');
+        if (btn) btn.classList.add('reviewed');
+        card.classList.add('reviewed');
+      }
+    }
+  }
+}
+
+function toggleStar(id) {
+  if (state.starred.has(id)) {
+    state.starred.delete(id);
+    showToast('Removed from starred');
+  } else {
+    state.starred.add(id);
+    showToast('Added to starred');
+  }
+  saveState();
+  updateProgress();
+  if (state.currentSection === 'questions') filterQuestions();
+  if (state.currentSection === 'bookmarks') renderBookmarks();
+}
+
+function toggleReview(id) {
+  if (state.reviewed.has(id)) {
+    state.reviewed.delete(id);
+    showToast('Marked as unreviewed');
+  } else {
+    state.reviewed.add(id);
+    showToast('Marked as reviewed');
+  }
+  saveState();
+  updateProgress();
+  if (state.currentSection === 'questions') filterQuestions();
+  if (state.currentSection === 'bookmarks') renderBookmarks();
+}
+
+// ============================================================
+// BOOKMARKS VIEW
+// ============================================================
+function renderBookmarks() {
+  const listEl = document.getElementById('bookmarksList');
+  const starred = questionBank.filter(q => state.starred.has(q.id));
+
+  if (starred.length === 0) {
+    listEl.innerHTML = '<div class="bookmarks-empty"><i class="fa-regular fa-star"></i><p>No starred questions yet. Star important questions from the Questions tab for quick revision.</p></div>';
+    return;
+  }
+
+  listEl.innerHTML = '<h2 style="font-size:22px;font-weight:700;margin-bottom:8px;letter-spacing:-0.5px;">Starred Questions</h2><p style="color:var(--fg-muted);font-size:14px;margin-bottom:24px;">' + starred.length + ' question' + (starred.length > 1 ? 's' : '') + ' bookmarked for revision</p>' +
+    starred.map((q, i) => renderQCard(q, i)).join('');
+}
+
+// ============================================================
+// HIGH PRIORITY FILTER
+// ============================================================
+function showHighPriority() {
+  state.currentUnit = 0;
+  showSection('questions');
+  document.getElementById('searchInput').value = '';
+  // Override filter to show only high priority
+  const listEl = document.getElementById('questionsList');
+  const filtered = questionBank.filter(q => q.priority === 'high');
+  listEl.innerHTML = filtered.map((q, i) => renderQCard(q, i)).join('');
+  // Update tab display
+  document.querySelectorAll('.unit-tab').forEach(t => t.classList.remove('active'));
+}
+
+// ============================================================
+// EXAM MODE
+// ============================================================
+function renderExamStart() {
+  const container = document.getElementById('examContainer');
+  container.innerHTML =
+    '<div class="exam-start">' +
+      '<div class="exam-start-icon"><i class="fa-solid fa-pen-to-square"></i></div>' +
+      '<h2>Practice Exam</h2>' +
+      '<p>Simulate your actual exam with 4 randomly selected questions.</p>' +
+      '<div class="exam-rules">' +
+        '<h4><i class="fa-solid fa-clipboard-list"></i> Exam Rules</h4>' +
+        '<ul>' +
+          '<li><i class="fa-solid fa-circle"></i> 4 questions, each carrying 5 marks (Total: 20 marks)</li>'+
+          '<li><i class="fa-solid fa-circle"></i> 40 minutes time limit</li>'+
+          '<li><i class="fa-solid fa-circle"></i> Questions randomly selected from all units</li>'+
+          '<li><i class="fa-solid fa-circle"></i> Write your answer in the text area provided</li>'+
+          '<li><i class="fa-solid fa-circle"></i> After submission, model answers will be shown</li>'+
+          '<li><i class="fa-solid fa-circle"></i> You can navigate between questions freely</li>'+
+        '</ul>' +
+      '</div>' +
+      '<button class="exam-btn primary" onclick="startExam()" style="margin:0 auto;"><i class="fa-solid fa-play"></i> Start Exam</button>' +
+    '</div>';
+}
+
+function startExam() {
+  showSection('exam');
+  // Pick 4 random questions, at least one from each unit if possible
+  let selected = [];
+  const units = [1, 2, 3, 4];
+  // Pick one from each unit
+  units.forEach(u => {
+    const uQs = questionBank.filter(q => q.unit === u);
+    if (uQs.length > 0) {
+      const rand = uQs[Math.floor(Math.random() * uQs.length)];
+      selected.push(rand);
+    }
+  });
+  // If we have less than 4, fill remaining
+  while (selected.length < 4 && selected.length < questionBank.length) {
+    const remaining = questionBank.filter(q => !selected.find(s => s.id === q.id));
+    if (remaining.length === 0) break;
+    selected.push(remaining[Math.floor(Math.random() * remaining.length)]);
+  }
+
+  state.examActive = true;
+  state.examQuestions = selected.slice(0, 4);
+  state.examCurrent = 0;
+  state.examAnswers = ['','','',''];
+  state.examTimeLeft = 40 * 60; // 40 minutes in seconds
+  state.examFinished = false;
+
+  // Start timer
+  if (state.examTimer) clearInterval(state.examTimer);
+  state.examTimer = setInterval(updateExamTimer, 1000);
+
+  renderExamQuestion();
+}
+
+function updateExamTimer() {
+  state.examTimeLeft--;
+  const timerEl = document.getElementById('examTimer');
+  if (timerEl) {
+    const mins = Math.floor(state.examTimeLeft / 60);
+    const secs = state.examTimeLeft % 60;
+    timerEl.textContent = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+    if (state.examTimeLeft <= 300) {
+      timerEl.classList.add('warning');
+    }
+  }
+  if (state.examTimeLeft <= 0) {
+    finishExam();
+  }
+}
+
+function renderExamQuestion() {
+  const container = document.getElementById('examContainer');
+  const q = state.examQuestions[state.examCurrent];
+  const mins = Math.floor(state.examTimeLeft / 60);
+  const secs = state.examTimeLeft % 60;
+
+  let dotsHTML = '';
+  for (let i = 0; i < 4; i++) {
+    const cls = i === state.examCurrent ? 'active' : (state.examAnswers[i].trim() ? 'answered' : '');
+    dotsHTML += '<div class="exam-dot ' + cls + '" onclick="goToExamQ(' + i + ')">' + (i + 1) + '</div>';
+  }
+
+  container.innerHTML =
+    '<div class="exam-header">' +
+      '<h2>Practice Exam</h2>' +
+      '<div class="exam-timer" id="examTimer"><i class="fa-solid fa-clock"></i> ' + String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0') + '</div>' +
+      '<div class="exam-progress">' + dotsHTML + '</div>' +
+    '</div>' +
+    '<div class="exam-question">' +
+      '<div class="exam-q-label">Question ' + (state.examCurrent + 1) + ' of 4 &nbsp;|&nbsp; 5 Marks &nbsp;|&nbsp; Unit ' + q.unit + '</div>' +
+      '<div class="exam-q-text">' + q.question + '</div>' +
+    '</div>' +
+    '<div class="exam-answer-area">' +
+      '<textarea placeholder="Write your answer here..." oninput="saveExamAnswer(this.value)">' + state.examAnswers[state.examCurrent] + '</textarea>' +
+    '</div>' +
+    '<div class="exam-nav">' +
+      (state.examCurrent > 0 ? '<button class="exam-btn" onclick="goToExamQ(' + (state.examCurrent - 1) + ')"><i class="fa-solid fa-arrow-left"></i> Previous</button>' : '<div></div>') +
+      (state.examCurrent < 3 ?
+        '<button class="exam-btn primary" onclick="goToExamQ(' + (state.examCurrent + 1) + ')">Next <i class="fa-solid fa-arrow-right"></i></button>' :
+        '<button class="exam-btn primary" onclick="finishExam()"><i class="fa-solid fa-paper-plane"></i> Submit Exam</button>'
+      ) +
+    '</div>';
+}
+
+function saveExamAnswer(val) {
+  state.examAnswers[state.examCurrent] = val;
+}
+
+function goToExamQ(idx) {
+  // Save current answer
+  const textarea = document.querySelector('.exam-answer-area textarea');
+  if (textarea) {
+    state.examAnswers[state.examCurrent] = textarea.value;
+  }
+  state.examCurrent = idx;
+  renderExamQuestion();
+}
+
+function finishExam() {
+  // Save last answer
+  const textarea = document.querySelector('.exam-answer-area textarea');
+  if (textarea) {
+    state.examAnswers[state.examCurrent] = textarea.value;
+  }
+
+  if (state.examTimer) clearInterval(state.examTimer);
+  state.examActive = false;
+  state.examFinished = true;
+
+  const container = document.getElementById('examContainer');
+  const answeredCount = state.examAnswers.filter(a => a.trim().length > 0).length;
+
+  let resultsHTML = '';
+  for (let i = 0; i < 4; i++) {
+    const q = state.examQuestions[i];
+    const hasAnswer = state.examAnswers[i].trim().length > 0;
+    const numClass = hasAnswer ? 'style="background:var(--green-bg);color:var(--green);border:1px solid rgba(52,211,153,0.2);"' : 'style="background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,0.2);"';
+
+    resultsHTML +=
+      '<div class="result-q">' +
+        '<div class="result-q-header">' +
+          '<span class="result-q-num" ' + numClass + '>Q' + (i+1) + ' ' + (hasAnswer ? '✓' : '✗') + '</span>' +
+          '<span class="result-q-text">' + q.question + '</span>' +
+        '</div>' +
+        (state.examAnswers[i].trim() ?
+          '<div style="background:var(--bg3);border-radius:8px;padding:14px;margin-bottom:12px;font-size:13px;line-height:1.7;color:var(--fg-muted);"><strong style="color:var(--blue);">Your Answer:</strong><br>' + escapeHtml(state.examAnswers[i]).replace(/\n/g, '<br>') + '</div>' : '') +
+        '<details style="cursor:pointer;">' +
+          '<summary style="font-size:13px;color:var(--accent);font-weight:600;margin-bottom:8px;">Show Model Answer</summary>' +
+          '<div class="result-model-answer">' + q.answer + '</div>' +
+        '</details>' +
+      '</div>';
+  }
+
+  container.innerHTML =
+    '<div class="exam-results">' +
+      '<div class="result-score">' + answeredCount + '/4</div>' +
+      '<div class="result-label">Questions Attempted out of 4</div>' +
+    '</div>' +
+    resultsHTML +
+    '<div style="display:flex;gap:12px;justify-content:center;margin-top:24px;">' +
+      '<button class="exam-btn" onclick="renderExamStart()"><i class="fa-solid fa-arrow-left"></i> Back to Start</button>' +
+      '<button class="exam-btn primary" onclick="startExam()"><i class="fa-solid fa-rotate"></i> Try Again</button>' +
+    '</div>';
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadState();
+updateProgress();
+
+// Animate stats on load
+function animateNum(el, target) {
+  let current = 0;
+  const step = Math.max(1, Math.floor(target / 20));
+  const interval = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      current = target;
+      clearInterval(interval);
+    }
+    el.textContent = current;
+  }, 40);
+}
+
+setTimeout(() => {
+  animateNum(document.getElementById('totalQ'), questionBank.length);
+  animateNum(document.getElementById('reviewedQ'), state.reviewed.size);
+  animateNum(document.getElementById('starredQ'), state.starred.size);
+  animateNum(document.getElementById('unitsCount'), 4);
+}, 200);
+</script>
+</body>
+</html>
