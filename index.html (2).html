@@ -1,0 +1,329 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>DBMS Easy Notes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap">
+<style>
+/* Layout: one calm column. Sticky unit tabs, search on top, each question opens like a flashcard.
+   Palette comes from the colour strip the student shared: peach, blush, beige, mauve, taupe on warm off-white. */
+:root {
+  --bg: #F5F2EC;
+  --surface: #FBF9F5;
+  --ink: #3B3532;
+  --muted: #7A726C;
+  --line: #E2DDD2;
+  --c1: #EBCBB0;
+  --c2: #EBCAC4;
+  --c3: #DDD6BB;
+  --c4: #C9B9B5;
+  --c5: #B9B5A4;
+  --soft: #EDEBE4;
+  --font-head: "Outfit", "Segoe UI", system-ui, sans-serif;
+  --font-body: "DM Sans", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #242120; --surface: #2D2928; --ink: #EDE8E0; --muted: #AAA29A; --line: #403B39; --soft: #353130;
+    --c1: #76594A; --c2: #725450; --c3: #686350; --c4: #625755; --c5: #595649;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #242120; --surface: #2D2928; --ink: #EDE8E0; --muted: #AAA29A; --line: #403B39; --soft: #353130;
+  --c1: #76594A; --c2: #725450; --c3: #686350; --c4: #625755; --c5: #595649;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  padding-block: 0 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 760px; margin: 0 auto; }
+header { padding: 32px 0 18px; }
+h1 { font-family: var(--font-head); font-size: clamp(28px, 6vw, 40px); line-height: 1.1; margin: 0 0 8px; font-weight: 700; text-wrap: balance; }
+.sub { color: var(--muted); margin: 0; max-width: 52ch; }
+.swatches { display: flex; gap: 6px; margin-top: 18px; }
+.swatches i { width: 28px; height: 8px; border-radius: 4px; display: block; }
+
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--bg); padding: 10px 0 12px; border-bottom: 1px solid var(--line);
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: 0 0 auto; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  font: 500 15px var(--font-body); padding: 9px 16px; border-radius: 999px; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+}
+.tab .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--tc); }
+.tab[aria-selected="true"] { background: var(--tc); border-color: transparent; font-weight: 700; }
+.tab:focus-visible, .search input:focus-visible, summary:focus-visible, .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.search { margin-top: 10px; display: flex; gap: 8px; }
+.search input {
+  flex: 1; min-width: 0; font: 16px var(--font-body); color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px;
+}
+.search input::placeholder { color: var(--muted); }
+.btn {
+  font: 500 14px var(--font-body); color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 12px; padding: 9px 14px; cursor: pointer; white-space: nowrap;
+}
+.btn:hover { background: var(--soft); }
+
+.unit-head { margin: 26px 0 6px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+.unit-head h2 { font-family: var(--font-head); font-size: 22px; margin: 0; font-weight: 600; }
+.prog { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.meter { height: 6px; border-radius: 3px; background: var(--soft); overflow: hidden; margin-bottom: 14px; }
+.meter b { display: block; height: 100%; background: var(--tc); width: 0; transition: width .3s; }
+
+.q { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; margin-bottom: 10px; }
+.q summary {
+  list-style: none; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; padding: 14px 14px;
+  font-weight: 500;
+}
+.q summary::-webkit-details-marker { display: none; }
+.num {
+  flex: 0 0 auto; min-width: 32px; height: 32px; border-radius: 10px; background: var(--tc);
+  display: grid; place-items: center; font: 700 14px var(--font-head); font-variant-numeric: tabular-nums;
+}
+.qt { flex: 1; min-width: 0; padding-top: 3px; }
+.tick { flex: 0 0 auto; width: 22px; height: 22px; margin-top: 5px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; font-size: 13px; }
+.q.done .tick { background: var(--tc); border-color: transparent; }
+.q.done .tick::after { content: "\2713"; }
+.chev { flex: 0 0 auto; margin-top: 8px; width: 8px; height: 8px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); transition: transform .2s; }
+.q[open] .chev { transform: rotate(-135deg); margin-top: 12px; }
+.ans { padding: 2px 16px 16px 58px; }
+.ans p { margin: 0 0 10px; }
+.ans ul, .ans ol { margin: 0 0 10px; padding-left: 20px; }
+.ans li { margin-bottom: 4px; }
+.ans b { font-weight: 700; }
+.hl { background: var(--tc); border-radius: 4px; padding: 0 4px; }
+.scroll { overflow-x: auto; margin: 4px 0 12px; border: 1px solid var(--line); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--tc); font-weight: 700; }
+tr:last-child td { border-bottom: 0; }
+pre { background: var(--soft); border-radius: 10px; padding: 12px 14px; overflow-x: auto; margin: 4px 0 12px; font-size: 14px; line-height: 1.5; }
+code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+.mark { margin-top: 6px; }
+.empty { text-align: center; color: var(--muted); padding: 40px 0; }
+.group-label { font: 600 13px var(--font-head); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 24px 0 10px; display: flex; align-items: center; gap: 8px; }
+.group-label i { width: 10px; height: 10px; border-radius: 50%; background: var(--tc); }
+@media (max-width: 480px) { .ans { padding-left: 16px; } .btn.hide-sm { display: none; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>DBMS Easy Notes</h1>
+    <p class="sub" id="sub">Short answers in simple English. Tap a question to see the answer, then tick it when you know it.</p>
+    <div class="swatches" aria-hidden="true"><i style="background:var(--c1)"></i><i style="background:var(--c2)"></i><i style="background:var(--c3)"></i><i style="background:var(--c4)"></i><i style="background:var(--c5)"></i></div>
+  </header>
+
+  <div class="bar">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="search">
+      <input id="q" type="search" placeholder="Search a topic, e.g. ACID, index, BCNF" aria-label="Search questions">
+      <button class="btn hide-sm" id="toggle" type="button">Open all</button>
+    </div>
+  </div>
+
+  <main id="out"></main>
+</div>
+
+<script>
+var UNITS = [
+{ id: "unit-1", tab: "Unit 1", title: "DBMS and SQL", color: "--c1", qs: [
+ ["What is a DBMS and its characteristics?", `<p>A DBMS is software that stores and manages data.</p><ul><li><b>Self-describing:</b> stores metadata (data about data)</li><li><b>Data independence:</b> programs do not depend on how data is stored</li><li><b>Multiple views</b> for different users</li><li><b>Data sharing</b> and many users at once</li><li>Less redundancy, security, backup and recovery</li></ul>`],
+ ["Types of database users", `<ul><li><b>DBA:</b> manages the database, security and backup</li><li><b>Designer:</b> decides tables and structure</li><li><b>Developer:</b> writes the programs</li><li><b>End users:</b> naive (use ready programs), casual (use sometimes), sophisticated (write queries)</li><li><b>Behind the scene:</b> DBMS builders, tool developers, operators</li></ul>`],
+ ["Advantages and disadvantages of DBMS. When not to use it?", `<ul><li><b>Advantages:</b> less redundancy, security, data independence, many users, backup</li><li><b>Disadvantages:</b> costly, complex, needs skilled staff, single point of failure</li><li><b>Do not use when:</b> data is small or temporary, or the app is very simple</li></ul>`],
+ ["File system vs DBMS", `<div class="scroll"><table><tr><th>File System</th><th>DBMS</th></tr><tr><td>One user</td><td>Many users</td></tr><tr><td>High redundancy</td><td>Low redundancy</td></tr><tr><td>Slow search</td><td>Fast search</td></tr><tr><td>Weak security</td><td>Strong security</td></tr><tr><td>Manual backup</td><td>Automatic backup</td></tr></table></div>`],
+ ["Schema vs instance", `<p><b>Schema</b> is the structure of the database. It rarely changes.</p><p><b>Instance</b> is the data stored at a given time. It changes often.</p>`],
+ ["Three-schema architecture", `<ol><li><b>External level:</b> user views</li><li><b>Conceptual level:</b> tables and relationships</li><li><b>Internal level:</b> how data is stored on disk</li></ol><p>It hides storage details from the user and gives <span class="hl">data independence</span>.</p>`],
+ ["Logical vs physical data independence", `<ul><li><b>Logical:</b> changing tables does not affect user views</li><li><b>Physical:</b> changing storage (disk, file structure) does not affect tables</li></ul>`],
+ ["SQL command types (DDL, DML, DQL, DCL, TCL)", `<ul><li><b>DDL:</b> CREATE, ALTER, DROP, TRUNCATE (structure)</li><li><b>DML:</b> INSERT, UPDATE, DELETE (data)</li><li><b>DQL:</b> SELECT (read)</li><li><b>DCL:</b> GRANT, REVOKE (permission)</li><li><b>TCL:</b> COMMIT, ROLLBACK, SAVEPOINT (transactions)</li></ul><pre><code>CREATE TABLE Student (ID INT PRIMARY KEY, Name VARCHAR(20) NOT NULL);
+ALTER TABLE Student ADD Age INT;
+INSERT INTO Student VALUES (1, 'Ravi', 20);
+SELECT * FROM Student;</code></pre>`],
+ ["SQL constraints", `<ul><li><b>UNIQUE:</b> no repeated values</li><li><b>NOT NULL:</b> cannot be empty</li><li><b>CHECK:</b> value must satisfy a condition</li><li><b>DEFAULT:</b> value used if none is given</li><li><b>Primary key:</b> unique + not null, one per table</li><li><b>Foreign key:</b> links to the primary key of another table</li></ul>`],
+ ["Centralized vs client-server", `<div class="scroll"><table><tr><th>Centralized</th><th>Client-Server</th></tr><tr><td>One server, dumb terminals</td><td>Clients and a server</td></tr><tr><td>Limited growth</td><td>Easy to grow</td></tr><tr><td>Failure stops everything</td><td>Partial failure</td></tr><tr><td>Easy to maintain</td><td>More complex</td></tr></table></div>`],
+ ["Database system environment", `<p>Five parts: <b>hardware, software, data, users, procedures</b>.</p>`]
+]},
+{ id: "unit-2", tab: "Unit 2", title: "ER Model, Files and Indexing", color: "--c2", qs: [
+ ["What is an ER diagram?", `<p>A picture that shows <b>entities</b> (things), their <b>attributes</b> (properties) and the <b>relationships</b> between them. It is used to design a database before building it.</p>`],
+ ["Entity, entity type, entity set", `<ul><li><b>Entity:</b> a real-world thing (student, book)</li><li><b>Entity type:</b> the general description, e.g. STUDENT(ID, Name)</li><li><b>Entity set:</b> all students stored at one time</li></ul>`],
+ ["Strong vs weak entity", `<div class="scroll"><table><tr><th>Strong</th><th>Weak</th></tr><tr><td>Has its own primary key</td><td>Has only a partial key</td></tr><tr><td>Exists alone</td><td>Depends on a strong entity</td></tr><tr><td>Single rectangle</td><td>Double rectangle</td></tr><tr><td>Example: Employee</td><td>Example: Dependent</td></tr></table></div>`],
+ ["Types of attributes", `<ul><li><b>Simple:</b> cannot be divided (Age)</li><li><b>Composite:</b> can be divided (Name = First + Last)</li><li><b>Single-valued:</b> one value (Roll no)</li><li><b>Multivalued:</b> many values (Phone numbers)</li><li><b>Derived:</b> calculated (Age from Date of Birth)</li></ul>`],
+ ["Key attribute, candidate key, primary key", `<ul><li><b>Key attribute:</b> uniquely identifies an entity (StudentID)</li><li><b>Candidate key:</b> any attribute set that could be the key</li><li><b>Primary key:</b> the one candidate key we choose</li></ul>`],
+ ["Relationship types and roles", `<p>A relationship is a link between entities (Student enrolls in Course).</p><ul><li><b>Unary:</b> same entity set (employee manages employee)</li><li><b>Binary:</b> two entity sets (employee works for department)</li><li><b>Ternary:</b> three entity sets (supplier, product, warehouse)</li></ul><p><b>Role</b> is the name of each side when an entity appears twice (manager and subordinate).</p>`],
+ ["Structural constraints (cardinality and participation)", `<ul><li><b>Cardinality ratio:</b> 1:1, 1:N, N:1, M:N (how many are linked)</li><li><b>Total participation:</b> every entity takes part (double line). Every employee works for a department.</li><li><b>Partial participation:</b> only some take part (single line). A department may have no employee yet.</li></ul>`],
+ ["Weak entity: Dependent and Employee", `<p>Dependent has only a partial key (name), so it needs the <b>Employee_ID</b> to be identified. It always has total participation and is linked by an identifying relationship (double diamond).</p>`],
+ ["ER diagram symbols", `<div class="scroll"><table><tr><th>Symbol</th><th>Meaning</th></tr><tr><td>Rectangle</td><td>Entity</td></tr><tr><td>Double rectangle</td><td>Weak entity</td></tr><tr><td>Oval</td><td>Attribute</td></tr><tr><td>Double oval</td><td>Multivalued attribute</td></tr><tr><td>Dashed oval</td><td>Derived attribute</td></tr><tr><td>Diamond</td><td>Relationship</td></tr><tr><td>Double diamond</td><td>Identifying relationship</td></tr></table></div>`],
+ ["Library Management ER model", `<ul><li><b>Entities:</b> Book, Member, Librarian, Copy</li><li><b>Relationships:</b> Member borrows Copy, Librarian manages Book, Book has Copy (1:N)</li><li>Draw rectangles for entities, ovals for attributes, diamonds for relationships</li></ul>`],
+ ["File organization methods", `<ul><li><b>Sequential:</b> records stored in order of a key</li><li><b>Heap:</b> no order, new record added at the end</li><li><b>Clustered:</b> related records of different tables stored together</li><li><b>Indexed:</b> an index finds the record fast</li><li><b>Hash:</b> a hash function gives the location</li></ul>`],
+ ["Storage hierarchy and secondary storage", `<p><b>Field</b> (smallest) &rarr; <b>Record</b> &rarr; <b>Block</b> &rarr; <b>File</b>.</p><p>Secondary storage (HDD, SSD, cloud) keeps data permanently. It is bigger and slower than RAM.</p>`],
+ ["What is indexing?", `<p>Indexing finds data fast without reading the whole table, like the index of a book. It stores sorted keys with pointers to rows.</p><p>Performance depends on: <b>access time, insertion time, deletion time, extra space</b>.</p>`],
+ ["Primary vs secondary index", `<p><b>Primary index</b> is on the sorted key. Only one is allowed.</p><p><b>Secondary index</b> is on other fields. Many are allowed.</p>`],
+ ["Multilevel vs multi-key index", `<ul><li><b>Multilevel:</b> index of an index (depth)</li><li><b>Multi-key:</b> one index on two or more columns together (width)</li></ul>`]
+]},
+{ id: "unit-3", tab: "Unit 3", title: "Relational Model and Normalization", color: "--c3", qs: [
+ ["Relational model terms", `<p>Introduced by E. F. Codd in 1970. Data is stored in tables.</p><ul><li><b>Relation:</b> table</li><li><b>Tuple:</b> row</li><li><b>Attribute:</b> column</li><li><b>Domain:</b> allowed values of a column</li><li><b>Degree:</b> number of columns</li><li><b>Cardinality:</b> number of rows</li></ul>`],
+ ["Relational schema", `<p>The design of the database: relation names, attributes, domains and keys.</p><p>Example: STUDENT(RollNo, Name, Age, DeptID)</p>`],
+ ["Integrity constraints", `<ul><li><b>Domain:</b> value must be from the allowed set (Age 15 to 60)</li><li><b>Key:</b> primary key values must be unique</li><li><b>Entity:</b> primary key cannot be NULL</li><li><b>Referential:</b> a foreign key must match an existing primary key (or be NULL)</li></ul>`],
+ ["Handling a constraint violation", `<ul><li><b>Reject:</b> do not allow the operation</li><li><b>Cascade:</b> apply the change to related rows too</li><li><b>Set NULL / default:</b> replace the foreign key value</li></ul>`],
+ ["Update operations", `<pre><code>INSERT INTO STUDENT VALUES (101, 'Ravi', 20, 'CSE');
+DELETE FROM STUDENT WHERE RollNo = 101;
+UPDATE STUDENT SET Age = 21 WHERE RollNo = 101;</code></pre>`],
+ ["SELECT and PROJECT", `<ul><li><b>SELECT (&sigma;):</b> picks rows. &sigma; Salary &gt; 30000 (Employee) gives employees earning above 30000.</li><li><b>PROJECT (&pi;):</b> picks columns. &pi; Name, Salary (Employee) gives only those two columns.</li></ul>`],
+ ["JOIN and its types", `<p>JOIN combines rows of two tables using a common column.</p><ul><li><b>Theta join:</b> any condition (&gt;, &lt;, =)</li><li><b>Equi join:</b> condition is only equals (=)</li><li><b>Natural join:</b> joins on same-named columns, shows the common column once</li></ul>`],
+ ["SELECT vs PROJECT vs JOIN", `<div class="scroll"><table><tr><th>Operation</th><th>Works on</th><th>Purpose</th></tr><tr><td>SELECT &sigma;</td><td>Rows</td><td>Filter rows</td></tr><tr><td>PROJECT &pi;</td><td>Columns</td><td>Pick columns</td></tr><tr><td>JOIN &#10781;</td><td>Two tables</td><td>Combine related rows</td></tr></table></div>`],
+ ["Anomalies", `<p>Problems caused by repeated data in one badly designed table. The solution is <span class="hl">normalization</span>.</p><ul><li><b>Insertion:</b> cannot add new data without other data (a new department needs an employee)</li><li><b>Deletion:</b> deleting one record loses other useful data</li><li><b>Update:</b> one change is needed in many places, and missing one causes mismatch</li></ul>`],
+ ["What is normalization?", `<p>Breaking big tables into smaller ones to remove repeated data and anomalies.</p><ul><li><b>Advantage:</b> less redundancy, consistent data</li><li><b>Disadvantage:</b> more tables and more joins</li></ul>`],
+ ["Normal forms: 1NF, 2NF, 3NF, BCNF", `<ul><li><b>1NF:</b> each cell has one single value</li><li><b>2NF:</b> 1NF + no partial dependency (non-key column depends on the full key, not part of it)</li><li><b>3NF:</b> 2NF + no transitive dependency (non-key column does not depend on another non-key column)</li><li><b>BCNF:</b> for every dependency X &rarr; Y, X must be a super key. A stronger 3NF.</li><li><b>4NF / 5NF:</b> remove multi-valued and join dependencies (rarely used)</li></ul>`],
+ ["Normalization examples to write", `<ul><li><b>1NF:</b> Courses = "DBMS, OS" in one cell. Split it into separate rows.</li><li><b>2NF:</b> key is (StudentID, CourseID) and StudentName depends only on StudentID. Move StudentName to a STUDENT table.</li><li><b>3NF:</b> Student(ID, Name, Department, HOD). Department &rarr; HOD, so split into Student(ID, Name, Department) and Department(Department, HOD).</li></ul>`]
+]},
+{ id: "unit-4", tab: "Unit 4", title: "Transactions and Recovery", color: "--c4", qs: [
+ ["Embedded vs dynamic SQL", `<div class="scroll"><table><tr><th>Embedded SQL</th><th>Dynamic SQL</th></tr><tr><td>SQL written inside a program (C, Java)</td><td>SQL built as a string at runtime</td></tr><tr><td>Fixed, pre-compiled</td><td>Changes with user input</td></tr><tr><td>Faster</td><td>Slower</td></tr><tr><td>Safer from SQL injection</td><td>Risk of SQL injection</td></tr><tr><td>Example: ATM</td><td>Example: Flipkart filters</td></tr></table></div>`],
+ ["What is a transaction?", `<p>A group of read/write operations treated as one unit.</p><p>Example: transfer &#8377;500 from A to B</p><ol><li>Read(A)</li><li>A = A &ndash; 500</li><li>Write(A)</li><li>Read(B)</li><li>B = B + 500</li><li>Write(B)</li></ol>`],
+ ["Transaction states", `<p>Active &rarr; Partially committed &rarr; Committed. On error: Failed &rarr; Aborted.</p><ul><li><b>Active:</b> running</li><li><b>Partially committed:</b> last statement done, not yet saved</li><li><b>Committed:</b> saved permanently</li><li><b>Failed:</b> error or crash</li><li><b>Aborted:</b> rolled back</li></ul>`],
+ ["ACID properties", `<ul><li><b>Atomicity:</b> all or nothing. If debit works but credit fails, the debit is undone.</li><li><b>Consistency:</b> database stays correct. A + B total is the same after the transfer.</li><li><b>Isolation:</b> transactions do not disturb each other.</li><li><b>Durability:</b> after commit, data stays even after a crash.</li></ul>`],
+ ["Serial vs concurrent schedule", `<p><b>Serial:</b> one transaction at a time.</p><p><b>Concurrent:</b> many mixed together but still correct.</p><p>Concurrency control is needed so that simultaneous transactions do not overwrite each other.</p>`],
+ ["Two-Phase Locking (2PL)", `<ul><li><b>Growing phase:</b> only take locks, cannot release</li><li><b>Shrinking phase:</b> only release locks, cannot take new ones</li></ul><p>It keeps concurrent execution equal to a serial one.</p>`],
+ ["Timestamp ordering vs 2PL", `<p><b>Timestamp ordering</b> runs transactions in the order of their start time, with no locks.</p><p><b>2PL</b> uses locks (growing, then shrinking).</p>`],
+ ["SQL transaction commands", `<ul><li><b>BEGIN TRANSACTION:</b> start</li><li><b>COMMIT:</b> save permanently</li><li><b>ROLLBACK:</b> undo everything</li><li><b>SAVEPOINT:</b> mark a point</li><li><b>ROLLBACK TO SAVEPOINT:</b> undo only up to that point</li><li><b>SET TRANSACTION:</b> set properties</li></ul><pre><code>BEGIN TRANSACTION;
+UPDATE Accounts SET balance = balance - 1000 WHERE acc_no = 'A101';
+UPDATE Accounts SET balance = balance + 1000 WHERE acc_no = 'B202';
+COMMIT;   -- or ROLLBACK if error</code></pre>`],
+ ["Database recovery", `<p>Restoring the database to a correct state after a failure.</p><p>Failures: transaction failure, system crash, power failure, disk failure.</p>`],
+ ["Log-based recovery, UNDO, REDO, checkpoint", `<p>The log stores old and new values.</p><ul><li><b>UNDO:</b> restores old values of uncommitted work</li><li><b>REDO:</b> re-applies committed work</li><li><b>Checkpoint:</b> a saved snapshot, so recovery starts from there and not from the beginning</li></ul>`],
+ ["Shadow paging vs log-based", `<p><b>Shadow paging</b> keeps a copy of the database. Changes go to the copy, and on commit the copy replaces the original. If it fails, the original is safe.</p><p><b>Log-based</b> recovery uses a log with UNDO and REDO instead of copies.</p>`],
+ ["Recovery in a multi-database system (MDBS)", `<ul><li><b>Two-Phase Commit:</b> (1) prepare: coordinator asks everyone if ready. (2) commit: if all say yes, all commit, otherwise all abort.</li><li><b>Logging:</b> each database keeps its own log</li><li><b>Global checkpoint:</b> snapshot of all databases</li><li><b>Undo/Redo:</b> undo uncommitted work, redo committed work</li><li><b>Recovery manager:</b> coordinates recovery of all databases</li></ul>`],
+ ["Catastrophic failure and backup", `<p>A catastrophic failure destroys the whole system (fire, flood, disk crash), including the logs, so normal undo/redo is not enough.</p><ol><li>Restore the last backup</li><li>Apply redo logs</li><li>Redo committed work</li><li>Discard incomplete work</li></ol><p><b>Bank example:</b> fire at 9 AM. Restore the 2 AM backup, then apply logs from 2 AM to 9 AM.</p>`]
+]},
+{ id: "differences", tab: "Differences", title: "One-line differences", color: "--c5", qs: [
+ ["DROP vs TRUNCATE", `<p>DROP deletes the whole table. TRUNCATE deletes only the rows and keeps the table.</p>`],
+ ["DDL vs DML", `<p>DDL changes structure (CREATE, ALTER, DROP). DML changes data (INSERT, UPDATE, DELETE).</p>`],
+ ["Primary key vs foreign key", `<p>Primary key is unique and not null, one per table. Foreign key links to another table's primary key.</p>`],
+ ["Simple vs composite attribute", `<p>Simple cannot be divided. Composite can be divided (Name = First + Last).</p>`],
+ ["Total vs partial participation", `<p>Total: every entity takes part (double line). Partial: only some take part (single line).</p>`],
+ ["Sequential vs heap file", `<p>Sequential is sorted by a key. Heap is unsorted and fast to insert.</p>`],
+ ["Degree vs cardinality", `<p>Degree is the number of columns. Cardinality is the number of rows.</p>`],
+ ["SELECT vs PROJECT", `<p>SELECT picks rows (&sigma;). PROJECT picks columns (&pi;).</p>`],
+ ["Partial vs transitive dependency", `<p>Partial: depends on part of a key (fixed in 2NF). Transitive: non-key depends on non-key (fixed in 3NF).</p>`],
+ ["3NF vs BCNF", `<p>In BCNF every determinant must be a super key. It is stronger than 3NF.</p>`],
+ ["COMMIT vs ROLLBACK", `<p>COMMIT saves changes permanently. ROLLBACK undoes them.</p>`],
+ ["ROLLBACK vs ROLLBACK TO SAVEPOINT", `<p>ROLLBACK cancels the whole transaction. ROLLBACK TO SAVEPOINT cancels only back to the savepoint.</p>`],
+ ["UNDO vs REDO", `<p>UNDO restores old values of uncommitted work. REDO re-applies committed work.</p>`],
+ ["2PL vs timestamp ordering", `<p>2PL uses locks (grow, then shrink). Timestamp ordering uses start-time order.</p>`],
+ ["What is Two-Phase Commit?", `<p>Prepare phase, then commit phase. The transaction commits in all databases or in none.</p>`]
+]}
+];
+
+var state = { tab: 0, query: "", openAll: false, done: {} };
+try { state.done = JSON.parse(localStorage.getItem("dbms-done") || "{}"); } catch (e) { state.done = {}; }
+function save() { try { localStorage.setItem("dbms-done", JSON.stringify(state.done)); } catch (e) {} }
+
+var tabsEl = document.getElementById("tabs"), out = document.getElementById("out"),
+    input = document.getElementById("q"), toggle = document.getElementById("toggle");
+
+var total = UNITS.slice(0, 4).reduce(function (n, u) { return n + u.qs.length; }, 0);
+document.getElementById("sub").textContent = total + " likely exam questions with short answers in simple English. Tap a question to see the answer, then tick it when you know it.";
+
+function strip(h) { var d = document.createElement("div"); d.innerHTML = h; return d.textContent.toLowerCase(); }
+function key(u, i) { return UNITS[u].id + ":" + i; }
+
+function buildTabs() {
+  tabsEl.innerHTML = "";
+  UNITS.forEach(function (u, i) {
+    var b = document.createElement("button");
+    b.className = "tab"; b.type = "button"; b.setAttribute("role", "tab");
+    b.style.setProperty("--tc", "var(" + u.color + ")");
+    b.setAttribute("aria-selected", String(!state.query && i === state.tab));
+    b.innerHTML = '<span class="dot"></span>' + u.tab;
+    b.onclick = function () { state.tab = i; input.value = ""; state.query = ""; location.hash = u.id; render(); window.scrollTo({ top: 0 }); };
+    tabsEl.appendChild(b);
+  });
+}
+
+function card(u, i) {
+  var unit = UNITS[u], q = unit.qs[i];
+  var d = document.createElement("details");
+  d.className = "q" + (state.done[key(u, i)] ? " done" : "");
+  d.style.setProperty("--tc", "var(" + unit.color + ")");
+  if (state.openAll || state.query) d.open = true;
+  d.innerHTML = '<summary><span class="num">' + (i + 1) + '</span><span class="qt">' + q[0] + '</span><span class="tick" aria-hidden="true"></span><span class="chev" aria-hidden="true"></span></summary><div class="ans">' + q[1] + '<div class="mark"><button class="btn" type="button"></button></div></div>';
+  var btn = d.querySelector(".mark .btn");
+  function label() { btn.textContent = state.done[key(u, i)] ? "Marked as learned. Tap to undo" : "I know this"; }
+  label();
+  btn.onclick = function () {
+    if (state.done[key(u, i)]) delete state.done[key(u, i)]; else state.done[key(u, i)] = 1;
+    save(); d.classList.toggle("done", !!state.done[key(u, i)]); label(); updateProg();
+  };
+  return d;
+}
+
+function progress(u) {
+  var n = 0; UNITS[u].qs.forEach(function (_, i) { if (state.done[key(u, i)]) n++; });
+  return n;
+}
+function updateProg() {
+  document.querySelectorAll("[data-prog]").forEach(function (el) {
+    var u = +el.getAttribute("data-prog"), n = progress(u), t = UNITS[u].qs.length;
+    el.querySelector(".prog").textContent = n + " of " + t + " learned";
+    el.nextElementSibling.firstElementChild.style.width = (100 * n / t) + "%";
+  });
+}
+
+function head(u) {
+  var unit = UNITS[u], wrap = document.createElement("div");
+  wrap.style.setProperty("--tc", "var(" + unit.color + ")");
+  wrap.innerHTML = '<div class="unit-head" data-prog="' + u + '"><h2>' + unit.tab + ": " + unit.title + '</h2><span class="prog"></span></div><div class="meter"><b></b></div>';
+  return wrap;
+}
+
+function render() {
+  buildTabs();
+  out.innerHTML = "";
+  var qy = state.query.trim().toLowerCase(), found = 0;
+  if (!qy) {
+    var hd = head(state.tab); while (hd.firstChild) out.appendChild(hd.firstChild);
+    UNITS[state.tab].qs.forEach(function (_, i) { out.appendChild(card(state.tab, i)); });
+    updateProg();
+    return;
+  }
+  UNITS.forEach(function (unit, u) {
+    var hits = [];
+    unit.qs.forEach(function (q, i) { if ((q[0].toLowerCase() + " " + strip(q[1])).indexOf(qy) > -1) hits.push(i); });
+    if (!hits.length) return;
+    found += hits.length;
+    var g = document.createElement("div");
+    g.className = "group-label"; g.style.setProperty("--tc", "var(" + unit.color + ")");
+    g.innerHTML = "<i></i>" + unit.tab + ": " + unit.title;
+    out.appendChild(g);
+    hits.forEach(function (i) { out.appendChild(card(u, i)); });
+  });
+  if (!found) { var e = document.createElement("p"); e.className = "empty"; e.textContent = 'No question matches "' + state.query + '". Try a shorter word.'; out.appendChild(e); }
+}
+
+input.addEventListener("input", function () { state.query = input.value; render(); });
+toggle.onclick = function () {
+  state.openAll = !state.openAll;
+  toggle.textContent = state.openAll ? "Close all" : "Open all";
+  document.querySelectorAll("details.q").forEach(function (d) { d.open = state.openAll; });
+};
+
+function fromHash() {
+  var h = location.hash.replace("#", ""), i = UNITS.findIndex(function (u) { return u.id === h; });
+  if (i > -1) state.tab = i;
+}
+window.addEventListener("hashchange", function () { fromHash(); state.query = ""; input.value = ""; render(); });
+fromHash();
+render();
+</script>
+
+</body></html>
